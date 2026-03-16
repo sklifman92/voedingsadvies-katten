@@ -19,7 +19,8 @@ app.disable('x-powered-by');
 app.set('trust proxy', 1);
 
 const ROOT_DIR = __dirname;
-const RUNTIME_DIR = path.join(ROOT_DIR, '.runtime');
+// On Vercel serverless, use /tmp for ephemeral runtime storage
+const RUNTIME_DIR = process.env.VERCEL ? '/tmp/haar-runtime' : path.join(ROOT_DIR, '.runtime');
 const DRAFT_STORE_FILE = path.join(RUNTIME_DIR, 'draft-store.json');
 const CSV_DIR = path.join(ROOT_DIR, 'Voeding prijzen en afbeeldingen', 'CSV files');
 const BROK_CSV_FILE = path.join(CSV_DIR, 'brok-voerlijst-2026-03-11.csv');
@@ -763,10 +764,14 @@ app.post('/api/send-report-email', requireSameOrigin, rateLimit({
 });
 
 // ----------------------------------------------------------------
-//  Start server
+//  Start server (lokaal) of exporteer voor Vercel serverless
 // ----------------------------------------------------------------
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`\nHAAR. server actief op http://localhost:${PORT}`);
-  console.log(`Stripe modus: ${STRIPE_SECRET_KEY.startsWith('sk_live') ? 'LIVE' : 'TEST'}\n`);
-});
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`\nHAAR. server actief op http://localhost:${PORT}`);
+    console.log(`Stripe modus: ${STRIPE_SECRET_KEY.startsWith('sk_live') ? 'LIVE' : 'TEST'}\n`);
+  });
+}
+
+module.exports = app;
