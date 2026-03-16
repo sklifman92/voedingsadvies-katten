@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kattenvoerlijst — HAAR. Kattentrimsalon</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <style>
+    /* ===== Voerlijst Page Styles ===== */
+    .voerlijst-main {
+      padding: 2.5rem 0 4rem;
+      background: var(--light-bg-1);
+      min-height: 60vh;
+    }
+
+    /* Quick Guide */
+    .quick-guide {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .quick-guide-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      background: var(--light-bg-2);
+      user-select: none;
+    }
+
+    .quick-guide-header h3 {
+      font-size: 1rem;
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .quick-guide-toggle {
+      font-size: 1.2rem;
+      color: var(--navy);
+      transition: transform 0.3s ease;
+      line-height: 1;
+    }
+
+    .quick-guide-toggle.open {
+      transform: rotate(180deg);
+    }
+
+    .quick-guide-body {
+      display: none;
+      padding: 1.5rem;
+    }
+
+    .quick-guide-body.open {
+      display: block;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .guide-section h4 {
+      font-size: 0.9rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      border-bottom: 2px solid var(--light-bg-2);
+      padding-bottom: 0.4rem;
+    }
+
+    .guide-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .guide-table th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.4rem 0.6rem;
+      text-align: left;
+      font-size: 0.78rem;
+    }
+
+    .guide-table td {
+      padding: 0.35rem 0.6rem;
+      border-bottom: 1px solid var(--light-bg-2);
+      color: var(--text-body);
+    }
+
+    .guide-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .guide-table tr:nth-child(even) td {
+      background: var(--light-bg-1);
+    }
+
+    .score-legend {
+      list-style: none;
+      padding: 0;
+      font-size: 0.82rem;
+    }
+
+    .score-legend li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0;
+    }
+
+    .dot-legend {
+      list-style: none;
+      padding: 0;
+      font-size: 0.82rem;
+    }
+
+    .dot-legend li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0;
+    }
+
+    /* Filter Panel */
+    .filter-panel {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-panel-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      font-family: var(--font-body);
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    /* Multi-select dropdown */
+    .ms-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .ms-trigger {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.45rem 0.9rem;
+      background: var(--white);
+      border: 1.5px solid var(--light-bg-2);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--navy);
+      transition: border-color 0.2s;
+      white-space: nowrap;
+      min-width: 110px;
+      user-select: none;
+    }
+
+    .ms-trigger:hover,
+    .ms-trigger.active {
+      border-color: var(--primary-dark);
+    }
+
+    .ms-trigger .ms-caret {
+      margin-left: auto;
+      font-size: 0.65rem;
+      transition: transform 0.2s;
+      color: var(--text-light);
+    }
+
+    .ms-trigger.active .ms-caret {
+      transform: rotate(180deg);
+    }
+
+    .ms-panel {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      background: var(--white);
+      border: 1.5px solid var(--light-bg-2);
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      min-width: 180px;
+      z-index: 500;
+      padding: 0.5rem 0;
+    }
+
+    .ms-panel.open {
+      display: block;
+    }
+
+    .ms-search {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--light-bg-2);
+    }
+
+    .ms-search input {
+      width: 100%;
+      padding: 0.35rem 0.6rem;
+      border: 1.5px solid var(--light-bg-2);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      outline: none;
+    }
+
+    .ms-search input:focus {
+      border-color: var(--primary);
+    }
+
+    .ms-options {
+      max-height: 220px;
+      overflow-y: auto;
+      padding: 0.25rem 0;
+    }
+
+    .ms-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.38rem 0.75rem;
+      cursor: pointer;
+      font-size: 0.83rem;
+      color: var(--text-body);
+      transition: background 0.15s;
+    }
+
+    .ms-option:hover {
+      background: var(--light-bg-1);
+    }
+
+    .ms-option input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      accent-color: var(--primary-dark);
+    }
+
+    /* Quick filter + reset buttons */
+    .btn-super-duper {
+      padding: 0.45rem 1rem;
+      background: #2d7a2d;
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.83rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-super-duper:hover {
+      background: #235f23;
+    }
+
+    .btn-reset-filters {
+      padding: 0.45rem 1rem;
+      background: transparent;
+      color: var(--text-light);
+      border: 1.5px solid var(--light-bg-2);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-reset-filters:hover {
+      border-color: var(--primary-dark);
+      color: var(--navy);
+    }
+
+    /* Table controls */
+    .table-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .table-controls label {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .perpage-select {
+      padding: 0.38rem 0.7rem;
+      border: 1.5px solid var(--light-bg-2);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.83rem;
+      color: var(--navy);
+      background: var(--white);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .perpage-select:focus {
+      border-color: var(--primary);
+    }
+
+    .search-input-wrap {
+      margin-left: auto;
+      position: relative;
+    }
+
+    .search-input-wrap input {
+      padding: 0.38rem 0.8rem 0.38rem 2rem;
+      border: 1.5px solid var(--light-bg-2);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.83rem;
+      color: var(--navy);
+      background: var(--white);
+      outline: none;
+      min-width: 200px;
+      transition: border-color 0.2s;
+    }
+
+    .search-input-wrap input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-input-wrap::before {
+      content: '🔍';
+      position: absolute;
+      left: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      pointer-events: none;
+    }
+
+    /* Column visibility */
+    .col-vis-wrap {
+      position: relative;
+    }
+
+    .btn-col-vis {
+      padding: 0.38rem 0.9rem;
+      background: var(--white);
+      border: 1.5px solid var(--light-bg-2);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      transition: border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-col-vis:hover {
+      border-color: var(--primary-dark);
+    }
+
+    .col-vis-panel {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      background: var(--white);
+      border: 1.5px solid var(--light-bg-2);
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      min-width: 200px;
+      z-index: 500;
+      padding: 0.5rem 0;
+    }
+
+    .col-vis-panel.open {
+      display: block;
+    }
+
+    .col-vis-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.38rem 0.85rem;
+      cursor: pointer;
+      font-size: 0.83rem;
+      color: var(--text-body);
+    }
+
+    .col-vis-option:hover {
+      background: var(--light-bg-1);
+    }
+
+    .col-vis-option input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      accent-color: var(--primary-dark);
+    }
+
+    /* Data table */
+    .table-wrapper {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .data-table thead th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 0.75rem 0.9rem;
+      text-align: left;
+      white-space: nowrap;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .data-table thead th:hover {
+      background: var(--navy-light);
+    }
+
+    .data-table thead th .sort-icon {
+      display: inline-block;
+      margin-left: 4px;
+      opacity: 0.5;
+      font-size: 0.7rem;
+    }
+
+    .data-table thead th.sorted-asc .sort-icon::after { content: '▲'; opacity: 1; }
+    .data-table thead th.sorted-desc .sort-icon::after { content: '▼'; opacity: 1; }
+    .data-table thead th:not(.sorted-asc):not(.sorted-desc) .sort-icon::after { content: '⇅'; }
+
+    .data-table tbody tr:nth-child(even) td {
+      background: var(--light-bg-1);
+    }
+
+    .data-table tbody tr:hover td {
+      background: var(--light-bg-2);
+    }
+
+    .data-table tbody td {
+      padding: 0.6rem 0.9rem;
+      border-bottom: 1px solid var(--light-bg-2);
+      color: var(--text-body);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .data-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .td-merk {
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .td-lijn {
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Score badges */
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .score-1 { background: #2d7a2d; }
+    .score-2 { background: #5aaa5a; }
+    .score-3 { background: #d4a017; }
+    .score-4 { background: #e07020; }
+    .score-5 { background: #cc3333; }
+
+    /* Ingredient dot */
+    .ingr-dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .ingr-1 { background: #4CAF50; }
+    .ingr-2 { background: #FF9800; }
+    .ingr-3 { background: #F44336; }
+
+    /* Graanvrij badge */
+    .graanvrij-J {
+      color: #2d7a2d;
+      font-weight: 700;
+    }
+
+    .graanvrij-G {
+      color: #2255cc;
+      font-weight: 700;
+    }
+
+    .graanvrij-N {
+      color: var(--text-light);
+    }
+
+    /* Fosfor warning */
+    .fosfor-warn {
+      color: #cc3333;
+      font-weight: 700;
+    }
+
+    /* Pagination */
+    .pagination-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      background: var(--white);
+      border-top: 1px solid var(--light-bg-2);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .result-count {
+      font-size: 0.82rem;
+      color: var(--text-light);
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .page-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 32px;
+      padding: 0 6px;
+      border: 1.5px solid var(--light-bg-2);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      background: var(--white);
+      transition: all 0.15s;
+    }
+
+    .page-btn:hover:not(:disabled) {
+      border-color: var(--primary-dark);
+      color: var(--primary-dark);
+    }
+
+    .page-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    .page-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .page-ellipsis {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      padding: 0 4px;
+    }
+
+    /* Loading / empty state */
+    .table-status {
+      padding: 3rem;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .table-controls {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .search-input-wrap {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .search-input-wrap input {
+        width: 100%;
+      }
+
+      .filter-row {
+        gap: 0.5rem;
+      }
+
+      .pagination-wrap {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="header">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <svg class="logo-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(20,20)">
+            <!-- Cat head -->
+            <ellipse cx="0" cy="2" rx="14" ry="12" fill="white"/>
+            <!-- Ears -->
+            <polygon points="-14,-8 -10,-18 -6,-8" fill="white"/>
+            <polygon points="14,-8 10,-18 6,-8" fill="white"/>
+            <!-- Inner ears -->
+            <polygon points="-12,-9 -10,-16 -8,-9" fill="#E9C3B6"/>
+            <polygon points="12,-9 10,-16 8,-9" fill="#E9C3B6"/>
+            <!-- Eyes -->
+            <ellipse cx="-5" cy="0" rx="2.5" ry="3" fill="#4A2E2A"/>
+            <ellipse cx="5" cy="0" rx="2.5" ry="3" fill="#4A2E2A"/>
+            <!-- Eye shine -->
+            <circle cx="-4" cy="-1" r="0.8" fill="white"/>
+            <circle cx="6" cy="-1" r="0.8" fill="white"/>
+            <!-- Nose -->
+            <ellipse cx="0" cy="5" rx="1.5" ry="1" fill="#ffb6c1"/>
+            <!-- Whiskers -->
+            <line x1="-14" y1="4" x2="-3" y2="5.5" stroke="white" stroke-width="0.8"/>
+            <line x1="-14" y1="7" x2="-3" y2="6.5" stroke="white" stroke-width="0.8"/>
+            <line x1="14" y1="4" x2="3" y2="5.5" stroke="white" stroke-width="0.8"/>
+            <line x1="14" y1="7" x2="3" y2="6.5" stroke="white" stroke-width="0.8"/>
+          </g>
+        </svg>
+        <div>
+          <span class="logo-text">HAAR.</span>
+          <span class="logo-sub">Kattentrimsalon</span>
+        </div>
+      </a>
+
+      <nav class="nav" id="nav">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle">Diensten</a>
+            <div class="dropdown-menu">
+              <a href="#">Trimmen &amp; Verzorgen</a>
+              <a href="#">Thuisbezoek</a>
+              <a href="#">Noodgevallen</a>
+            </div>
+          </li>
+          <li><a href="voerlijst.html" class="active">Voerlijst</a></li>
+          <li><a href="#">Over ons</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="header-social">
+          <a href="#" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+        </div>
+      </nav>
+
+      <div class="burger" id="burger" aria-label="Menu openen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <div class="page-header">
+    <div class="container">
+      <h1>Kattenvoerlijst</h1>
+      <p>Vind de beste voeding voor jouw kat — 663 voedingen beoordeeld</p>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="voerlijst-main">
+    <div class="container">
+
+      <!-- Quick Guide -->
+      <div class="quick-guide">
+        <div class="quick-guide-header" id="guideToggle">
+          <h3>Scoringsysteem &amp; Uitleg</h3>
+          <span class="quick-guide-toggle" id="guideToggleIcon">▼</span>
+        </div>
+        <div class="quick-guide-body" id="guideBody">
+          <div class="guide-grid">
+            <!-- Best combinations table -->
+            <div class="guide-section">
+              <h4>Beste combinaties</h4>
+              <table class="guide-table">
+                <thead>
+                  <tr>
+                    <th>Beoordeling</th>
+                    <th>Intact/Castraat</th>
+                    <th>Ingrediënten</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong style="color:#2d7a2d">Super Duper</strong></td>
+                    <td>1 of 2</td>
+                    <td><span class="ingr-dot ingr-1" style="display:inline-block;vertical-align:middle;margin-right:4px"></span> Groen</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#5aaa5a">Ook goed</strong></td>
+                    <td>1 of 2</td>
+                    <td><span class="ingr-dot ingr-2" style="display:inline-block;vertical-align:middle;margin-right:4px"></span> Oranje</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#d4a017">Oké</strong></td>
+                    <td>3</td>
+                    <td><span class="ingr-dot ingr-1" style="display:inline-block;vertical-align:middle;margin-right:4px"></span> Groen</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#e07020">Minder</strong></td>
+                    <td>3</td>
+                    <td><span class="ingr-dot ingr-2" style="display:inline-block;vertical-align:middle;margin-right:4px"></span> Oranje</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#cc3333">Liever niet</strong></td>
+                    <td>4 of 5</td>
+                    <td><span class="ingr-dot ingr-2" style="display:inline-block;vertical-align:middle;margin-right:4px"></span>/<span class="ingr-dot ingr-3" style="display:inline-block;vertical-align:middle;margin-left:4px;margin-right:4px"></span> Or/Rood</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Score legend -->
+            <div class="guide-section">
+              <h4>Score uitleg (1=top, 5=afgeraden)</h4>
+              <ul class="score-legend">
+                <li><span class="score-badge score-1">1</span> Top notch, aanbevolen</li>
+                <li><span class="score-badge score-2">2</span> Goed &amp; aanbevolen, kleine kanttekening</li>
+                <li><span class="score-badge score-3">3</span> Te overwegen, meer kanttekeningen</li>
+                <li><span class="score-badge score-4">4</span> Niet aangeraden</li>
+                <li><span class="score-badge score-5">5</span> (Sterk) afgeraden</li>
+              </ul>
+            </div>
+
+            <!-- Ingredient dots -->
+            <div class="guide-section">
+              <h4>Ingrediënten bolletje</h4>
+              <ul class="dot-legend">
+                <li><span class="ingr-dot ingr-1"></span> <strong>Groen (1)</strong> — Prima: gespecificeerde ingrediënten, geen plantaardige eiwitten</li>
+                <li><span class="ingr-dot ingr-2"></span> <strong>Oranje (2)</strong> — Kleine opmerkingen, bij goede score nog steeds oké</li>
+                <li><span class="ingr-dot ingr-3"></span> <strong>Rood (3)</strong> — Liever niet: gesloten ingrediëntenlijst, plantaardige eiwitten</li>
+              </ul>
+              <div style="margin-top:1rem;font-size:0.8rem;color:var(--text-light)">
+                <p><strong>Graanvrij:</strong> <span class="graanvrij-J">J</span> = ja &nbsp;|&nbsp; <span class="graanvrij-G">G</span> = glutenvrij &nbsp;|&nbsp; <span class="graanvrij-N">N</span> = nee/onbekend</p>
+                <p style="margin-top:0.4rem"><strong>Fosfor ❗</strong> = meer dan 368 mg/100 kcal — mogelijk niet veilig voor nieren</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Panel -->
+      <div class="filter-panel">
+        <div class="filter-panel-title">Filters</div>
+        <div class="filter-row" id="filterRow">
+          <!-- Intact -->
+          <div class="ms-dropdown" id="dd-intact">
+            <div class="ms-trigger" id="trig-intact">
+              <span id="label-intact">Intact</span>
+              <span class="ms-caret">▼</span>
+            </div>
+            <div class="ms-panel" id="panel-intact">
+              <div class="ms-options" id="opts-intact">
+                <label class="ms-option"><input type="checkbox" value="1" data-filter="intact"> <span class="score-badge score-1">1</span> Top notch</label>
+                <label class="ms-option"><input type="checkbox" value="2" data-filter="intact"> <span class="score-badge score-2">2</span> Goed</label>
+                <label class="ms-option"><input type="checkbox" value="3" data-filter="intact"> <span class="score-badge score-3">3</span> Oké</label>
+                <label class="ms-option"><input type="checkbox" value="4" data-filter="intact"> <span class="score-badge score-4">4</span> Niet aangeraden</label>
+                <label class="ms-option"><input type="checkbox" value="5" data-filter="intact"> <span class="score-badge score-5">5</span> Afgeraden</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Castraat -->
+          <div class="ms-dropdown" id="dd-castraat">
+            <div class="ms-trigger" id="trig-castraat">
+              <span id="label-castraat">Castraat</span>
+              <span class="ms-caret">▼</span>
+            </div>
+            <div class="ms-panel" id="panel-castraat">
+              <div class="ms-options" id="opts-castraat">
+                <label class="ms-option"><input type="checkbox" value="1" data-filter="castraat"> <span class="score-badge score-1">1</span> Top notch</label>
+                <label class="ms-option"><input type="checkbox" value="2" data-filter="castraat"> <span class="score-badge score-2">2</span> Goed</label>
+                <label class="ms-option"><input type="checkbox" value="3" data-filter="castraat"> <span class="score-badge score-3">3</span> Oké</label>
+                <label class="ms-option"><input type="checkbox" value="4" data-filter="castraat"> <span class="score-badge score-4">4</span> Niet aangeraden</label>
+                <label class="ms-option"><input type="checkbox" value="5" data-filter="castraat"> <span class="score-badge score-5">5</span> Afgeraden</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ingrediënten -->
+          <div class="ms-dropdown" id="dd-ingr3">
+            <div class="ms-trigger" id="trig-ingr3">
+              <span id="label-ingr3">Ingrediënten</span>
+              <span class="ms-caret">▼</span>
+            </div>
+            <div class="ms-panel" id="panel-ingr3">
+              <div class="ms-options" id="opts-ingr3">
+                <label class="ms-option"><input type="checkbox" value="1" data-filter="ingr3"> <span class="ingr-dot ingr-1"></span> Groen (1)</label>
+                <label class="ms-option"><input type="checkbox" value="2" data-filter="ingr3"> <span class="ingr-dot ingr-2"></span> Oranje (2)</label>
+                <label class="ms-option"><input type="checkbox" value="3" data-filter="ingr3"> <span class="ingr-dot ingr-3"></span> Rood (3)</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sensitive -->
+          <div class="ms-dropdown" id="dd-sensitive">
+            <div class="ms-trigger" id="trig-sensitive">
+              <span id="label-sensitive">Sensitive</span>
+              <span class="ms-caret">▼</span>
+            </div>
+            <div class="ms-panel" id="panel-sensitive">
+              <div class="ms-options" id="opts-sensitive">
+                <label class="ms-option"><input type="checkbox" value="1" data-filter="sensitive"> <span class="score-badge score-1">1</span> Top notch</label>
+                <label class="ms-option"><input type="checkbox" value="2" data-filter="sensitive"> <span class="score-badge score-2">2</span> Goed</label>
+                <label class="ms-option"><input type="checkbox" value="3" data-filter="sensitive"> <span class="score-badge score-3">3</span> Oké</label>
+                <label class="ms-option"><input type="checkbox" value="4" data-filter="sensitive"> <span class="score-badge score-4">4</span> Niet aangeraden</label>
+                <label class="ms-option"><input type="checkbox" value="5" data-filter="sensitive"> <span class="score-badge score-5">5</span> Afgeraden</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Merk (with search) -->
+          <div class="ms-dropdown" id="dd-merk">
+            <div class="ms-trigger" id="trig-merk">
+              <span id="label-merk">Merk</span>
+              <span class="ms-caret">▼</span>
+            </div>
+            <div class="ms-panel" id="panel-merk" style="min-width:220px">
+              <div class="ms-search">
+                <input type="text" id="merk-search" placeholder="Zoek merk..." autocomplete="off">
+              </div>
+              <div class="ms-options" id="opts-merk">
+                <!-- Filled dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Graanvrij -->
+          <div class="ms-dropdown" id="dd-graanvrij2">
+            <div class="ms-trigger" id="trig-graanvrij2">
+              <span id="label-graanvrij2">Graanvrij</span>
+              <span class="ms-caret">▼</span>
+            </div>
+            <div class="ms-panel" id="panel-graanvrij2">
+              <div class="ms-options" id="opts-graanvrij2">
+                <label class="ms-option"><input type="checkbox" value="J" data-filter="graanvrij2"> <span class="graanvrij-J">J</span> — Ja, graanvrij</label>
+                <label class="ms-option"><input type="checkbox" value="G" data-filter="graanvrij2"> <span class="graanvrij-G">G</span> — Glutenvrij</label>
+                <label class="ms-option"><input type="checkbox" value="N" data-filter="graanvrij2"> <span class="graanvrij-N">N</span> — Nee/onbekend</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Biologisch -->
+          <div class="ms-dropdown" id="dd-bio2">
+            <div class="ms-trigger" id="trig-bio2">
+              <span id="label-bio2">Biologisch</span>
+              <span class="ms-caret">▼</span>
+            </div>
+            <div class="ms-panel" id="panel-bio2">
+              <div class="ms-options" id="opts-bio2">
+                <label class="ms-option"><input type="checkbox" value="J" data-filter="bio2"> J — Ja</label>
+                <label class="ms-option"><input type="checkbox" value="N" data-filter="bio2"> N — Nee</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick filter buttons -->
+          <button class="btn-super-duper" id="btnSuperDuper">Super Duper</button>
+          <button class="btn-reset-filters" id="btnResetFilters">Filters wissen</button>
+        </div>
+      </div>
+
+      <!-- Table Controls -->
+      <div class="table-controls">
+        <label for="perPage">Toon</label>
+        <select class="perpage-select" id="perPage">
+          <option value="10">10</option>
+          <option value="25" selected>25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <label style="margin-left:4px">per pagina</label>
+
+        <!-- Column visibility -->
+        <div class="col-vis-wrap" id="colVisWrap">
+          <button class="btn-col-vis" id="btnColVis">Kolommen ▼</button>
+          <div class="col-vis-panel" id="colVisPanel">
+            <!-- Filled dynamically -->
+          </div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-input-wrap">
+          <input type="text" id="searchInput" placeholder="Zoek op merk, lijn of smaak...">
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrapper">
+        <div class="table-scroll">
+          <table class="data-table" id="dataTable">
+            <thead id="tableHead">
+              <tr id="headerRow">
+                <!-- Filled dynamically -->
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr>
+                <td class="table-status" colspan="20">Gegevens worden geladen...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrap" id="paginationWrap">
+          <div class="result-count" id="resultCount"></div>
+          <div class="pagination" id="pagination"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>HAAR. Kattentrimsalon</h3>
+          <p>Professionele kattenverzorging met liefde en aandacht voor jouw kat. Gespecialiseerd in langhaar, semi-langhaar en kortharige katten.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Links</h3>
+          <p><a href="index.html">Home</a></p>
+          <p><a href="voerlijst.html">Kattenvoerlijst</a></p>
+          <p><a href="#">Diensten</a></p>
+          <p><a href="#">Contact</a></p>
+        </div>
+        <div class="footer-col">
+          <h3>Contact</h3>
+          <p>📧 <a href="mailto:haarkattentrimsalon@gmail.com">haarkattentrimsalon@gmail.com</a></p>
+          <p>📞 <a href="tel:+31620613996">06 20 61 3996</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 HAAR. Kattentrimsalon. Alle rechten voorbehouden.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <script>
+  // ===== VOERLIJST APP =====
+
+  const CSV_URL = 'CSV%20files/brok-voerlijst-2026-03-11.csv';
+
+  const state = {
+    allData: [],
+    filteredData: [],
+    currentPage: 1,
+    perPage: 25,
+    sortCol: null,
+    sortDir: 'asc',
+    search: '',
+    filters: {
+      intact: [],
+      castraat: [],
+      ingr3: [],
+      sensitive: [],
+      merk: [],
+      graanvrij2: [],
+      bio2: []
+    }
+  };
+
+  // ===== Column definitions =====
+  const COLUMNS = [
+    { key: 'merk',      label: 'Merk',         visible: true,  render: renderMerk },
+    { key: 'lijn',      label: 'Lijn',         visible: true,  render: renderLijn },
+    { key: 'smaak',     label: 'Smaak',        visible: true,  render: renderSmaak },
+    { key: 'intact',    label: 'Intact',       visible: true,  render: renderScore },
+    { key: 'castraat',  label: 'Castraat',     visible: true,  render: renderScore },
+    { key: 'ingr3',     label: 'Ingrediënten', visible: true,  render: renderIngr },
+    { key: 'graanvrij2',label: 'Graanvrij',    visible: true,  render: renderGraanvrij },
+    { key: '€dag',      label: '€/dag',        visible: true,  render: renderEurodag },
+    { key: 'shop',      label: 'Shop',         visible: true,  render: renderShop },
+    { key: 'sensitive', label: 'Sensitive',    visible: false, render: renderScore },
+    { key: 'bio2',      label: 'Bio',          visible: false, render: renderBio },
+    { key: 'large',     label: 'Brokjesvorm',  visible: false, render: renderText },
+    { key: 'kcal',      label: 'Kcal/g',       visible: false, render: renderText },
+    { key: 'eiwit',     label: 'Eiwit',        visible: false, render: renderText },
+    { key: 'vet',       label: 'Vetten',       visible: false, render: renderText },
+    { key: 'data',      label: 'Koolhydraten', visible: false, render: renderText },
+    { key: 'vezels',    label: 'Vezels',       visible: false, render: renderText },
+    { key: 'fosfor',    label: 'Fosfor',       visible: false, render: renderFosfor },
+    { key: 'ca:p',      label: 'Ca:P',         visible: false, render: renderText },
+  ];
+
+  // ===== Render helpers =====
+  function renderMerk(val) {
+    return `<span class="td-merk">${esc(val)}</span>`;
+  }
+  function renderLijn(val) {
+    return `<span class="td-lijn" title="${esc(val)}">${esc(val)}</span>`;
+  }
+  function renderSmaak(val) {
+    if (!val || val === '–' || val === '-') return '<span style="color:var(--text-light)">–</span>';
+    return esc(val);
+  }
+  function renderScore(val) {
+    const n = parseInt(val, 10);
+    if (!n || n < 1 || n > 5) return `<span style="color:var(--text-light)">${esc(val)}</span>`;
+    return `<span class="score-badge score-${n}">${n}</span>`;
+  }
+  function renderIngr(val) {
+    const n = parseInt(val, 10);
+    if (!n || n < 1 || n > 3) return `<span style="color:var(--text-light)">${esc(val)}</span>`;
+    return `<span class="ingr-dot ingr-${n}" title="${n === 1 ? 'Groen' : n === 2 ? 'Oranje' : 'Rood'}"></span>`;
+  }
+  function renderGraanvrij(val) {
+    if (val === 'J') return `<span class="graanvrij-J">J</span>`;
+    if (val === 'G') return `<span class="graanvrij-G">G</span>`;
+    return `<span class="graanvrij-N">${esc(val) || 'N'}</span>`;
+  }
+  function renderEurodag(val) {
+    return `<span style="white-space:nowrap">${esc(val)}</span>`;
+  }
+  function renderShop(val) {
+    return `<span style="font-size:0.82rem">${esc(val)}</span>`;
+  }
+  function renderBio(val) {
+    if (val === 'J') return `<span style="color:#2d7a2d;font-weight:700">J</span>`;
+    return `<span style="color:var(--text-light)">${esc(val)}</span>`;
+  }
+  function renderFosfor(val) {
+    const n = parseFloat(val);
+    if (!isNaN(n) && n > 368) {
+      return `<span class="fosfor-warn">${esc(val)} ❗</span>`;
+    }
+    return esc(val);
+  }
+  function renderText(val) {
+    return esc(val);
+  }
+
+  function esc(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // ===== Sort value extractors =====
+  function sortVal(col, row) {
+    const raw = row[col.key] || '';
+    if (col.key === '€dag') {
+      const m = String(raw).match(/[\d.,]+/);
+      return m ? parseFloat(m[0].replace(',', '.')) : 0;
+    }
+    if (col.key === 'fosfor') {
+      return parseFloat(raw) || 0;
+    }
+    if (['intact','castraat','ingr3','sensitive'].includes(col.key)) {
+      return parseInt(raw, 10) || 999;
+    }
+    if (['kcal','eiwit','vet','data','vezels','ca:p'].includes(col.key)) {
+      const m = String(raw).match(/[\d.,]+/);
+      return m ? parseFloat(m[0].replace(',', '.')) : 0;
+    }
+    return String(raw).toLowerCase();
+  }
+
+  // ===== Quick Guide toggle =====
+  document.getElementById('guideToggle').addEventListener('click', function() {
+    const body = document.getElementById('guideBody');
+    const icon = document.getElementById('guideToggleIcon');
+    body.classList.toggle('open');
+    icon.classList.toggle('open');
+  });
+
+  // ===== Multi-select dropdowns =====
+  const filterKeys = ['intact','castraat','ingr3','sensitive','merk','graanvrij2','bio2'];
+
+  function updateTriggerLabel(filterKey) {
+    const selected = state.filters[filterKey];
+    const labelEl = document.getElementById('label-' + filterKey);
+    const names = {
+      intact: 'Intact',
+      castraat: 'Castraat',
+      ingr3: 'Ingrediënten',
+      sensitive: 'Sensitive',
+      merk: 'Merk',
+      graanvrij2: 'Graanvrij',
+      bio2: 'Biologisch'
+    };
+    if (selected.length === 0) {
+      labelEl.textContent = names[filterKey];
+    } else {
+      labelEl.textContent = `${names[filterKey]}: ${selected.length} geslct.`;
+    }
+  }
+
+  function openDropdown(filterKey) {
+    // Close all others
+    filterKeys.forEach(k => {
+      if (k !== filterKey) {
+        document.getElementById('panel-' + k).classList.remove('open');
+        document.getElementById('trig-' + k).classList.remove('active');
+      }
+    });
+    // Also close col vis panel
+    document.getElementById('colVisPanel').classList.remove('open');
+
+    const panel = document.getElementById('panel-' + filterKey);
+    const trig = document.getElementById('trig-' + filterKey);
+    panel.classList.toggle('open');
+    trig.classList.toggle('active');
+  }
+
+  filterKeys.forEach(key => {
+    const trig = document.getElementById('trig-' + key);
+    trig.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openDropdown(key);
+    });
+  });
+
+  // Checkbox change
+  document.querySelectorAll('input[data-filter]').forEach(cb => {
+    cb.addEventListener('change', function() {
+      const fk = this.getAttribute('data-filter');
+      const val = this.value;
+      if (this.checked) {
+        if (!state.filters[fk].includes(val)) state.filters[fk].push(val);
+      } else {
+        state.filters[fk] = state.filters[fk].filter(v => v !== val);
+      }
+      updateTriggerLabel(fk);
+      applyFilters();
+    });
+  });
+
+  // Merk search
+  document.getElementById('merk-search').addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#opts-merk .ms-option').forEach(opt => {
+      const txt = opt.textContent.toLowerCase();
+      opt.style.display = txt.includes(q) ? '' : 'none';
+    });
+  });
+
+  // Close panels when clicking outside
+  document.addEventListener('click', function(e) {
+    filterKeys.forEach(key => {
+      const dd = document.getElementById('dd-' + key);
+      if (!dd.contains(e.target)) {
+        document.getElementById('panel-' + key).classList.remove('open');
+        document.getElementById('trig-' + key).classList.remove('active');
+      }
+    });
+    const colVisWrap = document.getElementById('colVisWrap');
+    if (!colVisWrap.contains(e.target)) {
+      document.getElementById('colVisPanel').classList.remove('open');
+    }
+  });
+
+  // Super Duper button
+  document.getElementById('btnSuperDuper').addEventListener('click', function() {
+    resetAllFilters();
+    state.filters.intact = ['1','2'];
+    state.filters.castraat = ['1','2'];
+    state.filters.ingr3 = ['1'];
+    syncCheckboxes();
+    updateTriggerLabel('intact');
+    updateTriggerLabel('castraat');
+    updateTriggerLabel('ingr3');
+    applyFilters();
+  });
+
+  // Reset filters
+  document.getElementById('btnResetFilters').addEventListener('click', function() {
+    resetAllFilters();
+    syncCheckboxes();
+    filterKeys.forEach(k => updateTriggerLabel(k));
+    applyFilters();
+  });
+
+  function resetAllFilters() {
+    filterKeys.forEach(k => { state.filters[k] = []; });
+    state.search = '';
+    document.getElementById('searchInput').value = '';
+  }
+
+  function syncCheckboxes() {
+    filterKeys.forEach(fk => {
+      document.querySelectorAll(`input[data-filter="${fk}"]`).forEach(cb => {
+        cb.checked = state.filters[fk].includes(cb.value);
+      });
+    });
+  }
+
+  // Per-page select
+  document.getElementById('perPage').addEventListener('change', function() {
+    state.perPage = parseInt(this.value, 10);
+    state.currentPage = 1;
+    renderTable();
+  });
+
+  // Search input
+  document.getElementById('searchInput').addEventListener('input', function() {
+    state.search = this.value.toLowerCase().trim();
+    state.currentPage = 1;
+    applyFilters();
+  });
+
+  // ===== Column Visibility =====
+  function buildColVisPanel() {
+    const panel = document.getElementById('colVisPanel');
+    panel.innerHTML = '';
+    COLUMNS.forEach((col, idx) => {
+      const label = document.createElement('label');
+      label.className = 'col-vis-option';
+      label.innerHTML = `<input type="checkbox" data-col-idx="${idx}" ${col.visible ? 'checked' : ''}> ${col.label}`;
+      panel.appendChild(label);
+    });
+    panel.querySelectorAll('input[data-col-idx]').forEach(cb => {
+      cb.addEventListener('change', function() {
+        const idx = parseInt(this.getAttribute('data-col-idx'), 10);
+        COLUMNS[idx].visible = this.checked;
+        renderTableHeader();
+        renderTableRows();
+      });
+    });
+  }
+
+  document.getElementById('btnColVis').addEventListener('click', function(e) {
+    e.stopPropagation();
+    const panel = document.getElementById('colVisPanel');
+    panel.classList.toggle('open');
+    // Close filter dropdowns
+    filterKeys.forEach(key => {
+      document.getElementById('panel-' + key).classList.remove('open');
+      document.getElementById('trig-' + key).classList.remove('active');
+    });
+  });
+
+  // ===== Filters =====
+  function applyFilters() {
+    let data = state.allData;
+
+    // Text search
+    if (state.search) {
+      data = data.filter(row => {
+        const haystack = [row.merk, row.lijn, row.smaak].join(' ').toLowerCase();
+        return haystack.includes(state.search);
+      });
+    }
+
+    // Filter by each key
+    filterKeys.forEach(fk => {
+      if (state.filters[fk].length > 0) {
+        data = data.filter(row => {
+          const val = String(row[fk] || '').trim();
+          return state.filters[fk].includes(val);
+        });
+      }
+    });
+
+    state.filteredData = data;
+    state.currentPage = 1;
+    sortData();
+    renderTable();
+  }
+
+  // ===== Sort =====
+  function sortData() {
+    if (!state.sortCol) return;
+    const col = COLUMNS.find(c => c.key === state.sortCol);
+    if (!col) return;
+    state.filteredData.sort((a, b) => {
+      const va = sortVal(col, a);
+      const vb = sortVal(col, b);
+      if (va < vb) return state.sortDir === 'asc' ? -1 : 1;
+      if (va > vb) return state.sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  // ===== Render table header =====
+  function renderTableHeader() {
+    const headerRow = document.getElementById('headerRow');
+    headerRow.innerHTML = '';
+    COLUMNS.forEach(col => {
+      if (!col.visible) return;
+      const th = document.createElement('th');
+      let sortClass = '';
+      if (state.sortCol === col.key) {
+        sortClass = state.sortDir === 'asc' ? 'sorted-asc' : 'sorted-desc';
+      }
+      th.className = sortClass;
+      th.innerHTML = `${col.label} <span class="sort-icon"></span>`;
+      th.addEventListener('click', function() {
+        if (state.sortCol === col.key) {
+          state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          state.sortCol = col.key;
+          state.sortDir = 'asc';
+        }
+        sortData();
+        renderTableHeader();
+        renderTableRows();
+      });
+      headerRow.appendChild(th);
+    });
+  }
+
+  // ===== Render table rows =====
+  function renderTableRows() {
+    const tbody = document.getElementById('tableBody');
+    const visibleCols = COLUMNS.filter(c => c.visible);
+
+    const start = (state.currentPage - 1) * state.perPage;
+    const end = start + state.perPage;
+    const pageData = state.filteredData.slice(start, end);
+
+    if (pageData.length === 0) {
+      tbody.innerHTML = `<tr><td class="table-status" colspan="${visibleCols.length}">Geen resultaten gevonden. Probeer andere filters.</td></tr>`;
+      return;
+    }
+
+    const rows = pageData.map(row => {
+      const cells = visibleCols.map(col => {
+        const val = row[col.key] !== undefined ? row[col.key] : '';
+        return `<td>${col.render(val, row)}</td>`;
+      });
+      return `<tr>${cells.join('')}</tr>`;
+    });
+
+    tbody.innerHTML = rows.join('');
+  }
+
+  // ===== Render pagination =====
+  function renderPagination() {
+    const total = state.filteredData.length;
+    const totalPages = Math.ceil(total / state.perPage);
+    const cur = state.currentPage;
+    const start = total === 0 ? 0 : (cur - 1) * state.perPage + 1;
+    const end = Math.min(cur * state.perPage, total);
+
+    document.getElementById('resultCount').textContent = `${start}–${end} van ${total} resultaten`;
+
+    const pag = document.getElementById('pagination');
+    pag.innerHTML = '';
+
+    if (totalPages <= 1) return;
+
+    // Prev
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'page-btn';
+    prevBtn.textContent = '‹';
+    prevBtn.disabled = cur === 1;
+    prevBtn.addEventListener('click', () => goToPage(cur - 1));
+    pag.appendChild(prevBtn);
+
+    // Page numbers (max 7 visible)
+    const pages = getVisiblePages(cur, totalPages);
+    let lastPage = null;
+    pages.forEach(p => {
+      if (lastPage !== null && p - lastPage > 1) {
+        const ellipsis = document.createElement('span');
+        ellipsis.className = 'page-ellipsis';
+        ellipsis.textContent = '…';
+        pag.appendChild(ellipsis);
+      }
+      const btn = document.createElement('button');
+      btn.className = 'page-btn' + (p === cur ? ' active' : '');
+      btn.textContent = p;
+      btn.addEventListener('click', () => goToPage(p));
+      pag.appendChild(btn);
+      lastPage = p;
+    });
+
+    // Next
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'page-btn';
+    nextBtn.textContent = '›';
+    nextBtn.disabled = cur === totalPages;
+    nextBtn.addEventListener('click', () => goToPage(cur + 1));
+    pag.appendChild(nextBtn);
+  }
+
+  function getVisiblePages(cur, total) {
+    if (total <= 7) {
+      return Array.from({length: total}, (_, i) => i + 1);
+    }
+    const pages = new Set();
+    pages.add(1);
+    pages.add(total);
+    for (let i = Math.max(2, cur - 2); i <= Math.min(total - 1, cur + 2); i++) {
+      pages.add(i);
+    }
+    return Array.from(pages).sort((a, b) => a - b);
+  }
+
+  function goToPage(page) {
+    const totalPages = Math.ceil(state.filteredData.length / state.perPage);
+    if (page < 1 || page > totalPages) return;
+    state.currentPage = page;
+    renderTableRows();
+    renderPagination();
+    // Scroll table into view
+    document.getElementById('dataTable').scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
+  function renderTable() {
+    renderTableHeader();
+    renderTableRows();
+    renderPagination();
+  }
+
+  // ===== Build merk dropdown options =====
+  function buildMerkOptions(data) {
+    const brands = [...new Set(data.map(r => r.merk).filter(Boolean))].sort();
+    const container = document.getElementById('opts-merk');
+    container.innerHTML = '';
+    brands.forEach(brand => {
+      const label = document.createElement('label');
+      label.className = 'ms-option';
+      const isChecked = state.filters.merk.includes(brand);
+      label.innerHTML = `<input type="checkbox" value="${esc(brand)}" data-filter="merk" ${isChecked ? 'checked' : ''}> ${esc(brand)}`;
+      label.querySelector('input').addEventListener('change', function() {
+        const val = this.value;
+        if (this.checked) {
+          if (!state.filters.merk.includes(val)) state.filters.merk.push(val);
+        } else {
+          state.filters.merk = state.filters.merk.filter(v => v !== val);
+        }
+        updateTriggerLabel('merk');
+        applyFilters();
+      });
+      container.appendChild(label);
+    });
+  }
+
+  // ===== Load CSV =====
+  Papa.parse(CSV_URL, {
+    download: true,
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results) {
+      state.allData = results.data;
+      state.filteredData = [...state.allData];
+      buildMerkOptions(state.allData);
+      buildColVisPanel();
+      applyFilters();
+    },
+    error: function(err) {
+      document.getElementById('tableBody').innerHTML = `<tr><td class="table-status" colspan="9">Fout bij laden van gegevens: ${esc(String(err))}</td></tr>`;
+    }
+  });
+
+  </script>
+</body>
+</html>

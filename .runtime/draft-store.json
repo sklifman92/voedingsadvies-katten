@@ -1,0 +1,614 @@
+{
+  "draft_1773494602888_2kuebyw": {
+    "draftId": "draft_1773494602888_2kuebyw",
+    "createdAt": "2026-03-14T13:23:24.764Z",
+    "data": {
+      "draftId": "draft_1773494602888_2kuebyw",
+      "ownerName": "",
+      "catName": "",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "",
+      "geslacht": "poes",
+      "castrated": true,
+      "gewicht": "",
+      "bcs": "5",
+      "activiteit": "",
+      "doelen": [
+        "gevoelig"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "Soms wat gevoelige ontlasting.",
+      "foodType": "both",
+      "textuurPref": [],
+      "primaryProfile": "gevoelig",
+      "decisionProfile": "sensitive"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-14T13:23:24.764Z"
+  },
+  "draft_1773494624121_1nr9nis": {
+    "draftId": "draft_1773494624121_1nr9nis",
+    "createdAt": "2026-03-14T13:23:46.738Z",
+    "data": {
+      "draftId": "draft_1773494624121_1nr9nis",
+      "ownerName": "",
+      "catName": "",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "",
+      "geslacht": "poes",
+      "castrated": true,
+      "gewicht": "",
+      "bcs": "5",
+      "activiteit": "",
+      "doelen": [
+        "gevoelig"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [],
+      "primaryProfile": "gevoelig",
+      "decisionProfile": "sensitive"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-14T13:23:46.738Z"
+  },
+  "draft_1773494657062_0mp1fed": {
+    "draftId": "draft_1773494657062_0mp1fed",
+    "createdAt": "2026-03-14T13:24:19.188Z",
+    "data": {
+      "draftId": "draft_1773494657062_0mp1fed",
+      "ownerName": "Steffen",
+      "catName": "Mila",
+      "catEmail": "steffen@example.com",
+      "catRas": "Europese korthaar",
+      "catLeeftijd": "4 jaar",
+      "geslacht": "poes",
+      "castrated": true,
+      "gewicht": "4.8",
+      "bcs": "5",
+      "activiteit": "",
+      "doelen": [
+        "gevoelig"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "Soms wat gevoelige ontlasting.",
+      "foodType": "both",
+      "textuurPref": [],
+      "primaryProfile": "gevoelig",
+      "decisionProfile": "sensitive"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-14T13:24:19.188Z"
+  },
+  "smoke_test_livecheck": {
+    "draftId": "smoke_test_livecheck",
+    "createdAt": "2026-03-14T13:24:28.615Z",
+    "data": {
+      "draftId": "smoke_test_livecheck",
+      "ownerName": "Steffen",
+      "catName": "Mila",
+      "catEmail": "steffen@example.com",
+      "catRas": "",
+      "catLeeftijd": "4 jaar",
+      "geslacht": "poes",
+      "castrated": true,
+      "gewicht": "4.8",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "gevoelig"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [],
+      "primaryProfile": "gevoelig",
+      "decisionProfile": "sensitive"
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-14T13:24:28.615Z",
+      "paymentIntentId": "pi_3TAsB6FOIBgEuKFL0TQfn4ZF",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-14T13:24:29.006Z"
+    },
+    "updatedAt": "2026-03-14T13:24:29.006Z"
+  },
+  "draft_1773497055078_jlul39p": {
+    "draftId": "draft_1773497055078_jlul39p",
+    "createdAt": "2026-03-14T14:04:16.860Z",
+    "data": {
+      "draftId": "draft_1773497055078_jlul39p",
+      "ownerName": "Steffen",
+      "catName": "Mila",
+      "catEmail": "steffen@example.com",
+      "catRas": "Europese korthaar",
+      "catLeeftijd": "4 jaar",
+      "geslacht": "poes",
+      "castrated": true,
+      "gewicht": "4.8",
+      "bcs": "5",
+      "activiteit": "",
+      "doelen": [
+        "gevoelig"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [],
+      "primaryProfile": "gevoelig",
+      "decisionProfile": "sensitive"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-14T14:04:16.860Z"
+  },
+  "draft_1773500837629_muv6s0l": {
+    "draftId": "draft_1773500837629_muv6s0l",
+    "createdAt": "2026-03-15T06:22:51.489Z",
+    "data": {
+      "draftId": "draft_1773500837629_muv6s0l",
+      "ownerName": "jje",
+      "catName": "ekk",
+      "catEmail": "Rudy@degraadmakers.nl",
+      "catRas": "ejjoh",
+      "catLeeftijd": "7 jaar",
+      "geslacht": "kater",
+      "castrated": true,
+      "gewicht": "4",
+      "bcs": "7",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "overgewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "overgewicht",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-15T06:23:36.062Z",
+      "paymentIntentId": "pi_3TB85MFOIBgEuKFL1M9xrUKg",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-15T06:23:36.464Z"
+    },
+    "updatedAt": "2026-03-15T06:23:36.464Z"
+  },
+  "draft_1773556978103_segqt9s": {
+    "draftId": "draft_1773556978103_segqt9s",
+    "createdAt": "2026-03-15T06:44:40.612Z",
+    "data": {
+      "draftId": "draft_1773556978103_segqt9s",
+      "ownerName": "wew",
+      "catName": "wew",
+      "catEmail": "",
+      "catRas": "sdfd",
+      "catLeeftijd": "4 jaar",
+      "geslacht": "kater",
+      "castrated": false,
+      "gewicht": "4",
+      "bcs": "2",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "basis",
+      "decisionProfile": "balanced"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-15T06:44:40.612Z"
+  },
+  "draft_1773558372696_kxxrj00": {
+    "draftId": "draft_1773558372696_kxxrj00",
+    "createdAt": "2026-03-15T07:09:34.699Z",
+    "data": {
+      "draftId": "draft_1773558372696_kxxrj00",
+      "ownerName": "reg",
+      "catName": "ergewrg",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "4 jaar",
+      "geslacht": "kater",
+      "castrated": true,
+      "gewicht": "5.0",
+      "bcs": "8",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "overgewicht",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-15T07:09:34.699Z"
+  },
+  "draft_1773564772368_20q68m7": {
+    "draftId": "draft_1773564772368_20q68m7",
+    "createdAt": "2026-03-15T08:52:55.151Z",
+    "data": {
+      "draftId": "draft_1773564772368_20q68m7",
+      "ownerName": "Testklant",
+      "catName": "Milo",
+      "catEmail": "",
+      "catRas": "Europese korthaar",
+      "catLeeftijd": "0",
+      "geslacht": "kater",
+      "leefstijl": "binnen",
+      "castrated": true,
+      "gewicht": "4.2",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "rustig",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "goed",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [
+        "Paté"
+      ],
+      "graanvrij": "",
+      "biologisch": null,
+      "budgetMax": "2",
+      "primaryProfile": "basis",
+      "decisionProfile": "balanced"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-15T08:52:55.151Z"
+  },
+  "draft_1773565060228_tqt5t9b": {
+    "draftId": "draft_1773565060228_tqt5t9b",
+    "createdAt": "2026-03-15T08:57:43.070Z",
+    "data": {
+      "draftId": "draft_1773565060228_tqt5t9b",
+      "ownerName": "Testklant",
+      "catName": "Milo",
+      "catEmail": "",
+      "catRas": "Europese korthaar",
+      "catLeeftijd": "0",
+      "geslacht": "kater",
+      "leefstijl": "binnen",
+      "castrated": true,
+      "gewicht": "4.2",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "rustig",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "goed",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [
+        "Paté"
+      ],
+      "budgetMax": "2",
+      "primaryProfile": "basis",
+      "decisionProfile": "balanced"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-15T08:57:43.070Z"
+  },
+  "draft_1773565063883_4jgyofv": {
+    "draftId": "draft_1773565063883_4jgyofv",
+    "createdAt": "2026-03-15T08:57:48.536Z",
+    "data": {
+      "draftId": "draft_1773565063883_4jgyofv",
+      "ownerName": "Testklant",
+      "catName": "Milo",
+      "catEmail": "",
+      "catRas": "Europese korthaar",
+      "catLeeftijd": "3",
+      "geslacht": "kater",
+      "leefstijl": "binnen",
+      "castrated": true,
+      "gewicht": "4.2",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "rustig",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "goed",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [
+        "Paté"
+      ],
+      "budgetMax": "2",
+      "primaryProfile": "basis",
+      "decisionProfile": "balanced"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-15T08:57:48.536Z"
+  },
+  "draft_1773594273888_3qd9h1x": {
+    "draftId": "draft_1773594273888_3qd9h1x",
+    "createdAt": "2026-03-15T17:05:59.384Z",
+    "data": {
+      "draftId": "draft_1773594273888_3qd9h1x",
+      "ownerName": "e",
+      "catName": "e",
+      "catEmail": "",
+      "catRas": "e",
+      "catLeeftijd": "3",
+      "geslacht": "poes",
+      "castrated": true,
+      "gewicht": "4",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "haarbal"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "vacht",
+      "decisionProfile": "hairball"
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-15T19:01:58.899Z",
+      "paymentIntentId": "pi_3TBJvHFOIBgEuKFL1Oxewy7d",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-15T19:01:59.255Z"
+    },
+    "updatedAt": "2026-03-15T19:01:59.255Z"
+  },
+  "draft_1773599605753_2hkpznc": {
+    "draftId": "draft_1773599605753_2hkpznc",
+    "createdAt": "2026-03-15T18:33:28.517Z",
+    "data": {
+      "draftId": "draft_1773599605753_2hkpznc",
+      "ownerName": "Testklant",
+      "catName": "Milo",
+      "catEmail": "",
+      "catRas": "Europese korthaar",
+      "catLeeftijd": "3",
+      "geslacht": "kater",
+      "leefstijl": "binnen",
+      "castrated": true,
+      "gewicht": "4.2",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "rustig",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "goed",
+      "vachtbeeld": "glanzend",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [],
+      "budgetMax": "2",
+      "primaryProfile": "basis",
+      "decisionProfile": "balanced"
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-15T18:33:29.033Z",
+      "paymentIntentId": "pi_3TBJThFOIBgEuKFL0VAjMkFO",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-15T18:33:29.437Z"
+    },
+    "updatedAt": "2026-03-15T18:33:29.437Z"
+  },
+  "draft_1773599645036_732sjks": {
+    "draftId": "draft_1773599645036_732sjks",
+    "createdAt": "2026-03-15T18:34:08.830Z",
+    "data": {
+      "draftId": "draft_1773599645036_732sjks",
+      "ownerName": "Testklant",
+      "catName": "Milo",
+      "catEmail": "",
+      "catRas": "Europese korthaar",
+      "catLeeftijd": "3",
+      "geslacht": "kater",
+      "leefstijl": "binnen",
+      "castrated": true,
+      "gewicht": "4.2",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "rustig",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "goed",
+      "vachtbeeld": "glanzend",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [],
+      "budgetMax": "2",
+      "primaryProfile": "basis",
+      "decisionProfile": "balanced"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-15T18:34:08.830Z"
+  },
+  "draft_1773601797804_g729ble": {
+    "draftId": "draft_1773601797804_g729ble",
+    "createdAt": "2026-03-15T19:12:17.723Z",
+    "data": {
+      "draftId": "draft_1773601797804_g729ble",
+      "ownerName": "rgwerg",
+      "catName": "regwe",
+      "catEmail": "",
+      "catRas": "qgr",
+      "catLeeftijd": "5",
+      "geslacht": "poes",
+      "castrated": true,
+      "gewicht": "2",
+      "bcs": "7",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [],
+      "primaryProfile": "overgewicht",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-15T19:12:17.723Z"
+  },
+  "draft_1773602926629_j98sryk": {
+    "draftId": "draft_1773602926629_j98sryk",
+    "createdAt": "2026-03-15T19:32:37.757Z",
+    "data": {
+      "draftId": "draft_1773602926629_j98sryk",
+      "ownerName": "Thalien",
+      "catName": "Puul",
+      "catEmail": "",
+      "catRas": "Heilige birmaan",
+      "catLeeftijd": "7",
+      "geslacht": "poes",
+      "castrated": true,
+      "gewicht": "2.6",
+      "bcs": "3",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "gevoelig"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "gevoelig",
+      "decisionProfile": "sensitive"
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-15T19:33:28.563Z",
+      "paymentIntentId": "pi_3TBKPkFOIBgEuKFL1CT7gnnJ",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-15T19:33:28.895Z"
+    },
+    "updatedAt": "2026-03-15T19:33:28.895Z"
+  },
+  "draft_1773605421178_b0u459c": {
+    "draftId": "draft_1773605421178_b0u459c",
+    "createdAt": "2026-03-15T20:10:25.273Z",
+    "data": {
+      "draftId": "draft_1773605421178_b0u459c",
+      "ownerName": "Kitten Test",
+      "catName": "Mila",
+      "catEmail": "",
+      "catRas": "Europese korthaar",
+      "catLeeftijd": "0",
+      "geslacht": "poes",
+      "leefstijl": "binnen",
+      "castrated": false,
+      "gewicht": "1.4",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "rustig",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "goed",
+      "vachtbeeld": "glanzend",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "kitten",
+      "decisionProfile": "kitten"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-15T20:10:25.273Z"
+  },
+  "draft_1773605470962_kjk14sz": {
+    "draftId": "draft_1773605470962_kjk14sz",
+    "createdAt": "2026-03-15T20:11:16.387Z",
+    "data": {
+      "draftId": "draft_1773605470962_kjk14sz",
+      "ownerName": "Kitten Test",
+      "catName": "Mila",
+      "catEmail": "",
+      "catRas": "Europese korthaar",
+      "catLeeftijd": "0",
+      "geslacht": "poes",
+      "leefstijl": "binnen",
+      "castrated": false,
+      "gewicht": "1.4",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "rustig",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "goed",
+      "vachtbeeld": "glanzend",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "kitten",
+      "decisionProfile": "kitten"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-15T20:11:16.387Z"
+  },
+  "draft_1773662375107_mekeldt": {
+    "draftId": "draft_1773662375107_mekeldt",
+    "createdAt": "2026-03-16T12:00:11.695Z",
+    "data": {
+      "draftId": "draft_1773662375107_mekeldt",
+      "ownerName": "ew",
+      "catName": "ewr",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "4",
+      "geslacht": "kater",
+      "castrated": true,
+      "gewicht": "5",
+      "bcs": "2",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "overgewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "overgewicht",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-16T12:00:18.592Z",
+      "paymentIntentId": "pi_3TBZokFOIBgEuKFL0hzS0voZ",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-16T12:00:19.007Z"
+    },
+    "updatedAt": "2026-03-16T12:00:19.007Z"
+  }
+}
