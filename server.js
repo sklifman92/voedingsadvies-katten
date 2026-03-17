@@ -36,6 +36,7 @@ const STATIC_DIRS = [
 const HTML_ROUTES = {
   '/': 'index.html',
   '/index.html': 'index.html',
+  '/betaling.html': 'betaling.html',
   '/voedingsadvies-app.html': 'voedingsadvies-app.html',
   '/voerlijst.html': 'voerlijst.html',
 };
@@ -710,6 +711,74 @@ app.get('/api/report-data', rateLimit({
   } catch (err) {
     console.error('[ReportData] Laden mislukt:', err.message);
     res.status(500).json({ error: 'Rapportdata kon niet worden geladen.' });
+  }
+});
+
+// ----------------------------------------------------------------
+//  POST /api/email-report
+//  Stuur het rapport als PDF-bijlage naar de klant
+// ----------------------------------------------------------------
+app.post('/api/email-report', requireSameOrigin, rateLimit({
+  keyPrefix: 'email-report',
+  windowMs: 15 * 60 * 1000,
+  max: 6,
+}), async (req, res) => {
+  try {
+    const catEmail  = String(req.body?.catEmail  || '').trim();
+    const ownerName = String(req.body?.ownerName || 'Klant').trim().slice(0, 120);
+    const catName   = String(req.body?.catName   || 'uw kat').trim().slice(0, 120);
+    const pdfBase64 = String(req.body?.pdfBase64 || '').trim();
+
+    if (!catEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(catEmail)) {
+      return res.status(400).json({ error: 'Ongeldig e-mailadres.' });
+    }
+    if (!pdfBase64 || pdfBase64.length < 100) {
+      return res.status(400).json({ error: 'Geen geldig PDF-bestand ontvangen.' });
+    }
+    // Reject unreasonably large payloads (~5 MB decoded = ~7 MB base64)
+    if (pdfBase64.length > 7 * 1024 * 1024) {
+      return res.status(400).json({ error: 'PDF te groot.' });
+    }
+
+    const transporter = getMailer();
+    if (!transporter) {
+      return res.status(503).json({ error: 'E-mail is momenteel niet beschikbaar.' });
+    }
+
+    const safeFileName = `Voedingsadvies-${catName.replace(/[^a-z0-9\-]/gi, '-')}.pdf`;
+    const pdfBuffer = Buffer.from(pdfBase64, 'base64');
+
+    await transporter.sendMail({
+      from: `"HAAR. Centrum voor kattenwelzijn" <${process.env.SMTP_USER}>`,
+      to: catEmail,
+      bcc: 'haarkattentrimsalon@gmail.com',
+      subject: `Uw persoonlijk voedingsadvies voor ${catName}`,
+      text: [
+        `Beste ${ownerName},`,
+        '',
+        `Bijgaand ontvangt u het persoonlijk voedingsadviesplan voor ${catName}, opgesteld door HAAR. Centrum voor kattenwelzijn.`,
+        '',
+        'Het rapport bevat:',
+        '- Uw persoonlijk profiel',
+        '- Voedingsaanbevelingen (Prijstip, Premium en Luxe)',
+        '- Een praktisch voer- en overstapplan',
+        '',
+        'Voor vragen kunt u altijd contact opnemen.',
+        '',
+        'Met vriendelijke groet,',
+        'HAAR. Centrum voor kattenwelzijn',
+      ].join('\n'),
+      attachments: [{
+        filename: safeFileName,
+        content: pdfBuffer,
+        contentType: 'application/pdf',
+      }],
+    });
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[EmailReport] Fout:', err.message);
+    res.status(500).json({ error: 'PDF-mail kon niet worden verzonden.' });
   }
 });
 

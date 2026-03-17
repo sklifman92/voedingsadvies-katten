@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HAAR. Betaalterminal</title>
+  <meta name="description" content="Beveiligde betaalterminal voor het persoonlijk voedingsadvies van HAAR. Centrum voor kattenwelzijn.">
+  <script src="https://js.stripe.com/v3/"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Sansita:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    :root {
+      --bg: #f7f1ec;
+      --bg-soft: #fffaf6;
+      --card: rgba(255,255,255,0.9);
+      --card-border: rgba(182,90,58,0.16);
+      --text: #4a2e2a;
+      --text-soft: rgba(74,46,42,0.72);
+      --primary: #b65a3a;
+      --primary-dark: #8e472d;
+      --gold: #b07a3b;
+      --success: #3f8f62;
+      --shadow: 0 28px 70px rgba(74,46,42,0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Nunito Sans', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(182,90,58,0.16) 0%, transparent 30%),
+        radial-gradient(circle at bottom right, rgba(176,122,59,0.12) 0%, transparent 28%),
+        linear-gradient(180deg, #f8f3ef 0%, #f2e6df 100%);
+      min-height: 100vh;
+    }
+
+    .checkout-shell {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 3rem;
+    }
+
+    .checkout-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .checkout-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .checkout-brand img {
+      width: 162px;
+      height: auto;
+      display: block;
+    }
+
+    .checkout-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.85rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(182,90,58,0.2);
+      background: rgba(255,255,255,0.72);
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .checkout-back:hover {
+      transform: translateY(-1px);
+      border-color: rgba(182,90,58,0.45);
+      background: rgba(255,255,255,0.9);
+    }
+
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.88fr);
+      gap: 1.4rem;
+      align-items: start;
+    }
+
+    .checkout-info,
+    .checkout-terminal {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .checkout-info {
+      padding: 2rem;
+      position: sticky;
+      top: 1.2rem;
+      overflow: hidden;
+    }
+
+    .checkout-info::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto auto;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle at center, rgba(182,90,58,0.16) 0%, transparent 72%);
+      pointer-events: none;
+    }
+
+    .info-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(63,143,98,0.12);
+      color: var(--success);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .info-title {
+      font-family: 'Sansita', serif;
+      font-size: clamp(2rem, 3vw, 2.65rem);
+      line-height: 1.06;
+      margin: 0 0 0.8rem;
+      max-width: 14ch;
+    }
+
+    .info-sub {
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.72;
+      margin: 0 0 1.5rem;
+      max-width: 60ch;
+    }
+
+    .info-highlight {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1.45rem;
+    }
+
+    .info-stat {
+      padding: 0.95rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(182,90,58,0.12);
+    }
+
+    .info-stat strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .info-stat span {
+      display: block;
+      color: var(--text-soft);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .info-list,
+    .info-summary {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 0.8rem;
+      margin-bottom: 1.45rem;
+    }
+
+    .info-list li,
+    .info-summary li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      line-height: 1.55;
+    }
+
+    .info-list i,
+    .info-summary i {
+      color: var(--success);
+      margin-top: 0.18rem;
+      flex-shrink: 0;
+    }
+
+    .summary-card {
+      border-radius: 22px;
+      padding: 1.15rem 1.2rem;
+      background: rgba(74,46,42,0.04);
+      border: 1px solid rgba(182,90,58,0.12);
+    }
+
+    .summary-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      margin-bottom: 0.85rem;
+    }
+
+    .info-summary {
+      display: grid;
+      gap: 0.65rem;
+      color: var(--text-soft);
+      font-size: 0.92rem;
+    }
+
+    .info-summary strong {
+      color: var(--text);
+    }
+
+    .checkout-terminal {
+      padding: 1.55rem;
+      position: relative;
+    }
+
+    .terminal-status {
+      display: none;
+      align-items: center;
+      gap: 0.8rem;
+      border-radius: 18px;
+      padding: 0.95rem 1rem;
+      background: rgba(182,90,58,0.08);
+      color: var(--primary-dark);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .terminal-status.visible {
+      display: flex;
+    }
+
+    .terminal-status.processing {
+      background: rgba(176,122,59,0.12);
+      color: #7d5525;
+    }
+
+    .terminal-status.error {
+      background: rgba(168,63,63,0.1);
+      color: #8e2d2d;
+    }
+
+    .terminal-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .terminal-kicker {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      margin-bottom: 0.55rem;
+    }
+
+    .terminal-title {
+      font-family: 'Sansita', serif;
+      font-size: 1.6rem;
+      line-height: 1.16;
+      margin: 0 0 0.35rem;
+    }
+
+    .terminal-subtitle {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+
+    .terminal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(182,90,58,0.14);
+      color: var(--primary-dark);
+      font-size: 0.8rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .terminal-price {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-radius: 22px;
+      background: linear-gradient(145deg, #fffaf7 0%, #f7eee8 100%);
+      border: 1px solid rgba(182,90,58,0.14);
+      padding: 1rem 1.1rem;
+      margin: 1rem 0 1.15rem;
+    }
+
+    .terminal-price small {
+      display: block;
+      color: var(--text-soft);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .terminal-price strong {
+      font-family: 'Sansita', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .terminal-price span {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.38rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(176,122,59,0.12);
+      color: var(--gold);
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .field-group {
+      margin-bottom: 1rem;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.45rem;
+    }
+
+    .field-group input {
+      width: 100%;
+      border: 1px solid rgba(182,90,58,0.2);
+      border-radius: 12px;
+      padding: 0.95rem 1rem;
+      font: inherit;
+      color: var(--text);
+      background: rgba(255,255,255,0.96);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field-group input:focus {
+      outline: none;
+      border-color: rgba(182,90,58,0.72);
+      box-shadow: 0 0 0 4px rgba(182,90,58,0.14);
+    }
+
+    .stripe-wrap {
+      border-radius: 18px;
+      border: 1px solid rgba(182,90,58,0.14);
+      background: rgba(255,255,255,0.8);
+      padding: 1rem;
+    }
+
+    .stripe-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.7rem;
+    }
+
+    .payment-loading {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: var(--text-soft);
+      font-size: 0.92rem;
+    }
+
+    .spinner {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 3px solid rgba(182,90,58,0.16);
+      border-top-color: var(--primary);
+      animation: spin 0.9s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .terminal-errors {
+      display: none;
+      border-radius: 14px;
+      background: rgba(168,63,63,0.08);
+      border: 1px solid rgba(168,63,63,0.16);
+      color: #8e2d2d;
+      padding: 0.85rem 0.95rem;
+      margin-top: 0.9rem;
+      line-height: 1.5;
+      font-size: 0.92rem;
+    }
+
+    .terminal-errors.visible {
+      display: block;
+    }
+
+    .terminal-actions {
+      display: grid;
+      gap: 0.72rem;
+      margin-top: 1rem;
+    }
+
+    .terminal-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 1rem 1.1rem;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .terminal-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .terminal-btn.primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      box-shadow: 0 16px 30px rgba(142,71,45,0.22);
+    }
+
+    .terminal-btn.primary:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .terminal-btn.secondary {
+      background: rgba(182,90,58,0.08);
+      color: var(--primary-dark);
+      border: 1px dashed rgba(182,90,58,0.38);
+    }
+
+    .terminal-btn.secondary:hover:not(:disabled),
+    .terminal-btn.ghost:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .terminal-btn.ghost {
+      background: rgba(255,255,255,0.86);
+      color: var(--text);
+      border: 1px solid rgba(182,90,58,0.16);
+    }
+
+    .terminal-trust {
+      margin-top: 1rem;
+      color: var(--text-soft);
+      font-size: 0.83rem;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    .terminal-trust i {
+      color: var(--gold);
+    }
+
+    @media (max-width: 980px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .checkout-info {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .checkout-shell {
+        width: min(100% - 1rem, 100%);
+        padding-top: 1rem;
+      }
+
+      .checkout-topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .checkout-brand {
+        justify-content: center;
+      }
+
+      .checkout-info,
+      .checkout-terminal {
+        padding: 1.25rem;
+        border-radius: 22px;
+      }
+
+      .info-highlight {
+        grid-template-columns: 1fr;
+      }
+
+      .terminal-title-row,
+      .terminal-price {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="checkout-shell">
+    <div class="checkout-topbar">
+      <a class="checkout-brand" href="index.html" aria-label="HAAR. Centrum voor kattenwelzijn">
+        <img src="assets/haar-centrum-logo.svg" alt="HAAR. Centrum voor kattenwelzijn">
+      </a>
+      <button class="checkout-back" id="btn-return-app" type="button">
+        <i class="fa-solid fa-arrow-left"></i> Terug naar het advies
+      </button>
+    </div>
+
+    <div class="checkout-layout">
+      <section class="checkout-info" aria-labelledby="checkout-info-title">
+        <div class="info-kicker"><i class="fa-solid fa-shield-heart"></i> Aparte betaalterminal</div>
+        <h1 class="info-title" id="checkout-info-title">Een rustige, beveiligde checkout voor jouw adviesrapport</h1>
+        <p class="info-sub">Je verlaat de intake tijdelijk voor een aparte betaalterminal. Na betaling koppelen we je direct terug aan dezelfde sessie, zodat het volledige rapport meteen zichtbaar wordt.</p>
+
+        <div class="info-highlight">
+          <div class="info-stat">
+            <strong>Direct terug</strong>
+            <span>Na betaling kom je weer in dezelfde adviessessie terecht.</span>
+          </div>
+          <div class="info-stat">
+            <strong>Stripe</strong>
+            <span>iDEAL en kaart in een beveiligde checkout-omgeving.</span>
+          </div>
+          <div class="info-stat">
+            <strong>Demo mogelijk</strong>
+            <span>Voor testdoeleinden kun je de betaling ook overslaan.</span>
+          </div>
+        </div>
+
+        <ul class="info-list">
+          <li><i class="fa-solid fa-check"></i><span>Na een geslaagde betaling wordt het volledige rapport direct vrijgegeven.</span></li>
+          <li><i class="fa-solid fa-check"></i><span>Je demo- of betaalstatus blijft gekoppeld aan dezelfde intake van jouw kat.</span></li>
+          <li><i class="fa-solid fa-check"></i><span>De uiteindelijke rapportweergave opent pas nadat de betaalstatus veilig is teruggekoppeld.</span></li>
+        </ul>
+
+        <div class="summary-card">
+          <div class="summary-title">Samenvatting van deze sessie</div>
+          <ul class="info-summary" id="session-summary">
+            <li><i class="fa-solid fa-paw"></i><span><strong>Kat:</strong> <span id="summary-cat">Wordt geladen...</span></span></li>
+            <li><i class="fa-solid fa-user"></i><span><strong>Eigenaar:</strong> <span id="summary-owner">Wordt geladen...</span></span></li>
+            <li><i class="fa-solid fa-file-medical"></i><span><strong>Rapport:</strong> persoonlijk voedingsadvies met drie concrete voeropties en uitvoerplan.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="checkout-terminal" aria-labelledby="terminal-title">
+        <div class="terminal-status" id="terminal-status">
+          <div class="spinner" id="terminal-status-spinner"></div>
+          <div id="terminal-status-text">Terminal wordt voorbereid...</div>
+        </div>
+
+        <div class="terminal-title-row">
+          <div>
+            <div class="terminal-kicker">Beveiligde betaalterminal</div>
+            <h2 class="terminal-title" id="terminal-title">Ontgrendel jouw volledige voedingsadvies</h2>
+            <p class="terminal-subtitle" id="terminal-subtitle">Na betaling wordt het volledige rapport direct zichtbaar, inclusief de drie voerkeuzes, de aanbevolen startoptie, PDF-download en het persoonlijke voedingsschema.</p>
+          </div>
+          <div class="terminal-badge"><i class="fa-solid fa-lock"></i> SSL beveiligd</div>
+        </div>
+
+        <div class="terminal-price">
+          <div>
+            <small>Actieprijs · eenmalig</small>
+            <strong>EUR 14,99</strong>
+          </div>
+          <span>Geen abonnement</span>
+        </div>
+
+        <div class="field-group">
+          <label for="checkout-email">E-mailadres <span style="font-weight:400;color:var(--text-soft)">(voor betalingsbevestiging)</span></label>
+          <input id="checkout-email" type="email" placeholder="jouw@email.nl" autocomplete="email">
+        </div>
+
+        <div class="stripe-wrap">
+          <span class="stripe-label">Betaalmethode</span>
+          <div class="payment-loading" id="payment-loading">
+            <div class="spinner"></div>
+            <span>Betaalmethoden laden...</span>
+          </div>
+          <div id="payment-element" aria-label="Stripe betaalterminal"></div>
+        </div>
+
+        <div class="terminal-errors" id="terminal-errors"></div>
+
+        <div class="terminal-actions">
+          <button class="terminal-btn primary" id="btn-pay" type="button" disabled>
+            <i class="fa-solid fa-lock"></i> Betaal veilig EUR 14,99
+          </button>
+          <button class="terminal-btn secondary" id="btn-demo" type="button">
+            <i class="fa-solid fa-flask"></i> Demo modus: open rapport zonder betaling
+          </button>
+          <button class="terminal-btn ghost" id="btn-back-preview" type="button">
+            <i class="fa-solid fa-arrow-left"></i> Terug naar preview
+          </button>
+        </div>
+
+        <div class="terminal-trust">
+          Je betaalt in een aparte terminal via Stripe · iDEAL en kaart worden ondersteund · je keert daarna automatisch terug naar het advies
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const STRIPE_PUBLISHABLE_KEY = 'pk_live_51TA8udFOIBgEuKFLLwjTktKjNfwe5uSraycKMdggYkSUjCDWOQqSRWrbLR4hmHZvrLf52Ms1a2U3gFqDEV2sMpol00ljBEk35N';
+      const DRAFT_STORAGE_KEY = 'haar-voedingsadvies-draft-v8';
+      const DEFAULT_RETURN_PATH = '/voedingsadvies-app.html';
+
+      const params = new URLSearchParams(window.location.search);
+      const dom = {
+        title: document.getElementById('terminal-title'),
+        subtitle: document.getElementById('terminal-subtitle'),
+        summaryCat: document.getElementById('summary-cat'),
+        summaryOwner: document.getElementById('summary-owner'),
+        status: document.getElementById('terminal-status'),
+        statusText: document.getElementById('terminal-status-text'),
+        statusSpinner: document.getElementById('terminal-status-spinner'),
+        loading: document.getElementById('payment-loading'),
+        paymentElement: document.getElementById('payment-element'),
+        errors: document.getElementById('terminal-errors'),
+        email: document.getElementById('checkout-email'),
+        pay: document.getElementById('btn-pay'),
+        demo: document.getElementById('btn-demo'),
+        back: document.getElementById('btn-back-preview'),
+        returnApp: document.getElementById('btn-return-app'),
+      };
+
+      let stripeInstance = null;
+      let stripeElements = null;
+      let stripePaymentElement = null;
+      let stripeReady = false;
+      let paymentIntentClientSecret = '';
+
+      function safeText(value, maxLength = 200) {
+        return String(value || '').trim().slice(0, maxLength);
+      }
+
+      function safeReturnPath(value) {
+        const fallbackUrl = new URL(DEFAULT_RETURN_PATH, window.location.origin);
+        if (!value) {
+          return fallbackUrl.pathname + fallbackUrl.search + fallbackUrl.hash;
+        }
+
+        try {
+          const url = new URL(value, window.location.origin);
+          if (url.origin !== window.location.origin) {
+            return fallbackUrl.pathname + fallbackUrl.search + fallbackUrl.hash;
+          }
+          return url.pathname + url.search + url.hash;
+        } catch (err) {
+          return fallbackUrl.pathname + fallbackUrl.search + fallbackUrl.hash;
+        }
+      }
+
+      const returnPath = safeReturnPath(params.get('returnTo'));
+
+      function readDraftState() {
+        try {
+          const raw = window.sessionStorage.getItem(DRAFT_STORAGE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          return parsed && parsed.P ? parsed : null;
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function writeDraftState(nextState) {
+        try {
+          window.sessionStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(nextState));
+        } catch (err) {}
+      }
+
+      function updateDraftState(updater) {
+        const current = readDraftState();
+        if (!current) return null;
+        const next = updater({
+          ...current,
+          P: { ...(current.P || {}) }
+        });
+        if (!next) return current;
+        next.savedAt = Date.now();
+        writeDraftState(next);
+        return next;
+      }
+
+      function getDraftPayload() {
+        return (readDraftState() || {}).P || {};
+      }
+
+      function getDraftId() {
+        return safeText(params.get('draftId'), 120) || safeText(getDraftPayload().draftId, 120);
+      }
+
+      function buildAppReturnUrl(extraParams = {}) {
+        const url = new URL(returnPath, window.location.origin);
+        url.searchParams.set('checkout_return', '1');
+        Object.entries(extraParams).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== '') {
+            url.searchParams.set(key, value);
+          }
+        });
+        return url.pathname + url.search + url.hash;
+      }
+
+      function redirectToApp(extraParams = {}, replace = false) {
+        const target = buildAppReturnUrl(extraParams);
+        if (replace) {
+          window.location.replace(target);
+          return;
+        }
+        window.location.assign(target);
+      }
+
+      function showStatus(message, tone = 'processing', spinning = true) {
+        dom.status.classList.add('visible');
+        dom.status.classList.remove('processing', 'error');
+        dom.status.classList.add(tone);
+        dom.statusText.textContent = message;
+        dom.statusSpinner.style.display = spinning ? '' : 'none';
+      }
+
+      function hideStatus() {
+        dom.status.classList.remove('visible', 'processing', 'error');
+        dom.statusSpinner.style.display = '';
+      }
+
+      function showError(message) {
+        dom.errors.textContent = message;
+        dom.errors.classList.add('visible');
+        hideStatus();
+        dom.pay.disabled = !stripeReady;
+        dom.pay.innerHTML = '<i class="fa-solid fa-lock"></i> Betaal veilig EUR 14,99';
+      }
+
+      function clearError() {
+        dom.errors.textContent = '';
+        dom.errors.classList.remove('visible');
+      }
+
+      function persistEmail() {
+        const email = safeText(dom.email.value, 200).toLowerCase();
+        updateDraftState(current => ({
+          ...current,
+          P: {
+            ...(current.P || {}),
+            catEmail: email
+          }
+        }));
+      }
+
+      function prefillContent() {
+        const draft = getDraftPayload();
+        const catName = safeText(draft.catName, 160) || 'jouw kat';
+        const ownerName = safeText(draft.ownerName, 160) || 'niet ingevuld';
+
+        dom.summaryCat.textContent = catName;
+        dom.summaryOwner.textContent = ownerName;
+        dom.email.value = safeText(draft.catEmail, 200);
+
+        dom.title.textContent = draft.catName
+          ? `Ontgrendel het volledige voedingsadvies voor ${draft.catName}`
+          : 'Ontgrendel jouw volledige voedingsadvies';
+
+        dom.subtitle.textContent = draft.catName
+          ? `Na betaling koppelen we deze terminal direct terug aan het advies van ${draft.catName}. Daarna wordt het volledige rapport zichtbaar, inclusief de drie voerkeuzes, de aanbevolen startoptie, PDF-download en het persoonlijke voedingsschema.`
+          : 'Na betaling wordt het volledige rapport direct zichtbaar, inclusief de drie voerkeuzes, de aanbevolen startoptie, PDF-download en het persoonlijke voedingsschema.';
+      }
+
+      async function createPaymentIntent() {
+        const draftId = getDraftId();
+        if (!draftId) {
+          throw new Error('Open deze betaalterminal vanuit de adviesapp, zodat de intake veilig gekoppeld blijft.');
+        }
+
+        persistEmail();
+        const draft = getDraftPayload();
+        const resp = await fetch('/api/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            draftId,
+            email: safeText(dom.email.value, 200).toLowerCase(),
+            ownerName: safeText(draft.ownerName, 160),
+            catName: safeText(draft.catName, 160)
+          })
+        });
+
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) {
+          throw new Error(data.error || 'Betaling kon niet worden voorbereid.');
+        }
+        return data;
+      }
+
+      async function mountPaymentElement() {
+        if (params.get('payment_intent_client_secret')) {
+          return;
+        }
+
+        const draftId = getDraftId();
+        if (!draftId) {
+          showError('Deze betaalterminal heeft geen gekoppelde intake gevonden. Open hem opnieuw vanuit stap 6 van de adviesapp.');
+          dom.loading.style.display = 'none';
+          dom.pay.disabled = true;
+          return;
+        }
+
+        if (typeof window.Stripe === 'undefined') {
+          showError('Stripe kon niet worden geladen. Controleer je internetverbinding en probeer het opnieuw.');
+          dom.loading.style.display = 'none';
+          return;
+        }
+
+        try {
+          showStatus('Beveiligde terminal wordt voorbereid...', 'processing');
+          const data = await createPaymentIntent();
+          paymentIntentClientSecret = data.clientSecret || '';
+          stripeInstance = window.Stripe(STRIPE_PUBLISHABLE_KEY);
+          stripeElements = stripeInstance.elements({
+            clientSecret: paymentIntentClientSecret,
+            appearance: {
+              theme: 'stripe',
+              variables: {
+                colorPrimary: '#B65A3A',
+                colorBackground: '#ffffff',
+                colorText: '#2d3748',
+                colorDanger: '#c53030',
+                fontFamily: '"Nunito Sans", system-ui, sans-serif',
+                borderRadius: '12px',
+                fontSizeBase: '14px'
+              }
+            },
+            locale: 'nl'
+          });
+
+          stripePaymentElement = stripeElements.create('payment', {
+            layout: 'tabs',
+            paymentMethodOrder: ['ideal', 'card'],
+            fields: {
+              billingDetails: {
+                name: 'auto'
+              }
+            },
+            defaultValues: {
+              billingDetails: {
+                email: safeText(dom.email.value, 200).toLowerCase()
+              }
+            }
+          });
+
+          dom.loading.style.display = 'none';
+          stripePaymentElement.mount('#payment-element');
+          stripePaymentElement.on('ready', () => {
+            stripeReady = true;
+            dom.pay.disabled = false;
+            hideStatus();
+          });
+          stripePaymentElement.on('change', () => clearError());
+        } catch (err) {
+          dom.loading.style.display = 'none';
+          showError(err.message || 'Er ging iets mis bij het laden van de betaalterminal.');
+        }
+      }
+
+      function getCheckoutReturnUrl() {
+        const url = new URL('/betaling.html', window.location.origin);
+        const draftId = getDraftId();
+        if (draftId) {
+          url.searchParams.set('draftId', draftId);
+        }
+        if (returnPath) {
+          url.searchParams.set('returnTo', returnPath);
+        }
+        return url.toString();
+      }
+
+      function forwardPaymentResult(clientSecret, paymentIntentId, redirectStatus) {
+        redirectToApp({
+          payment_intent_client_secret: clientSecret,
+          payment_intent: paymentIntentId,
+          redirect_status: redirectStatus
+        }, true);
+      }
+
+      async function handlePaymentSubmit() {
+        if (!stripeInstance || !stripeElements || !stripeReady) return;
+
+        clearError();
+        persistEmail();
+        dom.pay.disabled = true;
+        dom.pay.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verwerken...';
+        showStatus('Betaling verwerken... Even geduld, je wordt zo teruggekoppeld naar het advies.', 'processing');
+
+        const billingDetails = {};
+        const email = safeText(dom.email.value, 200).toLowerCase();
+        if (email) {
+          billingDetails.email = email;
+        }
+
+        const result = await stripeInstance.confirmPayment({
+          elements: stripeElements,
+          confirmParams: {
+            return_url: getCheckoutReturnUrl(),
+            payment_method_data: {
+              billing_details: billingDetails
+            }
+          },
+          redirect: 'if_required'
+        });
+
+        if (result.error) {
+          showError(result.error.message || 'Betaling mislukt. Probeer het opnieuw.');
+          return;
+        }
+
+        if (result.paymentIntent) {
+          forwardPaymentResult(
+            result.paymentIntent.client_secret || '',
+            result.paymentIntent.id || '',
+            result.paymentIntent.status || 'processing'
+          );
+        }
+      }
+
+      function activateDemoMode() {
+        const updated = updateDraftState(current => ({
+          ...current,
+          currentStep: 7,
+          reportUnlocked: true,
+          localDevUnlockActive: true,
+          paymentStatusMessage: 'Demo modus actief. Het rapport is zonder betaling geopend.',
+          paymentStatusType: 'success'
+        }));
+
+        if (!updated) {
+          showError('Demo modus kan alleen starten vanuit een actieve adviessessie.');
+          return;
+        }
+
+        redirectToApp({ demo_unlock: '1' });
+      }
+
+      function returnToPreview() {
+        redirectToApp();
+      }
+
+      function handleIncomingStripeReturn() {
+        const clientSecret = safeText(params.get('payment_intent_client_secret'), 300);
+        if (!clientSecret) return false;
+
+        showStatus('Betaalstatus wordt doorgestuurd naar jouw adviesrapport...', 'processing');
+        dom.loading.style.display = 'none';
+        dom.pay.disabled = true;
+
+        window.setTimeout(() => {
+          forwardPaymentResult(
+            clientSecret,
+            safeText(params.get('payment_intent'), 120),
+            safeText(params.get('redirect_status'), 80)
+          );
+        }, 180);
+
+        return true;
+      }
+
+      function bindEvents() {
+        dom.email.addEventListener('input', persistEmail);
+        dom.pay.addEventListener('click', () => {
+          void handlePaymentSubmit();
+        });
+        dom.demo.addEventListener('click', activateDemoMode);
+        dom.back.addEventListener('click', returnToPreview);
+        dom.returnApp.addEventListener('click', returnToPreview);
+      }
+
+      function init() {
+        prefillContent();
+        bindEvents();
+
+        if (handleIncomingStripeReturn()) {
+          return;
+        }
+
+        void mountPaymentElement();
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>
