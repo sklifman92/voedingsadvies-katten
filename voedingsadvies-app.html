@@ -2479,6 +2479,55 @@
       flex-shrink: 0;
     }
 
+    /* ── Nutrient donut chart ── */
+    .rfc-donut-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      margin: 0.9rem 0 0.6rem;
+    }
+    .rfc-donut-svg {
+      flex-shrink: 0;
+      width: 86px;
+      height: 86px;
+    }
+    .rfc-donut-legend {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .rfc-donut-legend-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .rfc-donut-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .rfc-donut-legend-label {
+      font-size: 0.73rem;
+      color: rgba(74,46,42,0.65);
+      font-weight: 600;
+      flex: 1;
+    }
+    .rfc-donut-legend-val {
+      font-size: 0.73rem;
+      font-weight: 800;
+      color: #4A2E2A;
+      white-space: nowrap;
+    }
+    .rfc-donut-basis {
+      font-size: 0.63rem;
+      color: rgba(74,46,42,0.4);
+      font-style: italic;
+      margin-top: 0.2rem;
+    }
+
     /* ── Opening letter ── */
     .rpt-letter {
       background: #fff;
@@ -3618,36 +3667,36 @@
   };
 
   const MATRIX_PRODUCT_FACTS = {
-    // Brok — correcte as-fed waarden van productwebsites (Zooplus, Poezenparadijs)
-    'MX-01': { eiwit:'34', vet:'16', vezels:'2.8', kcal:'3.88', textuur:'' },   // Greenwoods Adult Kip
-    'MX-02': { eiwit:'44', vet:'20', vezels:'1.8', kcal:'4.13', textuur:'' },   // Purizon Adult Kip/Vis
-    'MX-03': { eiwit:'58', vet:'16', vezels:'3.2', kcal:'3.91', textuur:'' },   // Purizon Cold Pressed
-    'MX-04': { eiwit:'40', vet:'15', vezels:'3.0', kcal:'3.91', textuur:'' },   // Wild Freedom Sterilised
-    'MX-05': { eiwit:'40', vet:'18', vezels:'5.0', kcal:'3.80', textuur:'' },   // Carnilove Hairball Eend/Fazant
-    'MX-06': { eiwit:'46', vet:'11', vezels:'5.1', kcal:'3.64', textuur:'' },   // Farmina N&D Neutered
-    'MX-07': { eiwit:'32', vet:'20', vezels:'5.3', kcal:'3.91', textuur:'' },   // Josera Catelux
-    'MX-08': { eiwit:'40', vet:'18', vezels:'5.0', kcal:'3.80', textuur:'' },   // Carnilove Hairball (idem MX-05)
-    'MX-09': { eiwit:'58', vet:'16', vezels:'3.2', kcal:'3.91', textuur:'' },   // Purizon Cold Pressed (idem MX-03)
-    // Natvoer — correcte as-fed waarden van productwebsites
-    'MX-10': { eiwit:'9.5',  vet:'5.0', vezels:'0.5', kcal:'0.79', textuur:'Fillet/gelei' }, // Bozita Chunks jelly Kip
-    'MX-11': { eiwit:'10.2', vet:'8.0', vezels:'0.4', kcal:'0.93', textuur:'Paté' },          // Feringa Classic Meat
-    'MX-12': { eiwit:'10.5', vet:'5.2', vezels:'0.4', kcal:'0.85', textuur:'Paté' },          // Catz Finefood Classic 25
-    'MX-13': { eiwit:'10.3', vet:'5.4', vezels:'0.3', kcal:'0.90', textuur:'Paté' },          // Grau Blik Gevogelte/Zeevis
-    'MX-14': { eiwit:'10.2', vet:'5.0', vezels:'0.3', kcal:'1.02', textuur:'Paté' },          // Wild Freedom Green Lands
-    'MX-15': { eiwit:'10.3', vet:'6.1', vezels:'0.5', kcal:'0.90', textuur:'Paté' },          // GranataPet DeliCatessen
-    'MX-16': { eiwit:'10.2', vet:'5.0', vezels:'0.3', kcal:'1.01', textuur:'Paté' },          // Wild Freedom Wide Country
-    'MX-17': { eiwit:'11.2', vet:'5.7', vezels:'0.3', kcal:'1.03', textuur:'Paté' },          // Feringa Single Meat Kip
-    'MX-18': { eiwit:'10.2', vet:'5.6', vezels:'0.3', kcal:'0.86', textuur:'Paté' },          // Catz Finefood Purrr 103
+    // Brok — as-fed waarden; data = NFE (koolhydraten, berekend: 100-vocht8-as7-eiwit-vet-vezels)
+    'MX-01': { eiwit:'34', vet:'16', vezels:'2.8', data:'32', kcal:'3.88', textuur:'' },   // Greenwoods Adult Kip
+    'MX-02': { eiwit:'44', vet:'20', vezels:'1.8', data:'19', kcal:'4.13', textuur:'' },   // Purizon Adult Kip/Vis
+    'MX-03': { eiwit:'58', vet:'16', vezels:'3.2', data:'8',  kcal:'3.91', textuur:'' },   // Purizon Cold Pressed
+    'MX-04': { eiwit:'40', vet:'15', vezels:'3.0', data:'27', kcal:'3.91', textuur:'' },   // Wild Freedom Sterilised
+    'MX-05': { eiwit:'40', vet:'18', vezels:'5.0', data:'22', kcal:'3.80', textuur:'' },   // Carnilove Hairball Eend/Fazant
+    'MX-06': { eiwit:'46', vet:'11', vezels:'5.1', data:'23', kcal:'3.64', textuur:'' },   // Farmina N&D Neutered
+    'MX-07': { eiwit:'32', vet:'20', vezels:'5.3', data:'28', kcal:'3.91', textuur:'' },   // Josera Catelux
+    'MX-08': { eiwit:'40', vet:'18', vezels:'5.0', data:'22', kcal:'3.80', textuur:'' },   // Carnilove Hairball (idem MX-05)
+    'MX-09': { eiwit:'58', vet:'16', vezels:'3.2', data:'8',  kcal:'3.91', textuur:'' },   // Purizon Cold Pressed (idem MX-03)
+    // Natvoer — as-fed waarden; vocht berekend: 100-eiwit-vet-vezels-data-as(2)
+    'MX-10': { eiwit:'9.5',  vet:'5.0', vezels:'0.5', data:'1', vocht:'82', kcal:'0.79', textuur:'Fillet/gelei' },
+    'MX-11': { eiwit:'10.2', vet:'8.0', vezels:'0.4', data:'1', vocht:'78', kcal:'0.93', textuur:'Paté' },
+    'MX-12': { eiwit:'10.5', vet:'5.2', vezels:'0.4', data:'1', vocht:'81', kcal:'0.85', textuur:'Paté' },
+    'MX-13': { eiwit:'10.3', vet:'5.4', vezels:'0.3', data:'1', vocht:'81', kcal:'0.90', textuur:'Paté' },
+    'MX-14': { eiwit:'10.2', vet:'5.0', vezels:'0.3', data:'1', vocht:'81', kcal:'1.02', textuur:'Paté' },
+    'MX-15': { eiwit:'10.3', vet:'6.1', vezels:'0.5', data:'1', vocht:'80', kcal:'0.90', textuur:'Paté' },
+    'MX-16': { eiwit:'10.2', vet:'5.0', vezels:'0.3', data:'1', vocht:'81', kcal:'1.01', textuur:'Paté' },
+    'MX-17': { eiwit:'11.2', vet:'5.7', vezels:'0.3', data:'1', vocht:'80', kcal:'1.03', textuur:'Paté' },
+    'MX-18': { eiwit:'10.2', vet:'5.6', vezels:'0.3', data:'1', vocht:'82', kcal:'0.86', textuur:'Paté' },
     // Brok specialist
-    'MX-19': { eiwit:'31', vet:'17', vezels:'3.5', kcal:'3.95', textuur:'' },   // Feringa Vitaliteit Hairball
-    'MX-20': { eiwit:'41', vet:'19', vezels:'2.5', kcal:'4.05', textuur:'' },   // Carnilove Energy outdoor
-    'MX-21': { eiwit:'35', vet:'10', vezels:'5.8', kcal:'3.47', textuur:'' },   // Josera Léger (light)
-    'MX-22': { eiwit:'36', vet:'22', vezels:'2.0', kcal:'4.19', fosfor:'1.05', textuur:'' },
-    'MX-23': { eiwit:'40', vet:'20', vezels:'2.0', kcal:'4.12', fosfor:'1.00', textuur:'' },
-    'MX-24': { eiwit:'44', vet:'20', vezels:'1.8', kcal:'4.29', fosfor:'0.90', textuur:'' },
-    'MX-25': { eiwit:'9', vet:'6', vezels:'0.5', kcal:'0.86', textuur:'Saus' },
-    'MX-26': { eiwit:'11', vet:'7', vezels:'0.3', kcal:'1.03', fosfor:'0.19', textuur:'Paté' },
-    'MX-27': { eiwit:'11', vet:'6', vezels:'0.5', kcal:'0.95', textuur:'Paté' }
+    'MX-19': { eiwit:'31', vet:'17', vezels:'3.5', data:'34', kcal:'3.95', textuur:'' },   // Feringa Vitaliteit Hairball
+    'MX-20': { eiwit:'41', vet:'19', vezels:'2.5', data:'23', kcal:'4.05', textuur:'' },   // Carnilove Energy outdoor
+    'MX-21': { eiwit:'35', vet:'10', vezels:'5.8', data:'34', kcal:'3.47', textuur:'' },   // Josera Léger (light)
+    'MX-22': { eiwit:'36', vet:'22', vezels:'2.0', data:'25', kcal:'4.19', fosfor:'1.05', textuur:'' },
+    'MX-23': { eiwit:'40', vet:'20', vezels:'2.0', data:'23', kcal:'4.12', fosfor:'1.00', textuur:'' },
+    'MX-24': { eiwit:'44', vet:'20', vezels:'1.8', data:'19', kcal:'4.29', fosfor:'0.90', textuur:'' },
+    'MX-25': { eiwit:'9',  vet:'6',  vezels:'0.5', data:'1', vocht:'82', kcal:'0.86', textuur:'Saus' },
+    'MX-26': { eiwit:'11', vet:'7',  vezels:'0.3', data:'1', vocht:'79', fosfor:'0.19', kcal:'1.03', textuur:'Paté' },
+    'MX-27': { eiwit:'11', vet:'6',  vezels:'0.5', data:'1', vocht:'81', kcal:'0.95', textuur:'Paté' }
   };
 
 
@@ -5747,7 +5796,8 @@
       kcal: facts.kcal || '',
       eiwit: facts.eiwit || '',
       vet: facts.vet || '',
-      data: 'matrix-preview',
+      data: facts.data || '',
+      vocht: facts.vocht || '',
       vezels: facts.vezels || '',
       fosfor: facts.fosfor || '',
       shop: item.leverancier || '',
@@ -6096,6 +6146,7 @@
     const vezels = parseNum(row?.vezels);
     const kcal   = parseNum(row?.kcal);
 
+    // Bestaande balkjes
     const isNat = row?.type === 'natvoer';
     const maxEiwit  = isNat ? 15  : 60;
     const maxVet    = isNat ? 12  : 30;
@@ -6107,9 +6158,7 @@
     if (Number.isFinite(vezels) && vezels > 0) bars.push({ label: 'Vezels',  cls: 'fiber',   width: Math.min(100, (vezels / maxVezels) * 100), val: `${formatDecimal(vezels, 1)}%`               });
     if (Number.isFinite(kcal)   && kcal   > 0) bars.push({ label: 'Energie', cls: 'energy',  width: Math.min(100, (kcal   / maxKcal)   * 100), val: `${formatDecimal(kcal, 2)} kcal/g`           });
 
-    if (bars.length === 0) return '';
-
-    return `<div class="rfc-nutrients">
+    const barsHtml = bars.length > 0 ? `<div class="rfc-nutrients">
       <div class="rfc-nutrients-label">Voedingswaarden</div>
       ${bars.map(b => `
       <div class="rfc-nutrient-row">
@@ -6117,6 +6166,124 @@
         <div class="rfc-n-bar"><div class="rfc-n-fill ${b.cls}" style="width:${b.width.toFixed(1)}%"></div></div>
         <span class="rfc-n-val">${b.val}</span>
       </div>`).join('')}
+    </div>` : '';
+
+    // Donut chart
+    const donutHtml = renderNutrientDonut(row);
+
+    return donutHtml + barsHtml;
+  }
+
+  function renderNutrientDonut(row) {
+    if (!row) return '';
+    const isNat = row.type === 'natvoer';
+    const typeLabel = isNat ? 'NATVOER' : 'BROK';
+    const typeShort = isNat ? 'NAT' : 'BROK';
+
+    const rawEiwit  = parseNum(row.eiwit);
+    const rawVet    = parseNum(row.vet);
+    const rawVezels = parseNum(row.vezels);
+    const rawData   = parseNum(row.data);   // koolhydraten (brok) of koolh (natvoer DM)
+    const rawVocht  = parseNum(row.vocht);  // vocht (natvoer matrix)
+
+    if (!Number.isFinite(rawEiwit) || !Number.isFinite(rawVet)) return '';
+
+    let segments = [];
+    let basisNote = '';
+
+    if (isNat) {
+      // Natvoer: toon vocht als dominant segment
+      // Detecteer of het as-fed basis is (matrix, eiwit < 20%) of DM basis (CSV, eiwit >= 20%)
+      const isAsFed = rawEiwit < 20;
+      if (isAsFed) {
+        // As-fed: vocht is het grootste deel
+        const vocht = Number.isFinite(rawVocht) && rawVocht > 0
+          ? rawVocht
+          : Math.max(70, 100 - rawEiwit - rawVet - (rawVezels || 0) - (rawData || 1) - 2);
+        const koolh = Number.isFinite(rawData) && rawData > 0 ? rawData : 0;
+        const overig = Math.max(0, 100 - vocht - rawEiwit - rawVet - (rawVezels || 0) - koolh);
+        segments = [
+          { label: 'Vocht',    value: vocht,             color: '#89C5E0' },
+          { label: 'Eiwit',    value: rawEiwit,           color: '#B65A3A' },
+          { label: 'Vet',      value: rawVet,             color: '#F0A070' },
+          { label: 'Koolh.',   value: koolh,              color: '#C8A87A' },
+          { label: 'Overig',   value: overig,             color: '#E2DAD0' },
+        ];
+        basisNote = 'vers gewogen (as-fed)';
+      } else {
+        // DM basis (CSV natvoer met hoge percentages)
+        const koolh = Number.isFinite(rawData) ? rawData : 0;
+        const overig = Math.max(0, 100 - rawEiwit - rawVet - koolh - (rawVezels || 0));
+        segments = [
+          { label: 'Eiwit',    value: rawEiwit,           color: '#B65A3A' },
+          { label: 'Vet',      value: rawVet,             color: '#F0A070' },
+          { label: 'Koolh.',   value: koolh,              color: '#C8A87A' },
+          { label: 'Overig',   value: overig,             color: '#E2DAD0' },
+        ];
+        basisNote = 'droge stofbasis';
+      }
+    } else {
+      // Brok
+      const koolh  = Number.isFinite(rawData) ? rawData : Math.max(0, 100 - rawEiwit - rawVet - (rawVezels || 0) - 15);
+      const overig = Math.max(0, 100 - rawEiwit - rawVet - koolh);
+      segments = [
+        { label: 'Eiwit',   value: rawEiwit, color: '#B65A3A' },
+        { label: 'Vet',     value: rawVet,   color: '#F0A070' },
+        { label: 'Koolh.',  value: koolh,    color: '#C8A87A' },
+        { label: 'Overig',  value: overig,   color: '#E2DAD0' },
+      ];
+      basisNote = 'as-fed basis';
+    }
+
+    // Filter kleine segmenten
+    const active = segments.filter(s => s.value > 0.5);
+    if (active.length === 0) return '';
+
+    // SVG donut berekening
+    const r = 32;
+    const cx = 50, cy = 50;
+    const circ = 2 * Math.PI * r; // 201.06
+    const totalVal = active.reduce((s, seg) => s + seg.value, 0);
+    let rotationDeg = -90; // start bovenaan
+
+    const svgSegments = active.map(seg => {
+      const fraction = seg.value / totalVal;
+      const dashLen  = fraction * circ;
+      const gapLen   = circ - dashLen;
+      const svgEl    = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${seg.color}" stroke-width="18" stroke-dasharray="${dashLen.toFixed(2)} ${gapLen.toFixed(2)}" transform="rotate(${rotationDeg.toFixed(2)}, ${cx}, ${cy})"/>`;
+      rotationDeg += fraction * 360;
+      return svgEl;
+    }).join('');
+
+    // Legenda (zonder "Overig")
+    const legendItems = active
+      .filter(s => s.label !== 'Overig')
+      .map(s => {
+        const valStr = s.value < 5 ? `${s.value.toFixed(1)}%` : `${Math.round(s.value)}%`;
+        return `<div class="rfc-donut-legend-row">
+          <span class="rfc-donut-dot" style="background:${s.color}"></span>
+          <span class="rfc-donut-legend-label">${s.label}</span>
+          <span class="rfc-donut-legend-val">${valStr}</span>
+        </div>`;
+      }).join('');
+
+    // Center tekst: twee regels
+    const line1 = typeShort;
+    const line2 = isNat ? 'voer' : 'voer';
+
+    return `<div class="rfc-donut-wrap">
+      <svg class="rfc-donut-svg" viewBox="0 0 100 100" role="img" aria-label="Voedingsstoffen verdeling ${typeLabel}">
+        <!-- Achtergrond ring -->
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#F0EAE4" stroke-width="18"/>
+        ${svgSegments}
+        <!-- Center tekst -->
+        <text x="${cx}" y="${cy - 5}" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="900" fill="#4A2E2A" font-family="Nunito Sans, sans-serif">${line1}</text>
+        <text x="${cx}" y="${cy + 9}" text-anchor="middle" dominant-baseline="middle" font-size="7.5" font-weight="600" fill="rgba(74,46,42,0.5)" font-family="Nunito Sans, sans-serif">${line2}</text>
+      </svg>
+      <div class="rfc-donut-legend">
+        ${legendItems}
+        ${basisNote ? `<div class="rfc-donut-basis">${basisNote}</div>` : ''}
+      </div>
     </div>`;
   }
 
