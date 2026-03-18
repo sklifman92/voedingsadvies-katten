@@ -2815,7 +2815,22 @@
       line-height: 1.5;
     }
 
+    .s6-owner-fields {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(182,90,58,0.16);
+      border-radius: 18px;
+      padding: 1.25rem 1.2rem 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+    .s6-owner-fields .field-label { margin-top: 0; }
+
     .s6-cta { margin-bottom: 1.25rem; }
+    .s6-open-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
     .s6-open-btn {
       display: flex;
       align-items: center;
@@ -3274,9 +3289,10 @@
   // 1. STATE
   // ==========================================================
   const P = {
-    draftId:     '',
-    ownerName:   '',
-    catName:     '',
+    draftId:        '',
+    ownerName:      '',
+    ownerWoonplaats:'',
+    catName:        '',
     catRas:      '',
     catLeeftijd: '',
     geslacht:    null,   // 'kater' | 'poes'
@@ -4517,13 +4533,10 @@
     const g = P.geslacht;
     const lifestyle = P.leefstijl;
     const ageMessage = getAgeValidationMessage(P.catLeeftijd);
-    const canContinue = P.ownerName.trim() && P.catName.trim() && P.catLeeftijd.trim() && !ageMessage && P.geslacht && P.leefstijl;
+    const canContinue = P.catName.trim() && P.catLeeftijd.trim() && !ageMessage && P.geslacht && P.leefstijl;
     return `<div class="wizard-card active">
       <h2>Basis van jouw kat</h2>
       <p class="wizard-subtitle">We beginnen met een paar korte basisvragen. Zo voelt het advies straks echt geschreven voor jouw kat en niet voor katten in het algemeen.</p>
-
-      <label class="field-label">Naam eigenaar <span style="color:#cc3333">*</span></label>
-      <input type="text" class="wizard-input" id="inp-owner" placeholder="Uw naam" value="${escHtml(P.ownerName)}" required>
 
       <label class="field-label">Naam kat <span style="color:#cc3333">*</span></label>
       <input type="text" class="wizard-input" id="inp-catname" placeholder="Naam van uw kat" value="${escHtml(P.catName)}" required>
@@ -5104,6 +5117,7 @@
   function renderStep6() {
     const catName    = P.catName    || 'uw kat';
     const ownerName  = P.ownerName  || '';
+    const canOpenPayment = ownerName.trim().length > 0;
     const intakePointCount = getPersonalizationCount();
 
     const profile     = getPrimaryAdviceProfile();
@@ -5200,8 +5214,16 @@
         </div>
       </div>
 
+      <div class="s6-owner-fields">
+        <label class="field-label">Uw naam <span style="color:#cc3333">*</span></label>
+        <input type="text" class="wizard-input" id="inp-s6-owner" placeholder="Uw volledige naam" value="${escHtml(P.ownerName)}" autocomplete="name">
+
+        <label class="field-label">Woonplaats <span style="color:#cc3333">*</span></label>
+        <input type="text" class="wizard-input" id="inp-s6-woonplaats" placeholder="bijv. Amsterdam" value="${escHtml(P.ownerWoonplaats)}" autocomplete="address-level2">
+      </div>
+
       <div class="s6-cta">
-        <button class="s6-open-btn" id="btn-step6-download" type="button">
+        <button class="s6-open-btn" id="btn-step6-download" type="button" ${canOpenPayment ? '' : 'disabled'}>
           <i class="fa-solid fa-lock"></i> Open beveiligde betaalterminal
         </button>
       </div>
@@ -5223,6 +5245,7 @@
     return {
       draftId: ensureDraftId(),
       ownerName: P.ownerName,
+      ownerWoonplaats: P.ownerWoonplaats,
       catName: P.catName,
       catEmail: P.catEmail,
       catRas: P.catRas,
@@ -5327,7 +5350,7 @@
   function resetIntakeState() {
     Object.assign(P, {
       draftId:'',
-      ownerName:'', catName:'', catEmail:'', catRas:'', catLeeftijd:'', geslacht:null,
+      ownerName:'', ownerWoonplaats:'', catName:'', catEmail:'', catRas:'', catLeeftijd:'', geslacht:null,
       leefstijl:null,
       castrated:null, gewicht:'', bcs:null, activiteit:null,
       eetgedrag:null, drinkgedrag:null, ontlasting:null, vachtbeeld:null,
@@ -5586,11 +5609,12 @@
       paymentMethodOrder: ['ideal', 'card'],
       fields: {
         billingDetails: {
-          name: 'auto'
+          name: 'never'
         }
       },
       defaultValues: {
         billingDetails: {
+          name: P.ownerName || '',
           email: P.catEmail || ''
         }
       }
@@ -5649,6 +5673,7 @@
     dom.processing?.setAttribute('aria-busy', 'true');
 
     const billingDetails = {};
+    if (P.ownerName) billingDetails.name = P.ownerName;
     if (P.catEmail) billingDetails.email = P.catEmail;
 
     const result = await stripeInstance.confirmPayment({
@@ -7085,7 +7110,7 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         draftId: P.draftId,
-        ownerName: P.ownerName, catName: P.catName, catEmail: P.catEmail || '',
+        ownerName: P.ownerName, ownerWoonplaats: P.ownerWoonplaats, catName: P.catName, catEmail: P.catEmail || '',
         catRas: P.catRas, catLeeftijd: P.catLeeftijd, gewicht: P.gewicht,
         bcs: P.bcs, castrated: P.castrated, activiteit: P.activiteit,
         leefstijl: P.leefstijl, eetgedrag: P.eetgedrag, drinkgedrag: P.drinkgedrag,
@@ -7764,21 +7789,19 @@
     // Next buttons
     const s1 = document.getElementById('btn-s1');
     if (s1) s1.addEventListener('click', () => {
-      const ownerEl = document.getElementById('inp-owner');
       const catEl = document.getElementById('inp-catname');
       const leeftijdEl = document.getElementById('inp-leeftijd');
-      P.ownerName   = (document.getElementById('inp-owner')?.value   || '').trim();
       P.catName     = (document.getElementById('inp-catname')?.value || '').trim();
       P.catRas      = (document.getElementById('inp-ras')?.value     || '').trim();
       P.catLeeftijd = (document.getElementById('inp-leeftijd')?.value|| '').trim();
       leeftijdEl?.setCustomValidity(getAgeValidationMessage(P.catLeeftijd));
-      const invalidField = [ownerEl, catEl, leeftijdEl].find(el => el && !el.checkValidity());
+      const invalidField = [catEl, leeftijdEl].find(el => el && !el.checkValidity());
       if (invalidField) {
         invalidField.reportValidity();
         invalidField.focus();
         return;
       }
-      if (P.ownerName && P.catName && P.catLeeftijd && !getAgeValidationMessage(P.catLeeftijd) && P.geslacht && P.leefstijl) {
+      if (P.catName && P.catLeeftijd && !getAgeValidationMessage(P.catLeeftijd) && P.geslacht && P.leefstijl) {
         goToStep(2);
       }
     });
@@ -7840,8 +7863,30 @@
       });
     });
 
+    // Step 6 — naam + woonplaats live validation
+    document.addEventListener('input', e => {
+      if (e.target.id === 'inp-s6-owner') {
+        P.ownerName = e.target.value.trim();
+        saveDraftState();
+        checkS6();
+      } else if (e.target.id === 'inp-s6-woonplaats') {
+        P.ownerWoonplaats = e.target.value.trim();
+        saveDraftState();
+      }
+    });
+
     // Step 6 — open separate checkout terminal
     document.getElementById('btn-step6-download')?.addEventListener('click', async () => {
+      // Flush fields before opening
+      P.ownerName = (document.getElementById('inp-s6-owner')?.value || '').trim();
+      P.ownerWoonplaats = (document.getElementById('inp-s6-woonplaats')?.value || '').trim();
+      saveDraftState();
+
+      if (!P.ownerName) {
+        document.getElementById('inp-s6-owner')?.focus();
+        return;
+      }
+
       const btn = document.getElementById('btn-step6-download');
       if (btn) {
         btn.disabled = true;
@@ -7859,7 +7904,7 @@
     });
 
     // Live validation for step 1
-    ['inp-owner', 'inp-catname', 'inp-leeftijd', 'inp-ras'].forEach(id => {
+    ['inp-catname', 'inp-leeftijd', 'inp-ras'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', () => {
         checkS1();
         saveDraftState();
@@ -7887,24 +7932,26 @@
   }
 
   function checkS1() {
-    const ownerField = document.getElementById('inp-owner');
     const catField = document.getElementById('inp-catname');
     const rasField = document.getElementById('inp-ras');
     const ageField = document.getElementById('inp-leeftijd');
-    if (!ownerField && !catField && !ageField) return;
+    if (!catField && !ageField) return;
 
-    const owner = (ownerField?.value || P.ownerName || '').trim();
     const cat = (catField?.value || P.catName || '').trim();
     const ras = (rasField?.value || P.catRas || '').trim();
     const leeftijd = (ageField?.value || P.catLeeftijd || '').trim();
     const ageMessage = getAgeValidationMessage(leeftijd);
-    P.ownerName = owner;
     P.catName = cat;
     P.catRas = ras;
     P.catLeeftijd = leeftijd;
     ageField?.setCustomValidity(ageMessage);
     const btn   = document.getElementById('btn-s1');
-    if (btn) btn.disabled = !(owner && cat && leeftijd && !ageMessage && P.geslacht && P.leefstijl);
+    if (btn) btn.disabled = !(cat && leeftijd && !ageMessage && P.geslacht && P.leefstijl);
+  }
+
+  function checkS6() {
+    const btn = document.getElementById('btn-step6-download');
+    if (btn) btn.disabled = !P.ownerName.trim();
   }
 
   function checkS2() {

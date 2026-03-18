@@ -884,11 +884,12 @@
             paymentMethodOrder: ['ideal', 'card'],
             fields: {
               billingDetails: {
-                name: 'auto'
+                name: 'never'
               }
             },
             defaultValues: {
               billingDetails: {
+                name: safeText(getDraftPayload().ownerName, 160),
                 email: safeText(dom.email.value, 200).toLowerCase()
               }
             }
@@ -939,9 +940,9 @@
 
         const billingDetails = {};
         const email = safeText(dom.email.value, 200).toLowerCase();
-        if (email) {
-          billingDetails.email = email;
-        }
+        if (email) billingDetails.email = email;
+        const ownerName = safeText(getDraftPayload().ownerName, 160);
+        if (ownerName) billingDetails.name = ownerName;
 
         const result = await stripeInstance.confirmPayment({
           elements: stripeElements,
