@@ -1702,56 +1702,228 @@
 
     /* ── Hero ── */
     .rpt-hero {
-      background: var(--color-surface-2);
-      padding: 3.5rem 1.5rem 4rem;
-      text-align: center;
       position: relative;
       overflow: hidden;
+      padding: clamp(2rem, 5vw, 3.75rem) 1.25rem 3rem;
+      background:
+        radial-gradient(circle at 10% 16%, rgba(196,122,90,0.18), transparent 26%),
+        radial-gradient(circle at 88% 12%, rgba(74,46,42,0.12), transparent 20%),
+        linear-gradient(180deg, #F6EFE7 0%, #EEE2D5 100%);
     }
-    .rpt-hero-inner { position: relative; z-index: 1; }
+    .rpt-hero::before,
+    .rpt-hero::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+    }
+    .rpt-hero::before {
+      width: 340px;
+      height: 340px;
+      right: -120px;
+      bottom: -160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(182,90,58,0.16) 0%, rgba(182,90,58,0.04) 42%, transparent 72%);
+    }
+    .rpt-hero::after {
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 44%),
+        repeating-linear-gradient(115deg, transparent 0 36px, rgba(255,255,255,0.14) 36px 38px);
+      opacity: 0.6;
+    }
+    .rpt-hero-shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: clamp(1.4rem, 4vw, 2.5rem);
+      border: 1px solid rgba(182,90,58,0.14);
+      border-radius: 30px;
+      background: rgba(255,255,255,0.66);
+      box-shadow: 0 24px 60px rgba(74,46,42,0.1);
+      backdrop-filter: blur(10px);
+    }
+    .rpt-hero-shell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.68), rgba(182,90,58,0.06));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .rpt-hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.7fr);
+      gap: 1.6rem;
+      align-items: end;
+    }
+    .rpt-hero-copy {
+      text-align: left;
+    }
     .rpt-hero-kicker {
-      display: block;
-      font-size: 0.68rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.72rem;
       font-weight: 800;
-      letter-spacing: 3px;
+      letter-spacing: 2.6px;
       text-transform: uppercase;
-      color: rgba(74,46,42,0.55);
-      background: none;
-      border-radius: 0;
-      padding: 0;
-      margin-bottom: 0.85rem;
+      color: rgba(74,46,42,0.58);
+      background: rgba(255,255,255,0.74);
+      border: 1px solid rgba(182,90,58,0.14);
+      border-radius: 999px;
+      padding: 0.58rem 0.9rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
+    }
+    .rpt-hero-kicker::before {
+      content: '';
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: #B65A3A;
+      box-shadow: 0 0 0 6px rgba(182,90,58,0.12);
+      flex: 0 0 auto;
     }
     .rpt-hero-cat {
-      font-family: 'Sansita', serif;
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 800;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 0.9rem;
+      margin-top: 1.2rem;
       color: #4A2E2A;
-      line-height: 1.1;
-      margin-bottom: 0.3rem;
     }
-    .rpt-hero-owner {
-      font-size: 0.95rem;
-      color: rgba(74,46,42,0.65);
-      margin-bottom: 0.4rem;
+    .rpt-hero-name {
+      font-family: 'Sansita', serif;
+      font-size: clamp(2.5rem, 5.6vw, 4.4rem);
+      font-weight: 800;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
     }
-    .rpt-hero-date {
-      font-size: 0.75rem;
-      letter-spacing: 0.03em;
+    .rpt-hero-breed {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(74,46,42,0.08);
+      border: 1px solid rgba(74,46,42,0.1);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(74,46,42,0.45);
-      margin-bottom: 1.4rem;
+      color: rgba(74,46,42,0.72);
+      line-height: 1;
+      margin-bottom: 0.42rem;
     }
-    .rpt-profile-badge {
+    .rpt-hero-subline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem 1.25rem;
+      margin-top: 1rem;
+    }
+    .rpt-hero-owner,
+    .rpt-hero-date {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      background: rgba(74,46,42,0.08);
-      border: 1px solid rgba(74,46,42,0.14);
-      color: #4A2E2A;
-      font-size: 0.84rem;
+      color: rgba(74,46,42,0.68);
+      margin: 0;
+    }
+    .rpt-hero-owner {
+      font-size: 0.98rem;
       font-weight: 700;
-      padding: 0.42rem 1rem;
-      border-radius: 999px;
+    }
+    .rpt-hero-owner::before,
+    .rpt-hero-date::before {
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 0.78rem;
+      color: #B65A3A;
+      flex: 0 0 auto;
+    }
+    .rpt-hero-owner::before { content: '\f007'; }
+    .rpt-hero-date::before  { content: '\f073'; }
+    .rpt-hero-date {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(74,46,42,0.54);
+    }
+    .rpt-hero-summary {
+      max-width: 40rem;
+      margin: 1rem 0 0;
+      font-size: 0.96rem;
+      line-height: 1.75;
+      color: rgba(74,46,42,0.74);
+    }
+    .rpt-hero-aside {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .rpt-hero-panel {
+      width: min(100%, 320px);
+      padding: 1.2rem;
+      border-radius: 24px;
+      background: rgba(74,46,42,0.9);
+      color: #fff;
+      box-shadow: 0 20px 44px rgba(74,46,42,0.16);
+    }
+    .rpt-hero-panel-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: rgba(240,221,214,0.72);
+      margin-bottom: 0.75rem;
+    }
+    .rpt-profile-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.62rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      font-size: 0.97rem;
+      font-weight: 800;
+      padding: 0.9rem 1rem;
+      border-radius: 18px;
+    }
+    .rpt-profile-badge i {
+      color: #F4CDBE;
+    }
+    .rpt-hero-panel-meta {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(240,221,214,0.15);
+      display: grid;
+      gap: 0.85rem;
+    }
+    .rpt-hero-panel-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+    .rpt-hero-panel-key {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(240,221,214,0.66);
+    }
+    .rpt-hero-panel-value {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      text-align: right;
     }
 
     /* ── Chapter nav ── */
@@ -2652,27 +2824,68 @@
 
     /* ── Hero profile chips ── */
     .rpt-hero-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-top: 1.1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
     .rpt-hero-chip {
       display: inline-flex;
-      align-items: center;
-      gap: 0.32rem;
-      background: rgba(255,255,255,0.28);
-      border: 1px solid rgba(255,255,255,0.45);
-      border-radius: 999px;
-      padding: 0.28rem 0.7rem;
-      font-size: 0.74rem;
-      font-weight: 700;
+      align-items: flex-start;
+      gap: 0.7rem;
+      min-height: 58px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(182,90,58,0.14);
+      border-radius: 18px;
+      padding: 0.75rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      line-height: 1.35;
       color: #4A2E2A;
-      backdrop-filter: blur(4px);
+      box-shadow: 0 10px 24px rgba(74,46,42,0.06);
+      backdrop-filter: blur(6px);
     }
-    .rpt-hero-chip.chip-red   { background: rgba(200,60,60,0.12); border-color: rgba(200,60,60,0.25); color: #8b2a2a; }
-    .rpt-hero-chip.chip-yellow{ background: rgba(210,150,0,0.13); border-color: rgba(210,150,0,0.3);  color: #7a5200; }
-    .rpt-hero-chip.chip-green { background: rgba(45,130,45,0.12); border-color: rgba(45,130,45,0.25); color: #1f5e20; }
+    .rpt-hero-chip i {
+      width: 1.8rem;
+      height: 1.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 1.8rem;
+      border-radius: 50%;
+      background: rgba(182,90,58,0.12);
+      color: #B65A3A;
+      margin-top: 0.02rem;
+    }
+    .rpt-hero-chip.chip-red {
+      background: linear-gradient(180deg, rgba(255,239,239,0.96), rgba(255,246,246,0.88));
+      border-color: rgba(200,60,60,0.22);
+      color: #8B2A2A;
+    }
+    .rpt-hero-chip.chip-red i {
+      background: rgba(200,60,60,0.14);
+      color: #AF4040;
+    }
+    .rpt-hero-chip.chip-yellow {
+      background: linear-gradient(180deg, rgba(255,248,232,0.96), rgba(255,252,243,0.88));
+      border-color: rgba(210,150,0,0.24);
+      color: #7A5200;
+    }
+    .rpt-hero-chip.chip-yellow i {
+      background: rgba(210,150,0,0.15);
+      color: #A36A00;
+    }
+    .rpt-hero-chip.chip-green {
+      background: linear-gradient(180deg, rgba(251,239,231,0.98), rgba(248,232,223,0.9));
+      border-color: rgba(182,90,58,0.22);
+      color: #7A4136;
+    }
+    .rpt-hero-chip.chip-green i {
+      background: rgba(182,90,58,0.14);
+      color: #B65A3A;
+    }
 
     /* ── Food reasoning box ── */
     .food-reasoning {
@@ -3150,7 +3363,26 @@
       /* Achtergrond vereenvoudigen voor PDF */
       .web-report { background: #fff !important; }
       .web-report::before { display: block !important; }
-      .rpt-hero { padding: 2rem 1.5rem 2.5rem !important; }
+      .rpt-hero {
+        padding: 1.5rem 0 2rem !important;
+        background: #F7F1EC !important;
+      }
+      .rpt-hero::before,
+      .rpt-hero::after,
+      .rpt-hero-shell::before { display: none !important; }
+      .rpt-hero-shell {
+        padding: 1.35rem !important;
+        border-radius: 22px !important;
+        background: #fff !important;
+        border: 1px solid rgba(182,90,58,0.16) !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+      }
+      .rpt-hero-panel {
+        box-shadow: none !important;
+        background: #4A2E2A !important;
+      }
+      .rpt-hero-chip { box-shadow: none !important; }
 
       /* Pagina-breaks */
       .rpt-section { break-inside: avoid; }
@@ -3324,6 +3556,44 @@
       .payment-modal-card {
         width: min(100%, 100%);
         padding: 1.25rem 1rem 1rem;
+      }
+      .rpt-hero {
+        padding: 1rem 1rem 2rem;
+      }
+      .rpt-hero-shell {
+        padding: 1.15rem;
+        border-radius: 24px;
+      }
+      .rpt-hero-inner {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .rpt-hero-aside {
+        justify-content: stretch;
+      }
+      .rpt-hero-panel {
+        width: 100%;
+      }
+      .rpt-hero-cat {
+        gap: 0.7rem;
+      }
+      .rpt-hero-name {
+        font-size: clamp(2.25rem, 13vw, 3.1rem);
+      }
+      .rpt-hero-breed {
+        font-size: 0.74rem;
+        margin-bottom: 0.24rem;
+      }
+      .rpt-hero-subline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.45rem;
+      }
+      .rpt-hero-summary {
+        font-size: 0.9rem;
+      }
+      .rpt-hero-chips {
+        grid-template-columns: 1fr;
       }
       .payment-price-box,
       .unlock-payment-head {
@@ -7344,15 +7614,89 @@
     }
     if (P.doelen && P.doelen.length > 0) {
       P.doelen.slice(0, 2).forEach(d => {
-        chips.push({ icon: 'fa-bullseye', label: escHtml(d), cls: '' });
+        chips.push({ icon: 'fa-bullseye', label: escHtml(getHeroGoalLabel(d)), cls: '' });
       });
     }
     if (P.foodType) {
-      const ftLabel = P.foodType === 'brok' ? 'Droogvoer' : P.foodType === 'nat' ? 'Natvoer' : 'Droog + Nat';
-      chips.push({ icon: 'fa-bowl-food', label: ftLabel, cls: '' });
+      chips.push({ icon: 'fa-bowl-food', label: escHtml(getReportFoodTypeLabel(P.foodType, 'Droog + Nat')), cls: '' });
     }
     if (chips.length === 0) return '';
     return `<div class="rpt-hero-chips">${chips.map(c => `<span class="rpt-hero-chip ${c.cls}"><i class="fa-solid ${c.icon}"></i>${c.label}</span>`).join('')}</div>`;
+  }
+
+  function getHeroGoalLabel(goal, { lowercase = false } = {}) {
+    const labels = {
+      overgewicht: 'Gewichtsafname',
+      ondergewicht: 'Gewicht opbouwen',
+      vacht: 'Vacht & huid',
+      gevoelig: 'Gevoelige spijsvertering',
+      keuze: 'Beste keuze',
+      haarbal: 'Haarbalondersteuning'
+    };
+    const label = labels[goal] || String(goal || '').trim();
+    return lowercase ? label.toLowerCase() : label;
+  }
+
+  function getReportFoodTypeLabel(value = P.foodType, fallback = 'Persoonlijke mix') {
+    if (!value) return fallback;
+    if (value === 'brok') return 'Droogvoer';
+    if (value === 'nat' || value === 'natvoer') return 'Natvoer';
+    if (value === 'both') return 'Droog + Nat';
+    return String(value);
+  }
+
+  function buildHeroSummary(catName, profileMeta) {
+    const accents = [];
+    if (profileMeta?.label) {
+      accents.push(`focus op ${escHtml(String(profileMeta.label).toLowerCase())}`);
+    }
+    if (P.doelen && P.doelen.length > 0) {
+      const goalText = P.doelen
+        .slice(0, 2)
+        .map(goal => escHtml(getHeroGoalLabel(goal, { lowercase: true })))
+        .filter(Boolean)
+        .join(' en ');
+      if (goalText) {
+        accents.push(`extra aandacht voor ${goalText}`);
+      }
+    }
+    const tail = accents.length ? `, met ${accents.join(' en ')}` : '';
+    return `<p class="rpt-hero-summary">Een helder voedingsplan voor ${escHtml(catName)} op basis van intake, lichaamsconditie en leefstijl${tail}.</p>`;
+  }
+
+  function buildHeroPanel(profileMeta) {
+    const bcsMeta = P.bcs ? getBcsGroupMeta(P.bcs) : null;
+    const focusText = P.doelen && P.doelen.length > 0
+      ? P.doelen.slice(0, 2).map(goal => escHtml(getHeroGoalLabel(goal))).join(' + ')
+      : escHtml(profileMeta?.label || 'Dagelijkse balans');
+    const conditionText = bcsMeta && P.bcs
+      ? `BCS ${P.bcs}/9 — ${escHtml(bcsMeta.title)}`
+      : 'Niet opgegeven';
+    const foodText = escHtml(getReportFoodTypeLabel(P.foodType));
+
+    return `
+      <div class="rpt-hero-panel">
+        <div class="rpt-hero-panel-label">Leidend profiel</div>
+        <div class="rpt-profile-badge">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>${escHtml(profileMeta?.label || 'Persoonlijk profiel')}</span>
+        </div>
+        <div class="rpt-hero-panel-meta">
+          <div class="rpt-hero-panel-row">
+            <span class="rpt-hero-panel-key">Focus</span>
+            <span class="rpt-hero-panel-value">${focusText}</span>
+          </div>
+          <div class="rpt-hero-panel-row">
+            <span class="rpt-hero-panel-key">Conditie</span>
+            <span class="rpt-hero-panel-value">${conditionText}</span>
+          </div>
+          <div class="rpt-hero-panel-row">
+            <span class="rpt-hero-panel-key">Voerkeuze</span>
+            <span class="rpt-hero-panel-value">${foodText}</span>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   function generateReportRef() {
@@ -7377,9 +7721,11 @@
     const startFoodAsset = startFood ? getFoodAsset(startFood) : null;
     const ownerName      = P.ownerName || 'Klant';
     const catName        = P.catName   || 'Kat';
-    const rasText        = P.catRas    ? ` (${escHtml(P.catRas)})` : '';
+    const breedHtml      = P.catRas ? `<span class="rpt-hero-breed">${escHtml(P.catRas)}</span>` : '';
     const dateStr        = dutchMonthYear();
     const profileMeta    = ADVICE_PROFILE_META[getPrimaryAdviceProfile()];
+    const reportRef      = generateReportRef();
+    const fullDate       = dutchFullDate();
     const orderUrl       = startFoodAsset?.productUrl
       || (getMatrixTiers().brok[0] || getMatrixTiers().nat[0] || {url:'#'}).url;
 
@@ -7397,19 +7743,31 @@
         </div>
 
         <div class="rpt-doc-meta">
-          <span>Referentie: <span class="meta-value">${generateReportRef()}</span></span>
-          <span>Datum: <span class="meta-value">${dutchFullDate()}</span></span>
+          <span>Referentie: <span class="meta-value">${reportRef}</span></span>
+          <span>Datum: <span class="meta-value">${fullDate}</span></span>
           <span>Status: <span class="meta-value">Definitief</span></span>
           <span><i class="fa-solid fa-lock" style="font-size:0.6rem"></i> <span class="meta-value">Vertrouwelijk</span></span>
         </div>
 
         <div class="rpt-hero">
-          <div class="rpt-hero-inner">
-            <div class="rpt-hero-kicker">Persoonlijk voedingsadviesplan</div>
-            <div class="rpt-hero-cat">${escHtml(catName)}${rasText}</div>
-            ${ownerName ? `<div class="rpt-hero-owner">Opgesteld voor ${escHtml(ownerName)}</div>` : ''}
-            <div class="rpt-hero-date">${dateStr}</div>
-            ${profileMeta ? `<div class="rpt-profile-badge"><i class="fa-solid fa-circle-check"></i> ${escHtml(profileMeta.label)}</div>` : ''}
+          <div class="rpt-hero-shell">
+            <div class="rpt-hero-inner">
+              <div class="rpt-hero-copy">
+                <div class="rpt-hero-kicker">Persoonlijk voedingsadviesplan</div>
+                <div class="rpt-hero-cat">
+                  <span class="rpt-hero-name">${escHtml(catName)}</span>
+                  ${breedHtml}
+                </div>
+                <div class="rpt-hero-subline">
+                  ${ownerName ? `<div class="rpt-hero-owner">Opgesteld voor ${escHtml(ownerName)}</div>` : ''}
+                  <div class="rpt-hero-date">${dateStr}</div>
+                </div>
+                ${buildHeroSummary(catName, profileMeta)}
+              </div>
+              <div class="rpt-hero-aside">
+                ${buildHeroPanel(profileMeta)}
+              </div>
+            </div>
             ${buildHeroChips()}
           </div>
         </div>
