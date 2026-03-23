@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nieuwe kleurstijl — HAAR.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background: #C8B8A2;
+      padding: 2rem 1rem 5rem;
+    }
+
+    .page-title {
+      text-align: center;
+      font-family: 'Sansita', serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #2A1208;
+      margin-bottom: 0.25rem;
+    }
+    .page-sub {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #5A3A28;
+      margin-bottom: 0.6rem;
+    }
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: #3A2010;
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+    @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .grid { grid-template-columns: 1fr; } }
+
+    .variant {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(60,30,10,0.18);
+    }
+    .variant-label {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .variant-label span {
+      font-weight: 400;
+      opacity: 0.72;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.71rem;
+    }
+    .emix .variant-label { background: #7A3624; }
+    .e1   .variant-label { background: #8C3F2B; }
+    .e2   .variant-label { background: #7A3624; }
+    .e3   .variant-label { background: #6B8060; }
+
+    /* ────────────────────────────────────
+       DEMO SCAFFOLD
+    ──────────────────────────────────── */
+    .demo { display: flex; flex-direction: column; gap: 0; }
+
+    /* NAV */
+    .d-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+    }
+    .d-nav-brand {
+      font-family: 'Sansita', serif;
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+    .d-nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.73rem;
+      font-weight: 600;
+    }
+    .d-nav-cta {
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .d-hero {
+      padding: 2rem 1.25rem 1.75rem;
+    }
+    .d-hero-badge {
+      display: inline-block;
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.65rem;
+    }
+    .d-hero-h1 {
+      font-family: 'Sansita', serif;
+      font-size: 1.45rem;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .d-hero-h1 em { font-style: italic; }
+    .d-hero-sub {
+      font-size: 0.83rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .d-hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1.3rem;
+      border-radius: 8px;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    .d-hero-trust {
+      font-size: 0.67rem;
+      text-align: center;
+    }
+
+    /* DIVIDER */
+    .d-divider {
+      height: 1px;
+      margin: 0 1.25rem;
+    }
+
+    /* SECTION */
+    .d-section {
+      padding: 1.25rem;
+    }
+    .d-section-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.85rem;
+    }
+
+    /* CARD */
+    .d-card {
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .d-card-kicker {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .d-card-title {
+      font-family: 'Sansita', serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+    }
+    .d-card-body {
+      font-size: 0.77rem;
+      line-height: 1.55;
+    }
+
+    /* CHECKLIST */
+    .d-check-title {
+      font-family: 'Sansita', serif;
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 0.65rem;
+    }
+    .d-check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .d-check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+    .d-check-list li i {
+      font-size: 0.75rem;
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+    }
+
+    /* TIP */
+    .d-tip {
+      border-left-width: 3px;
+      border-left-style: solid;
+      border-radius: 0 8px 8px 0;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.77rem;
+      line-height: 1.5;
+      margin-bottom: 0.6rem;
+    }
+
+    /* METRICS */
+    .d-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .d-metric {
+      border-radius: 9px;
+      padding: 0.6rem 0.5rem;
+      text-align: center;
+    }
+    .d-metric strong {
+      display: block;
+      font-family: 'Sansita', serif;
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+    .d-metric span {
+      font-size: 0.62rem;
+      display: block;
+      margin-top: 0.05rem;
+    }
+
+    /* INPUT */
+    .d-input-wrap { display: flex; flex-direction: column; gap: 0.25rem; }
+    .d-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .d-input {
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-family: 'Nunito Sans', sans-serif;
+      outline: none;
+      width: 100%;
+    }
+
+    /* FOOTER */
+    .d-footer {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .d-footer-brand {
+      font-family: 'Sansita', serif;
+      font-size: 0.85rem;
+      font-weight: 900;
+    }
+    .d-footer-text {
+      font-size: 0.67rem;
+    }
+    .d-progress-wrap { margin-bottom: 0.75rem; }
+    .d-progress-label { font-size: 0.65rem; margin-bottom: 0.22rem; }
+    .d-progress { height: 4px; border-radius: 999px; overflow: hidden; }
+    .d-progress-fill { height: 100%; width: 55%; border-radius: 999px; }
+
+    /* ════════════════════════════════════════
+       E-MIX — Jouw keuze
+       Achtergrond + nav-balk van E1 (#E8D8C3 / #F2EAE0)
+       Roestbruin + tekst van E2 (dieper, warmer)
+    ════════════════════════════════════════ */
+    .emix {
+      --bg:        #E8D8C3;
+      --bg-2:      #D6C1A9;
+      --surface:   #F2EAE0;
+      --roest:     #B35C3A;
+      --roest-d:   #8C3F2B;
+      --groen:     #A8B5A2;
+      --groen-d:   #6B8060;
+      --perzik:    #E9A98C;
+      --tekst:     #221005;
+      --tekst-2:   #4A2815;
+      --muted:     #826050;
+      --border:    rgba(100,55,30,0.22);
+    }
+
+    /* ════════════════════════════════════════
+       E1 — Klassiek & Helder
+       Beige bg, roest headings, groen CTA,
+       perzik als micro-accent
+    ════════════════════════════════════════ */
+    .e1 {
+      --bg:        #E8D8C3;
+      --bg-2:      #D6C1A9;
+      --surface:   #F2EAE0;
+      --roest:     #B35C3A;
+      --roest-d:   #8C3F2B;
+      --groen:     #A8B5A2;
+      --groen-d:   #7A9070;
+      --perzik:    #E9A98C;
+      --tekst:     #2A1208;
+      --tekst-2:   #5A3020;
+      --muted:     #8A6855;
+      --border:    rgba(139,63,43,0.18);
+    }
+
+    /* E2 — Zacht & Warm
+       Zand als basis, roest iets zachter,
+       groen prominenter in accenten
+    ════════════════════════════════════════ */
+    .e2 {
+      --bg:        #D6C1A9;
+      --bg-2:      #C8B095;
+      --surface:   #EAD8C4;
+      --roest:     #B35C3A;
+      --roest-d:   #8C3F2B;
+      --groen:     #A8B5A2;
+      --groen-d:   #7A9070;
+      --perzik:    #E9A98C;
+      --tekst:     #221005;
+      --tekst-2:   #4A2815;
+      --muted:     #826050;
+      --border:    rgba(100,55,30,0.20);
+    }
+
+    /* E3 — Fris & Contrast
+       Lichte beige achtergrond, sterkere
+       roest headings, groen als pijler
+    ════════════════════════════════════════ */
+    .e3 {
+      --bg:        #EDE0CE;
+      --bg-2:      #D8C5AE;
+      --surface:   #F7F0E6;
+      --roest:     #8C3F2B;
+      --roest-d:   #6B2E1C;
+      --groen:     #A8B5A2;
+      --groen-d:   #6B8060;
+      --perzik:    #E9A98C;
+      --tekst:     #1E0C04;
+      --tekst-2:   #3A1E0E;
+      --muted:     #7A6050;
+      --border:    rgba(90,45,20,0.22);
+    }
+
+    /* ─── Shared theming ─── */
+    .demo              { background: var(--bg); }
+    .d-nav             { background: var(--surface); border-bottom: 1px solid var(--border); }
+    .d-nav-brand       { color: var(--roest-d); }
+    .d-nav-links       { color: var(--tekst-2); }
+    .d-nav-cta         { background: var(--groen); color: #fff; }
+    .d-hero            { background: var(--bg); }
+    .d-hero-badge      { background: rgba(233,169,140,0.25); color: var(--roest); border: 1px solid rgba(233,169,140,0.5); }
+    .d-hero-h1         { color: var(--roest-d); }
+    .d-hero-h1 em      { color: var(--roest); }
+    .d-hero-sub        { color: var(--tekst-2); }
+    .d-hero-btn        { background: var(--groen); color: #fff; }
+    .d-hero-trust      { color: var(--muted); }
+    .d-divider         { background: var(--border); }
+    .d-section         { background: var(--bg); }
+    .d-section-label   { color: var(--roest); }
+    .d-card            { background: var(--surface); border: 1px solid var(--border); }
+    .d-card-kicker     { color: var(--roest); }
+    .d-card-title      { color: var(--tekst); }
+    .d-card-body       { color: var(--tekst-2); }
+    .d-check-title     { color: var(--tekst); }
+    .d-check-list li   { color: var(--tekst-2); }
+    .d-check-list li i { color: var(--groen-d); }
+    .d-tip             { background: rgba(233,169,140,0.18); border-left-color: var(--perzik); color: var(--tekst-2); }
+    .d-metrics         {}
+    .d-metric          { background: var(--surface); border: 1px solid var(--border); }
+    .d-metric strong   { color: var(--roest); }
+    .d-metric span     { color: var(--muted); }
+    .d-label           { color: var(--tekst); }
+    .d-input           { background: var(--surface); border: 1.5px solid var(--border); color: var(--tekst); }
+    .d-progress        { background: var(--bg-2); }
+    .d-progress-fill   { background: var(--groen); }
+    .d-progress-label  { color: var(--muted); }
+    .d-footer          { background: var(--bg-2); border-top: 1px solid var(--border); }
+    .d-footer-brand    { color: var(--roest-d); }
+    .d-footer-text     { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <h1 class="page-title">Drie varianten — nieuwe kleurstijl</h1>
+  <p class="page-sub">70% beige/zand · 20% roest · 7% groen · 3% perzik</p>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#E8D8C3;border:1px solid #bbb"></div> Beige (70%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#B35C3A"></div> Roest (20%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#A8B5A2"></div> Groen (7%)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#E9A98C"></div> Perzik (3%)</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- ══ E-MIX — Jouw keuze ══ -->
+    <div class="variant emix">
+      <div class="variant-label">✦ Jouw mix <span>E1 achtergrond + nav · E2 roestbruin + tekst</span></div>
+      <div class="demo emix">
+
+        <nav class="d-nav">
+          <div class="d-nav-brand">HAAR.</div>
+          <div class="d-nav-links">Over ons · Advies · Contact</div>
+          <button class="d-nav-cta">Maak afspraak</button>
+        </nav>
+
+        <div class="d-hero">
+          <div class="d-hero-badge"><i class="fa-solid fa-star" style="font-size:0.6rem"></i> Voedingsadvies op maat</div>
+          <div class="d-hero-h1">Weet welk voer het <em>beste</em> is voor jouw kat.</div>
+          <div class="d-hero-sub">Vul de intake in en ontvang drie concrete voerkeuzes — afgestemd op jouw kat.</div>
+          <button class="d-hero-btn"><i class="fa-solid fa-arrow-right"></i> Start intake en zie jouw preview</button>
+          <div class="d-hero-trust">Intake → gratis preview → betaal alleen als het klopt</div>
+        </div>
+
+        <div class="d-divider"></div>
+
+        <div class="d-section">
+          <div class="d-section-label">Waarom persoonlijk advies</div>
+          <div class="d-card">
+            <div class="d-card-kicker">Profiel op maat</div>
+            <div class="d-card-title">Jouw kat, niet de reclame</div>
+            <div class="d-card-body">Leeftijd, gewicht en doelen bepalen welk voer écht past.</div>
+          </div>
+          <ul class="d-check-list" style="margin-bottom:0.75rem">
+            <li><i class="fa-solid fa-check"></i> Profiel van jouw kat bepaalt de selectie.</li>
+            <li><i class="fa-solid fa-check"></i> Resultaat is vaak beter én voordeliger.</li>
+            <li><i class="fa-solid fa-check"></i> Persoonlijke opvolging na afloop.</li>
+          </ul>
+          <div class="d-tip"><i class="fa-solid fa-lightbulb" style="margin-right:0.4rem"></i>Bij kieskeurige eters werken vleesreepjes goed als eerste overstap.</div>
+          <div class="d-metrics">
+            <div class="d-metric"><strong>2.300+</strong><span>voedingen</span></div>
+            <div class="d-metric"><strong>18+</strong><span>vragen</span></div>
+            <div class="d-metric"><strong>3</strong><span>opties</span></div>
+          </div>
+          <div class="d-progress-wrap">
+            <div class="d-progress-label">Stap 3 van 6</div>
+            <div class="d-progress"><div class="d-progress-fill"></div></div>
+          </div>
+          <div class="d-input-wrap">
+            <div class="d-label">Naam kat</div>
+            <input class="d-input" type="text" placeholder="Naam van uw kat">
+          </div>
+        </div>
+
+        <div class="d-footer">
+          <div class="d-footer-brand">HAAR.</div>
+          <div class="d-footer-text">Centrum voor kattenwelzijn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ E1 — Klassiek & Helder ══ -->
+    <div class="variant e1">
+      <div class="variant-label">E1 — Klassiek &amp; Helder <span>Lichtste beige, duidelijkste contrasten</span></div>
+      <div class="demo e1">
+
+        <nav class="d-nav">
+          <div class="d-nav-brand">HAAR.</div>
+          <div class="d-nav-links">Over ons · Advies · Contact</div>
+          <button class="d-nav-cta">Maak afspraak</button>
+        </nav>
+
+        <div class="d-hero">
+          <div class="d-hero-badge"><i class="fa-solid fa-star" style="font-size:0.6rem"></i> Voedingsadvies op maat</div>
+          <div class="d-hero-h1">Weet welk voer het <em>beste</em> is voor jouw kat.</div>
+          <div class="d-hero-sub">Vul de intake in en ontvang drie concrete voerkeuzes — afgestemd op jouw kat.</div>
+          <button class="d-hero-btn"><i class="fa-solid fa-arrow-right"></i> Start intake en zie jouw preview</button>
+          <div class="d-hero-trust">Intake → gratis preview → betaal alleen als het klopt</div>
+        </div>
+
+        <div class="d-divider"></div>
+
+        <div class="d-section">
+          <div class="d-section-label">Waarom persoonlijk advies</div>
+          <div class="d-card">
+            <div class="d-card-kicker">Profiel op maat</div>
+            <div class="d-card-title">Jouw kat, niet de reclame</div>
+            <div class="d-card-body">Leeftijd, gewicht en doelen bepalen welk voer écht past.</div>
+          </div>
+          <ul class="d-check-list" style="margin-bottom:0.75rem">
+            <li><i class="fa-solid fa-check"></i> Profiel van jouw kat bepaalt de selectie.</li>
+            <li><i class="fa-solid fa-check"></i> Resultaat is vaak beter én voordeliger.</li>
+            <li><i class="fa-solid fa-check"></i> Persoonlijke opvolging na afloop.</li>
+          </ul>
+          <div class="d-tip"><i class="fa-solid fa-lightbulb" style="margin-right:0.4rem"></i>Bij kieskeurige eters werken vleesreepjes goed als eerste overstap.</div>
+          <div class="d-metrics">
+            <div class="d-metric"><strong>2.300+</strong><span>voedingen</span></div>
+            <div class="d-metric"><strong>18+</strong><span>vragen</span></div>
+            <div class="d-metric"><strong>3</strong><span>opties</span></div>
+          </div>
+          <div class="d-progress-wrap">
+            <div class="d-progress-label">Stap 3 van 6</div>
+            <div class="d-progress"><div class="d-progress-fill"></div></div>
+          </div>
+          <div class="d-input-wrap">
+            <div class="d-label">Naam kat</div>
+            <input class="d-input" type="text" placeholder="Naam van uw kat">
+          </div>
+        </div>
+
+        <div class="d-footer">
+          <div class="d-footer-brand">HAAR.</div>
+          <div class="d-footer-text">Centrum voor kattenwelzijn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ E2 — Zacht & Warm ══ -->
+    <div class="variant e2">
+      <div class="variant-label">E2 — Zacht &amp; Warm <span>Zand als basis, gezellig en intiem</span></div>
+      <div class="demo e2">
+
+        <nav class="d-nav">
+          <div class="d-nav-brand">HAAR.</div>
+          <div class="d-nav-links">Over ons · Advies · Contact</div>
+          <button class="d-nav-cta">Maak afspraak</button>
+        </nav>
+
+        <div class="d-hero">
+          <div class="d-hero-badge"><i class="fa-solid fa-star" style="font-size:0.6rem"></i> Voedingsadvies op maat</div>
+          <div class="d-hero-h1">Weet welk voer het <em>beste</em> is voor jouw kat.</div>
+          <div class="d-hero-sub">Vul de intake in en ontvang drie concrete voerkeuzes — afgestemd op jouw kat.</div>
+          <button class="d-hero-btn"><i class="fa-solid fa-arrow-right"></i> Start intake en zie jouw preview</button>
+          <div class="d-hero-trust">Intake → gratis preview → betaal alleen als het klopt</div>
+        </div>
+
+        <div class="d-divider"></div>
+
+        <div class="d-section">
+          <div class="d-section-label">Waarom persoonlijk advies</div>
+          <div class="d-card">
+            <div class="d-card-kicker">Profiel op maat</div>
+            <div class="d-card-title">Jouw kat, niet de reclame</div>
+            <div class="d-card-body">Leeftijd, gewicht en doelen bepalen welk voer écht past.</div>
+          </div>
+          <ul class="d-check-list" style="margin-bottom:0.75rem">
+            <li><i class="fa-solid fa-check"></i> Profiel van jouw kat bepaalt de selectie.</li>
+            <li><i class="fa-solid fa-check"></i> Resultaat is vaak beter én voordeliger.</li>
+            <li><i class="fa-solid fa-check"></i> Persoonlijke opvolging na afloop.</li>
+          </ul>
+          <div class="d-tip"><i class="fa-solid fa-lightbulb" style="margin-right:0.4rem"></i>Bij kieskeurige eters werken vleesreepjes goed als eerste overstap.</div>
+          <div class="d-metrics">
+            <div class="d-metric"><strong>2.300+</strong><span>voedingen</span></div>
+            <div class="d-metric"><strong>18+</strong><span>vragen</span></div>
+            <div class="d-metric"><strong>3</strong><span>opties</span></div>
+          </div>
+          <div class="d-progress-wrap">
+            <div class="d-progress-label">Stap 3 van 6</div>
+            <div class="d-progress"><div class="d-progress-fill"></div></div>
+          </div>
+          <div class="d-input-wrap">
+            <div class="d-label">Naam kat</div>
+            <input class="d-input" type="text" placeholder="Naam van uw kat">
+          </div>
+        </div>
+
+        <div class="d-footer">
+          <div class="d-footer-brand">HAAR.</div>
+          <div class="d-footer-text">Centrum voor kattenwelzijn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ E3 — Fris & Contrast ══ -->
+    <div class="variant e3">
+      <div class="variant-label">E3 — Fris &amp; Contrast <span>Diepe roest, sterkste leesbaarheid</span></div>
+      <div class="demo e3">
+
+        <nav class="d-nav">
+          <div class="d-nav-brand">HAAR.</div>
+          <div class="d-nav-links">Over ons · Advies · Contact</div>
+          <button class="d-nav-cta">Maak afspraak</button>
+        </nav>
+
+        <div class="d-hero">
+          <div class="d-hero-badge"><i class="fa-solid fa-star" style="font-size:0.6rem"></i> Voedingsadvies op maat</div>
+          <div class="d-hero-h1">Weet welk voer het <em>beste</em> is voor jouw kat.</div>
+          <div class="d-hero-sub">Vul de intake in en ontvang drie concrete voerkeuzes — afgestemd op jouw kat.</div>
+          <button class="d-hero-btn"><i class="fa-solid fa-arrow-right"></i> Start intake en zie jouw preview</button>
+          <div class="d-hero-trust">Intake → gratis preview → betaal alleen als het klopt</div>
+        </div>
+
+        <div class="d-divider"></div>
+
+        <div class="d-section">
+          <div class="d-section-label">Waarom persoonlijk advies</div>
+          <div class="d-card">
+            <div class="d-card-kicker">Profiel op maat</div>
+            <div class="d-card-title">Jouw kat, niet de reclame</div>
+            <div class="d-card-body">Leeftijd, gewicht en doelen bepalen welk voer écht past.</div>
+          </div>
+          <ul class="d-check-list" style="margin-bottom:0.75rem">
+            <li><i class="fa-solid fa-check"></i> Profiel van jouw kat bepaalt de selectie.</li>
+            <li><i class="fa-solid fa-check"></i> Resultaat is vaak beter én voordeliger.</li>
+            <li><i class="fa-solid fa-check"></i> Persoonlijke opvolging na afloop.</li>
+          </ul>
+          <div class="d-tip"><i class="fa-solid fa-lightbulb" style="margin-right:0.4rem"></i>Bij kieskeurige eters werken vleesreepjes goed als eerste overstap.</div>
+          <div class="d-metrics">
+            <div class="d-metric"><strong>2.300+</strong><span>voedingen</span></div>
+            <div class="d-metric"><strong>18+</strong><span>vragen</span></div>
+            <div class="d-metric"><strong>3</strong><span>opties</span></div>
+          </div>
+          <div class="d-progress-wrap">
+            <div class="d-progress-label">Stap 3 van 6</div>
+            <div class="d-progress"><div class="d-progress-fill"></div></div>
+          </div>
+          <div class="d-input-wrap">
+            <div class="d-label">Naam kat</div>
+            <input class="d-input" type="text" placeholder="Naam van uw kat">
+          </div>
+        </div>
+
+        <div class="d-footer">
+          <div class="d-footer-brand">HAAR.</div>
+          <div class="d-footer-text">Centrum voor kattenwelzijn</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

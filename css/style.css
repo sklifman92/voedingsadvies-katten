@@ -5,17 +5,119 @@
 
 /* ===== CSS Variables ===== */
 :root {
-  --primary: #B65A3A;
-  --primary-dark: #9E4D30;
-  --navy: #4A2E2A;
-  --navy-light: #6B3E38;
+  /* ── Primitives: achtergronden (fris linnen, niet viezig beige) ── */
+  --beige-lightest:  #FDFAF7;   /* bijna wit — kaartoppervlak */
+  --beige-light:     #F4EFE9;   /* pagina-achtergrond */
+  --beige-mid:       #EDE7DF;   /* verdiepte vlakken */
+  --beige-warm:      #E8DDD2;   /* decoratief warm vlak */
+
+  /* ── Primitives: terracotta (merk-accent) ── */
+  --roest-light:     #F5C5AA;
+  --roest-mid:       #C1633E;
+  --roest-dark:      #9A4A2E;
+  --roest-deep:      #7A3624;
+
+  /* ── Primitives: sage green (verfrist) ── */
+  --sage-light:      #E4EDE0;
+  --sage-mid:        #9EB59A;
+  --sage-dark:       #5C7B51;
+  --sage-deep:       #4A6640;
+
+  /* ── Primitives: warm teal (complementair accent) ── */
+  --teal-light:      #E0EDEA;
+  --teal-mid:        #5C9E94;
+  --teal-dark:       #3D7A72;
+
+  /* ── Primitives: warm goud (premium accent) ── */
+  --goud-light:      #F5E6C0;
+  --goud-mid:        #C89A30;
+  --goud-dark:       #9A7420;
+
+  /* ── Primitives: tekst ── */
+  --text-darkest:    #1E1208;
+  --text-dark:       #3D2218;
+  --text-muted:      #8C7068;
+
+  /* ── Design tokens ── */
+  /* Brand */
+  --primary:         var(--roest-mid);
+  --primary-dark:    var(--roest-dark);
+  --navy:            #3D2520;
+  --navy-light:      #5A3C36;
+
+  /* Surfaces */
+  --color-bg:        var(--beige-light);
+  --color-surface:   var(--beige-lightest);
+  --color-surface-2: var(--beige-mid);
+
+  /* Borders */
+  --color-border:        rgba(74,46,42,0.12);
+  --color-border-strong: rgba(74,46,42,0.28);
+
+  /* Text */
+  --color-text-primary: var(--text-darkest);
+  --color-text-body:    var(--text-dark);
+  --color-text-muted:   var(--text-muted);
+
+  /* Accent */
+  --color-accent:        var(--roest-mid);
+  --color-accent-dark:   var(--roest-dark);
+  --color-accent-subtle: rgba(193,99,62,0.08);
+
+  /* Groen */
+  --color-green:         var(--sage-dark);
+  --color-green-dark:    var(--sage-deep);
+
+  /* Teal & goud */
+  --color-teal:          var(--teal-mid);
+  --color-teal-light:    var(--teal-light);
+  --color-gold:          var(--goud-mid);
+  --color-gold-light:    var(--goud-light);
+
+  /* Status */
+  --color-success: var(--sage-dark);
+  --color-error:   #B32424;
+
+  /* Typography */
+  --text-xs:   0.72rem;
+  --text-sm:   0.82rem;
+  --text-base: 0.92rem;
+  --text-md:   1rem;
+  --text-lg:   1.15rem;
+  --text-xl:   1.45rem;
+  --text-2xl:  1.95rem;
+  --text-3xl:  clamp(2.2rem, 1.8rem + 1.7vw, 3.2rem);
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Radius */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-pill: 999px;
+
+  /* Shadows (iets lichter want achtergrond is frisser) */
+  --shadow-sm: 0 1px 4px rgba(74,46,42,0.08), 0 0 0 1px rgba(74,46,42,0.05);
+  --shadow-md: 0 4px 16px rgba(74,46,42,0.10), 0 0 0 1px rgba(74,46,42,0.06);
+  --shadow-lg: 0 8px 28px rgba(74,46,42,0.12), 0 0 0 1px rgba(74,46,42,0.06);
+
+  /* Legacy aliases (backwards compat) */
+  --light-bg-1: var(--beige-lightest);
+  --light-bg-2: var(--roest-light);
+  --light-bg-3: var(--beige-mid);
   --white: #FFFFFF;
-  --light-bg-1: #F7F1EC;
-  --light-bg-2: #E9C3B6;
-  --light-bg-3: #F0DDD6;
-  --text-dark: #4A2E2A;
-  --text-body: #4A2E2A;
-  --text-light: #8C6B65;
+  --text-dark: #3D2520;
+  --text-body: #5A3C36;
+  --text-light: #9A7A74;
   --font-heading: 'Sansita', serif;
   --font-body: 'Nunito Sans', sans-serif;
   --max-width: 1200px;
@@ -81,7 +183,8 @@ h4 { font-size: 1.2rem; font-weight: 700; }
 
 /* ===== Header ===== */
 .header {
-  background: var(--primary);
+  background: #ffffff;
+  border-bottom: 1px solid rgba(74,46,42,0.10);
   position: fixed;
   top: 0;
   left: 0;
@@ -92,7 +195,7 @@ h4 { font-size: 1.2rem; font-weight: 700; }
 }
 
 .header.scrolled {
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 16px rgba(74,46,42,0.10);
 }
 
 .header .container {
@@ -115,7 +218,7 @@ h4 { font-size: 1.2rem; font-weight: 700; }
 
 .logo-text {
   font-family: var(--font-heading);
-  color: var(--white);
+  color: var(--text-darkest);
   font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 3px;
@@ -123,7 +226,7 @@ h4 { font-size: 1.2rem; font-weight: 700; }
 
 .logo-sub {
   font-family: var(--font-heading);
-  color: var(--white);
+  color: var(--text-muted);
   font-size: 0.9rem;
   font-style: italic;
   display: block;
@@ -143,18 +246,19 @@ h4 { font-size: 1.2rem; font-weight: 700; }
 }
 
 .nav-list a {
-  color: var(--white);
+  color: var(--text-dark);
   font-size: 0.9rem;
   font-weight: 600;
   padding: 0.5rem 0.8rem;
   border-radius: 6px;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
   white-space: nowrap;
 }
 
 .nav-list a:hover,
 .nav-list a.active {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(193,99,62,0.08);
+  color: var(--roest-mid);
 }
 
 /* Dropdown */
@@ -224,7 +328,7 @@ h4 { font-size: 1.2rem; font-weight: 700; }
 }
 
 .header-social a {
-  color: var(--white);
+  color: var(--text-muted);
   font-size: 1.2rem;
   transition: opacity 0.3s ease;
 }

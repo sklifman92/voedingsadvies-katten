@@ -22,7 +22,7 @@ const ROOT_DIR = __dirname;
 // On Vercel serverless, use /tmp for ephemeral runtime storage
 const RUNTIME_DIR = process.env.VERCEL ? '/tmp/haar-runtime' : path.join(ROOT_DIR, '.runtime');
 const DRAFT_STORE_FILE = path.join(RUNTIME_DIR, 'draft-store.json');
-const CSV_DIR = path.join(ROOT_DIR, 'Voeding prijzen en afbeeldingen', 'CSV files');
+const CSV_DIR = path.join(ROOT_DIR, 'data', 'csv');
 const BROK_CSV_FILE = path.join(CSV_DIR, 'brok-voerlijst-2026-03-11.csv');
 const NATVOER_CSV_FILE = path.join(CSV_DIR, 'natvoer-voerlijst-2026-03-11.csv');
 
@@ -30,7 +30,7 @@ const STATIC_DIRS = [
   ['assets', path.join(ROOT_DIR, 'assets')],
   ['css', path.join(ROOT_DIR, 'css')],
   ['js', path.join(ROOT_DIR, 'js')],
-  ['voeding-afbeeldingen', path.join(ROOT_DIR, 'Voeding prijzen en afbeeldingen', "Afbeeldingen 21 SKU's")],
+  ['voeding-afbeeldingen', path.join(ROOT_DIR, 'data', 'afbeeldingen')],
 ];
 
 const HTML_ROUTES = {
@@ -39,6 +39,7 @@ const HTML_ROUTES = {
   '/betaling.html': 'betaling.html',
   '/voedingsadvies-app.html': 'voedingsadvies-app.html',
   '/voerlijst.html': 'voerlijst.html',
+  '/kleurvergelijking.html': 'kleurvergelijking.html',
 };
 
 const MAX_DRAFT_AGE_MS = 45 * 24 * 60 * 60 * 1000;

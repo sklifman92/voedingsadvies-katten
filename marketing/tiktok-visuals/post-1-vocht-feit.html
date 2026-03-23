@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>TikTok Post 1 — VoerWijs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sansita:wght@400;700;800;900&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1920px;
+    background: #F7F1EC;
+    font-family: 'Nunito Sans', sans-serif;
+    overflow: hidden;
+    position: relative;
+    color: #3D2520;
+  }
+
+  /* Subtiele achtergrondtextuur */
+  .bg-texture {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 100% 0%, rgba(182,90,58,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 100%, rgba(182,90,58,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Top decoratieve balk */
+  .top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, #B65A3A, #D4784E, #B65A3A);
+  }
+
+  /* Logo header */
+  .logo-header {
+    position: relative; z-index: 10;
+    padding: 42px 70px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-svg { height: 52px; width: auto; }
+
+  .platform-tag {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(182,90,58,0.1);
+    border: 1.5px solid rgba(182,90,58,0.25);
+    border-radius: 50px;
+    padding: 12px 24px;
+  }
+  .platform-dot { width: 16px; height: 16px; border-radius: 50%; background: #B65A3A; }
+  .platform-text { font-size: 24px; font-weight: 700; color: #B65A3A; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* TikTok UI rechts */
+  .tiktok-ui {
+    position: absolute;
+    right: 48px; bottom: 420px;
+    display: flex; flex-direction: column; align-items: center; gap: 48px;
+    z-index: 20;
+  }
+
+  .t-avatar {
+    width: 96px; height: 96px; border-radius: 50%;
+    background: #B65A3A;
+    border: 3px solid white;
+    box-shadow: 0 4px 20px rgba(182,90,58,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px;
+  }
+
+  .t-action { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .t-action .t-icon {
+    width: 84px; height: 84px;
+    background: rgba(61,37,32,0.08);
+    border: 1.5px solid rgba(61,37,32,0.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 38px;
+  }
+  .t-action .t-label { font-size: 26px; font-weight: 700; color: #3D2520; }
+
+  /* Bottom bar TikTok stijl */
+  .bottom-bar {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 40px 56px 72px;
+    z-index: 10;
+    background: linear-gradient(to top, rgba(247,241,236,1) 60%, transparent 100%);
+    border-top: 1px solid rgba(182,90,58,0.1);
+  }
+
+  .username { font-size: 30px; font-weight: 800; color: #3D2520; margin-bottom: 8px; }
+  .caption-text { font-size: 26px; color: #5A3C36; line-height: 1.5; margin-bottom: 14px; }
+  .hashtags { font-size: 24px; color: #B65A3A; font-weight: 600; }
+
+  /* Hoofd content */
+  .content {
+    position: relative; z-index: 5;
+    padding: 52px 70px 0;
+    display: flex; flex-direction: column; gap: 36px;
+  }
+
+  /* Hook */
+  .hook {
+    background: #3D2520;
+    border-radius: 24px;
+    padding: 52px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hook::after {
+    content: '😳';
+    position: absolute;
+    right: 40px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 80px;
+    opacity: 0.6;
+  }
+
+  .hook-label {
+    font-size: 22px; font-weight: 800; color: #B65A3A;
+    text-transform: uppercase; letter-spacing: 3px; margin-bottom: 18px;
+  }
+
+  .hook-text {
+    font-family: 'Sansita', sans-serif;
+    font-size: 52px; font-weight: 900; color: #F7F1EC;
+    line-height: 1.2; max-width: 75%;
+  }
+
+  /* Feit kaarten */
+  .facts { display: flex; flex-direction: column; gap: 20px; }
+
+  .fact-row {
+    display: flex; gap: 20px;
+  }
+
+  .fact-card {
+    flex: 1;
+    border-radius: 20px;
+    padding: 34px 32px;
+    border: 1.5px solid;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  }
+
+  .fact-card.muis {
+    background: #FAF6F2;
+    border-color: rgba(182,90,58,0.2);
+  }
+  .fact-card.natvoer {
+    background: rgba(80,150,80,0.08);
+    border-color: rgba(80,150,80,0.3);
+  }
+  .fact-card.brok {
+    background: rgba(210,60,60,0.06);
+    border-color: rgba(210,60,60,0.25);
+  }
+
+  .fact-emoji { font-size: 44px; }
+  .fact-label { font-size: 24px; color: #5A3C36; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .fact-value { font-family: 'Sansita', sans-serif; font-size: 46px; font-weight: 900; color: #3D2520; line-height: 1.0; }
+  .fact-card.brok .fact-value { color: #C0392B; }
+  .fact-card.natvoer .fact-value { color: #2E7D32; }
+
+  /* Conclusie */
+  .conclusion {
+    background: linear-gradient(135deg, #B65A3A, #9E4D30);
+    border-radius: 22px;
+    padding: 44px 52px;
+    color: white;
+  }
+
+  .conclusion-title {
+    font-family: 'Sansita', sans-serif;
+    font-size: 40px; font-weight: 900;
+    margin-bottom: 16px; line-height: 1.2;
+  }
+
+  .conclusion-text {
+    font-size: 30px; line-height: 1.55;
+    color: rgba(255,255,255,0.88);
+  }
+
+  .conclusion-text strong { color: white; }
+
+  /* CTA */
+  .cta {
+    background: white;
+    border: 2px solid rgba(182,90,58,0.3);
+    border-radius: 22px;
+    padding: 38px 48px;
+    display: flex; align-items: center; gap: 24px;
+    box-shadow: 0 8px 32px rgba(182,90,58,0.12);
+  }
+
+  .cta-icon { font-size: 48px; flex-shrink: 0; }
+  .cta-main { font-family: 'Sansita', sans-serif; font-size: 38px; font-weight: 900; color: #3D2520; }
+  .cta-sub { font-size: 26px; color: #B65A3A; font-weight: 700; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="bg-texture"></div>
+<div class="top-bar"></div>
+
+<!-- Logo -->
+<div class="logo-header">
+  <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 82 250 84">
+    <path d="m100.1 85.71h7.54v13.83h12.68v-13.83h7.54v33.9h-7.54v-14.09h-12.68v14.09h-7.54v-33.9z" fill="#B65A3A"/>
+    <path d="m143.2 85.71h9.03l12.46 33.9h-8.81l-2.75-8.02h-11.53l-2.75 8.02h-7.77l12.12-33.9zm8.15 19.95-3.87-12.85-4.1 12.85h7.97z" fill="#B65A3A"/>
+    <path d="m178.1 85.71h9.53l11.57 33.9h-8.38l-2.89-8.02h-11.06l-2.89 8.02h-7.36l11.48-33.9zm8.42 19.95-3.87-13.34-4.1 13.34h7.97z" fill="#B65A3A"/>
+    <path d="m203.5 85.71h16.79c8.47 0 11.88 4.55 11.88 10.44 0 4.36-2.12 8.16-6.04 9.99l7.54 13.47h-9.17l-5.89-12.13h-7.86v12.13h-7.25v-33.9zm15.69 15.5c3.92 0 5.06-2.3 5.06-4.8 0-2.7-1.19-4.71-4.31-4.71h-8.98v9.51h8.23z" fill="#B65A3A"/>
+    <path d="m237.1 116.1v-1c0-2.35 0.84-2.98 3.87-2.98h0.38c3.03 0 3.57 0.63 3.57 2.98v2.01c0 2.1-0.95 2.82-3.57 2.82h-0.38c-2.93 0-3.87-0.9-3.87-3.83z" fill="#B65A3A"/>
+  </svg>
+  <div class="platform-tag">
+    <div class="platform-dot"></div>
+    <div class="platform-text">TikTok</div>
+  </div>
+</div>
+
+<!-- TikTok UI -->
+<div class="tiktok-ui">
+  <div class="t-avatar">🐱</div>
+  <div class="t-action">
+    <div class="t-icon">❤️</div>
+    <div class="t-label">24.8K</div>
+  </div>
+  <div class="t-action">
+    <div class="t-icon">💬</div>
+    <div class="t-label">843</div>
+  </div>
+  <div class="t-action">
+    <div class="t-icon">↗️</div>
+    <div class="t-label">Deel</div>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+  <div class="hook">
+    <div class="hook-label">Dit wist ik niet</div>
+    <div class="hook-text">Totdat ik het opzocht — en ik houd al 10 jaar katten</div>
+  </div>
+
+  <div class="facts">
+    <div class="fact-row">
+      <div class="fact-card muis">
+        <div class="fact-emoji">🐭</div>
+        <div class="fact-label">Muis (natuur)</div>
+        <div class="fact-value">65%<br>vocht</div>
+      </div>
+      <div class="fact-card natvoer">
+        <div class="fact-emoji">🥩</div>
+        <div class="fact-label">Natvoer</div>
+        <div class="fact-value">80%<br>vocht</div>
+      </div>
+    </div>
+    <div class="fact-card brok" style="flex-direction:row; align-items:center; gap:24px;">
+      <div class="fact-emoji" style="font-size:52px;">🫙</div>
+      <div>
+        <div class="fact-label">Brok</div>
+        <div class="fact-value" style="font-size:58px;">Slechts 10% vocht</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="conclusion">
+    <div class="conclusion-title">Een kat op brok moet 5× zoveel drinken</div>
+    <div class="conclusion-text">
+      Maar katten hebben een <strong>zwakke dorstprikkel</strong>. Ze drinken het gewoon niet.<br><br>
+      Resultaat? Chronische uitdroging → <strong>nierproblemen</strong>.
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="cta-icon">🐾</div>
+    <div>
+      <div class="cta-main">Genoeg vocht voor jóuw kat?</div>
+      <div class="cta-sub">Persoonlijk voedingsadvies → link in bio · €14,99</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bottom bar -->
+<div class="bottom-bar">
+  <div class="username">@voerwijs.nl</div>
+  <div class="caption-text">Dit wist ik niet totdat ik het opzocht 😳 Sla op!</div>
+  <div class="hashtags">#katten #kattenvoer #LearnOnTikTok #kattentips #dierenadvies</div>
+</div>
+
+</body>
+</html>

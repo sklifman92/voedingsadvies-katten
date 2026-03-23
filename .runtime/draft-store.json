@@ -610,5 +610,713 @@
       "lastStripeUpdateAt": "2026-03-16T12:00:19.007Z"
     },
     "updatedAt": "2026-03-16T12:00:19.007Z"
+  },
+  "draft_1773668577359_brzr5y3": {
+    "draftId": "draft_1773668577359_brzr5y3",
+    "createdAt": "2026-03-16T13:43:39.233Z",
+    "data": {
+      "draftId": "draft_1773668577359_brzr5y3",
+      "ownerName": "Thalien",
+      "catName": "Juul",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "4",
+      "geslacht": "poes",
+      "castrated": true,
+      "gewicht": "3",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-16T13:43:39.233Z"
+  },
+  "draft_1773672604321_ms6yb7d": {
+    "draftId": "draft_1773672604321_ms6yb7d",
+    "createdAt": "2026-03-16T14:50:31.472Z",
+    "data": {
+      "draftId": "draft_1773672604321_ms6yb7d",
+      "ownerName": "kewjf",
+      "catName": "ewfwe",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "5",
+      "geslacht": "kater",
+      "castrated": true,
+      "gewicht": "3",
+      "bcs": "3",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "overgewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "overgewicht",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-16T14:50:31.472Z"
+  },
+  "draft_1773673605392_1hb6hfd": {
+    "draftId": "draft_1773673605392_1hb6hfd",
+    "createdAt": "2026-03-16T15:07:13.332Z",
+    "data": {
+      "draftId": "draft_1773673605392_1hb6hfd",
+      "ownerName": "efw",
+      "catName": "ef",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "3",
+      "geslacht": "kater",
+      "castrated": true,
+      "gewicht": "3",
+      "bcs": "2",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-16T15:07:13.332Z"
+  },
+  "draft_1773680629635_pdbo7l5": {
+    "draftId": "draft_1773680629635_pdbo7l5",
+    "createdAt": "2026-03-16T17:04:19.500Z",
+    "data": {
+      "draftId": "draft_1773680629635_pdbo7l5",
+      "ownerName": "kjb",
+      "catName": "khb",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "6",
+      "geslacht": "kater",
+      "castrated": true,
+      "gewicht": "6",
+      "bcs": "3",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "overgewicht",
+        "gevoelig"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "overgewicht",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-16T17:04:19.500Z"
+  },
+  "draft_1773687236005_ushg1wv": {
+    "draftId": "draft_1773687236005_ushg1wv",
+    "createdAt": "2026-03-16T18:55:18.564Z",
+    "data": {
+      "draftId": "draft_1773687236005_ushg1wv",
+      "ownerName": "Thalien",
+      "catName": "Wassink",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "4",
+      "geslacht": "kater",
+      "castrated": true,
+      "gewicht": "3",
+      "bcs": "7",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "overgewicht",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-16T18:55:18.564Z"
+  },
+  "draft_1773687714862_blsg06o": {
+    "draftId": "draft_1773687714862_blsg06o",
+    "createdAt": "2026-03-16T19:02:34.579Z",
+    "data": {
+      "draftId": "draft_1773687714862_blsg06o",
+      "ownerName": "Thalien",
+      "catName": "Puul",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "4",
+      "geslacht": "kater",
+      "castrated": true,
+      "gewicht": "4",
+      "bcs": "3",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-16T19:02:34.579Z"
+  },
+  "draft_test_checkout": {
+    "draftId": "draft_test_checkout",
+    "createdAt": "2026-03-16T19:12:17.284Z",
+    "data": {
+      "draftId": "draft_test_checkout",
+      "ownerName": "Test Baasje",
+      "catName": "Mila",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "4",
+      "geslacht": "",
+      "castrated": null,
+      "gewicht": "4.8",
+      "bcs": "5",
+      "activiteit": "",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "basis",
+      "decisionProfile": "balanced"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-16T19:12:17.284Z"
+  },
+  "draft_1773688443961_aixbbtb": {
+    "draftId": "draft_1773688443961_aixbbtb",
+    "createdAt": "2026-03-16T19:14:34.485Z",
+    "data": {
+      "draftId": "draft_1773688443961_aixbbtb",
+      "ownerName": "thalien",
+      "catName": "puul",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "4",
+      "geslacht": "kater",
+      "castrated": true,
+      "gewicht": "4",
+      "bcs": "8",
+      "activiteit": "inactief",
+      "doelen": [
+        "overgewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "senior",
+      "decisionProfile": "senior"
+    },
+    "payment": {},
+    "updatedAt": "2026-03-16T19:14:38.445Z"
+  },
+  "draft_1773689248604_j1tu4sv": {
+    "draftId": "draft_1773689248604_j1tu4sv",
+    "createdAt": "2026-03-16T19:28:04.739Z",
+    "data": {
+      "draftId": "draft_1773689248604_j1tu4sv",
+      "ownerName": "we",
+      "catName": "we",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "3",
+      "geslacht": "",
+      "castrated": true,
+      "gewicht": "4",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "doelen": [
+        "gevoelig"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised",
+      "leefstijl": "buiten",
+      "eetgedrag": "snel",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "wisselend",
+      "vachtbeeld": "glanzend",
+      "budgetMax": "",
+      "aanbevelingen": [
+        "Wild Freedom Adult – Sterilised – Wide Country (Gevogelte) - € 0.51 per dag • ca. €15,30 per maand • via Zooplus",
+        "Carnilove Adult – Hairball Control (Eend en fazant) - € 0.53 per dag • ca. €15,90 per maand • via Poezenparadijs",
+        "Farmina N&D Prime – Adult (Kip en granaatappel) - € 0.88 per dag • ca. €31,20 per maand • via Poezenparadijs"
+      ]
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-16T19:31:36.584Z",
+      "paymentIntentId": "pi_3TBgrUFOIBgEuKFL0qjNIMlp",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-16T19:31:37.057Z"
+    },
+    "updatedAt": "2026-03-16T19:32:01.176Z",
+    "salonNotifiedAt": "2026-03-16T19:32:01.172Z"
+  },
+  "draft_1773690436090_tsov7r0": {
+    "draftId": "draft_1773690436090_tsov7r0",
+    "createdAt": "2026-03-16T19:47:43.167Z",
+    "data": {
+      "draftId": "draft_1773690436090_tsov7r0",
+      "ownerName": "ewr",
+      "catName": "ewqr",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "4",
+      "geslacht": "",
+      "leefstijl": "buiten",
+      "castrated": true,
+      "gewicht": "3",
+      "bcs": "2",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "snel",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "gevoelig",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised",
+      "aanbevelingen": [
+        "Wild Freedom Adult – Sterilised – Wide Country (Gevogelte) - € 0.51 per dag • ca. €15,30 per maand • via Zooplus",
+        "Carnilove Adult – Hairball Control (Eend en fazant) - € 0.53 per dag • ca. €15,90 per maand • via Poezenparadijs",
+        "Farmina N&D Prime – Adult (Kip en granaatappel) - € 0.88 per dag • ca. €31,20 per maand • via Poezenparadijs"
+      ]
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-16T19:48:56.817Z",
+      "paymentIntentId": "pi_3TBh8HFOIBgEuKFL1DRaM1Sp",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-16T19:48:57.295Z"
+    },
+    "updatedAt": "2026-03-16T19:49:02.042Z",
+    "salonNotifiedAt": "2026-03-16T19:49:02.040Z"
+  },
+  "draft_1773691194530_4ttlnni": {
+    "draftId": "draft_1773691194530_4ttlnni",
+    "createdAt": "2026-03-16T20:00:22.087Z",
+    "data": {
+      "draftId": "draft_1773691194530_4ttlnni",
+      "ownerName": "few",
+      "catName": "wef",
+      "catEmail": "",
+      "catRas": "",
+      "catLeeftijd": "4",
+      "geslacht": "",
+      "leefstijl": "buiten",
+      "castrated": true,
+      "gewicht": "4",
+      "bcs": "3",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "snel",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "gevoelig",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "both",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised",
+      "aanbevelingen": [
+        "Wild Freedom Adult – Sterilised – Wide Country (Gevogelte) - € 0.51 per dag • ca. €15,30 per maand • via Zooplus",
+        "Grau Blik – Adult (Gevogelte en zeevis) - € 1.01 per dag • ca. €30,30 per maand • via Zooplus",
+        "Wild Freedom Adult – Blik – Green Lands (Lam en kip) - € 1.80 per dag • ca. €54,00 per maand • via Zooplus"
+      ]
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-16T20:00:25.735Z",
+      "paymentIntentId": "pi_3TBhJOFOIBgEuKFL0Y7oYNsj",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-16T20:00:26.136Z"
+    },
+    "updatedAt": "2026-03-16T20:00:28.171Z",
+    "salonNotifiedAt": "2026-03-16T20:00:28.153Z"
+  },
+  "draft_1773740734224_wl10ke0": {
+    "draftId": "draft_1773740734224_wl10ke0",
+    "createdAt": "2026-03-17T09:47:24.365Z",
+    "data": {
+      "draftId": "draft_1773740734224_wl10ke0",
+      "ownerName": "Stan en co",
+      "catName": "Lilly",
+      "catEmail": "",
+      "catRas": "Ragdol",
+      "catLeeftijd": "1",
+      "geslacht": "",
+      "leefstijl": "binnen",
+      "castrated": true,
+      "gewicht": "3.2",
+      "bcs": "5",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "rustig",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "goed",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "keuze"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised",
+      "aanbevelingen": [
+        "Wild Freedom Adult – Sterilised – Wide Country (Gevogelte) - € 0.51 per dag • ca. €15,30 per maand • via Zooplus",
+        "Carnilove Adult – Hairball Control (Eend en fazant) - € 0.53 per dag • ca. €15,90 per maand • via Poezenparadijs",
+        "Farmina N&D Prime – Adult (Kip en granaatappel) - € 0.88 per dag • ca. €31,20 per maand • via Poezenparadijs"
+      ]
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-17T09:47:26.810Z",
+      "paymentIntentId": "pi_3TBuDjFOIBgEuKFL0c7q5fWQ",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-17T09:47:27.217Z"
+    },
+    "updatedAt": "2026-03-17T09:47:34.130Z",
+    "salonNotifiedAt": "2026-03-17T09:47:34.128Z"
+  },
+  "draft_1773946916896_m1sdr9z": {
+    "draftId": "draft_1773946916896_m1sdr9z",
+    "createdAt": "2026-03-19T19:02:25.518Z",
+    "data": {
+      "draftId": "draft_1773946916896_m1sdr9z",
+      "ownerName": "sw",
+      "catName": "cwece",
+      "catEmail": "steffen_klifman@hotmail.com",
+      "catRas": "",
+      "catLeeftijd": "3",
+      "geslacht": "kater",
+      "leefstijl": "binnen",
+      "castrated": true,
+      "gewicht": "2.5",
+      "bcs": "2",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "snel",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "wisselend",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-19T19:02:34.525Z",
+      "paymentIntentId": "pi_3TClq2FOIBgEuKFL1w7UTaRY",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-19T19:02:34.929Z"
+    },
+    "updatedAt": "2026-03-19T19:02:34.929Z"
+  },
+  "draft_1773948263820_t7enitz": {
+    "draftId": "draft_1773948263820_t7enitz",
+    "createdAt": "2026-03-19T19:24:44.983Z",
+    "data": {
+      "draftId": "draft_1773948263820_t7enitz",
+      "ownerName": "4",
+      "catName": "2",
+      "catEmail": "steffen_klifman@hotmail.com",
+      "catRas": "",
+      "catLeeftijd": "0",
+      "geslacht": "",
+      "leefstijl": "buiten",
+      "castrated": true,
+      "gewicht": "3.9",
+      "bcs": "3",
+      "activiteit": "inactief",
+      "eetgedrag": "snel",
+      "drinkgedrag": "weinig",
+      "ontlasting": "wisselend",
+      "vachtbeeld": "klitten",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "kitten",
+      "decisionProfile": "kitten",
+      "aanbevelingen": [
+        "Josera Kitten – Graanvrij (Gevogelte) - € 0.44 per dag • ca. €13,20 per maand • via Zooplus",
+        "Carnilove Kitten – Salmon & Turkey (Zalm en kalkoen) - € 0.62 per dag • ca. €18,60 per maand • via Poezenparadijs",
+        "Farmina N&D Prime – Kitten (Kip en granaatappel) - € 1.08 per dag • ca. €32,40 per maand • via Poezenparadijs"
+      ]
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-19T19:24:50.589Z",
+      "paymentIntentId": "pi_3TCmBaFOIBgEuKFL0iqxrOmw",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-19T19:24:50.982Z"
+    },
+    "updatedAt": "2026-03-19T19:24:56.473Z",
+    "salonNotifiedAt": "2026-03-19T19:24:56.473Z"
+  },
+  "draft_1773948668127_6yrc7lq": {
+    "draftId": "draft_1773948668127_6yrc7lq",
+    "createdAt": "2026-03-19T19:31:29.369Z",
+    "data": {
+      "draftId": "draft_1773948668127_6yrc7lq",
+      "ownerName": "4",
+      "catName": "eeee",
+      "catEmail": "steffen_klifman@hotmail.com",
+      "catRas": "",
+      "catLeeftijd": "4",
+      "geslacht": "",
+      "leefstijl": "both",
+      "castrated": true,
+      "gewicht": "4",
+      "bcs": "3",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "rustig",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "wisselend",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "natvoer",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised",
+      "aanbevelingen": [
+        "Grau Blik – Adult (Gevogelte en zeevis) - € 1.01 per dag • ca. €30,30 per maand • via Zooplus",
+        "Wild Freedom Adult – Blik – Green Lands (Lam en kip) - € 1.80 per dag • ca. €54,00 per maand • via Zooplus",
+        "GranataPet DeliCatessen (Zalm en kalkoen) - € 2.41 per dag • ca. €72,30 per maand • via Zooplus"
+      ]
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-19T19:31:36.440Z",
+      "paymentIntentId": "pi_3TCmI8FOIBgEuKFL1ACKBAhC",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-19T19:31:36.825Z"
+    },
+    "updatedAt": "2026-03-19T19:31:39.128Z",
+    "salonNotifiedAt": "2026-03-19T19:31:39.128Z"
+  },
+  "draft_1773948823881_31uquce": {
+    "draftId": "draft_1773948823881_31uquce",
+    "createdAt": "2026-03-19T19:34:04.785Z",
+    "data": {
+      "draftId": "draft_1773948823881_31uquce",
+      "ownerName": "4",
+      "catName": "22",
+      "catEmail": "steffen_klifman@hotmail.com",
+      "catRas": "",
+      "catLeeftijd": "1",
+      "geslacht": "",
+      "leefstijl": "buiten",
+      "castrated": true,
+      "gewicht": "3.7",
+      "bcs": "3",
+      "activiteit": "inactief",
+      "eetgedrag": "snel",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "wisselend",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "natvoer",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "senior",
+      "decisionProfile": "senior",
+      "aanbevelingen": [
+        "Bozita Chunks in jelly – Doos 370 gram (Kip) - € 1.05 per dag • ca. €31,50 per maand • via Zooplus",
+        "Feringa Classic Meat – Adult (Kip, forel, aardappel en peterselie) - € 1.24 per dag • ca. €37,20 per maand • via Zooplus",
+        "Catz Finefood Classic – Adult – 25 (Kip en tonijn) - € 1.71 per dag • ca. €51,30 per maand • via Zooplus"
+      ]
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-19T19:34:14.555Z",
+      "paymentIntentId": "pi_3TCmKgFOIBgEuKFL1yWOiDGQ",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-19T19:34:14.960Z"
+    },
+    "updatedAt": "2026-03-19T19:34:22.237Z",
+    "salonNotifiedAt": "2026-03-19T19:34:22.237Z"
+  },
+  "draft_1773948870137_p5tpdlp": {
+    "draftId": "draft_1773948870137_p5tpdlp",
+    "createdAt": "2026-03-19T19:36:52.198Z",
+    "data": {
+      "draftId": "draft_1773948870137_p5tpdlp",
+      "ownerName": "2",
+      "catName": "eee",
+      "catEmail": "steffen_klifman@hotmail.com",
+      "catRas": "",
+      "catLeeftijd": "0",
+      "geslacht": "",
+      "leefstijl": "both",
+      "castrated": true,
+      "gewicht": "3",
+      "bcs": "2",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "snel",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "gevoelig",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "kitten",
+      "decisionProfile": "kitten",
+      "aanbevelingen": [
+        "Josera Kitten – Graanvrij (Gevogelte) - € 0.44 per dag • ca. €13,20 per maand • via Zooplus",
+        "Carnilove Kitten – Salmon & Turkey (Zalm en kalkoen) - € 0.62 per dag • ca. €18,60 per maand • via Poezenparadijs",
+        "Farmina N&D Prime – Kitten (Kip en granaatappel) - € 1.08 per dag • ca. €32,40 per maand • via Poezenparadijs"
+      ]
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-19T19:37:07.583Z",
+      "paymentIntentId": "pi_3TCmNTFOIBgEuKFL1EkravAJ",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-19T19:37:07.984Z"
+    },
+    "updatedAt": "2026-03-19T19:37:14.881Z",
+    "salonNotifiedAt": "2026-03-19T19:37:14.881Z"
+  },
+  "draft_1773950272866_pgq0s4k": {
+    "draftId": "draft_1773950272866_pgq0s4k",
+    "createdAt": "2026-03-19T19:58:18.275Z",
+    "data": {
+      "draftId": "draft_1773950272866_pgq0s4k",
+      "ownerName": "s",
+      "catName": "dwedwe",
+      "catEmail": "steffen_klifman@hotmail.com",
+      "catRas": "",
+      "catLeeftijd": "0",
+      "geslacht": "",
+      "leefstijl": "buiten",
+      "castrated": true,
+      "gewicht": "2.5",
+      "bcs": "3",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "snel",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "gevoelig",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "kitten",
+      "decisionProfile": "kitten",
+      "aanbevelingen": [
+        "Josera Kitten – Graanvrij (Gevogelte) - € 0.44 per dag • ca. €13,20 per maand • via Zooplus",
+        "Carnilove Kitten – Salmon & Turkey (Zalm en kalkoen) - € 0.62 per dag • ca. €18,60 per maand • via Poezenparadijs",
+        "Farmina N&D Prime – Kitten (Kip en granaatappel) - € 1.08 per dag • ca. €32,40 per maand • via Poezenparadijs"
+      ]
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-19T19:58:23.242Z",
+      "paymentIntentId": "pi_3TCmi3FOIBgEuKFL00G3woBJ",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-19T19:58:23.686Z"
+    },
+    "updatedAt": "2026-03-19T19:58:31.137Z",
+    "salonNotifiedAt": "2026-03-19T19:58:31.137Z"
+  },
+  "draft_1774010578432_urmle0q": {
+    "draftId": "draft_1774010578432_urmle0q",
+    "createdAt": "2026-03-20T12:43:24.838Z",
+    "data": {
+      "draftId": "draft_1774010578432_urmle0q",
+      "ownerName": "322",
+      "catName": "dqd",
+      "catEmail": "steffen_klifman@hotmail.com",
+      "catRas": "Bengaal",
+      "catLeeftijd": "4",
+      "geslacht": "poes",
+      "leefstijl": "buiten",
+      "castrated": true,
+      "gewicht": "4",
+      "bcs": "3",
+      "activiteit": "gemiddeld",
+      "eetgedrag": "snel",
+      "drinkgedrag": "gemiddeld",
+      "ontlasting": "gevoelig",
+      "vachtbeeld": "normaal",
+      "doelen": [
+        "ondergewicht"
+      ],
+      "vachtProbs": [],
+      "bijzonderheden": "",
+      "foodType": "brok",
+      "textuurPref": [],
+      "budgetMax": "",
+      "primaryProfile": "sterilised",
+      "decisionProfile": "sterilised"
+    },
+    "payment": {
+      "lastIntentRequestedAt": "2026-03-20T12:43:30.461Z",
+      "paymentIntentId": "pi_3TD2OkFOIBgEuKFL00SiShpI",
+      "status": "requires_payment_method",
+      "lastStripeUpdateAt": "2026-03-20T12:43:31.065Z"
+    },
+    "updatedAt": "2026-03-20T12:44:19.319Z"
   }
 }

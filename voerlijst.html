@@ -7,6 +7,31 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <style>
+    /* ===== Parallax blobs page-header ===== */
+    .page-header-blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .page-header-blob-1 {
+      width: 420px;
+      height: 420px;
+      top: -40%;
+      left: -8%;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%);
+    }
+    .page-header-blob-2 {
+      width: 320px;
+      height: 320px;
+      bottom: -30%;
+      right: 5%;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+    }
+    @media (max-width: 768px) {
+      .page-header-blob { display: none; }
+    }
+
     /* ===== Voerlijst Page Styles ===== */
     .voerlijst-main {
       padding: 2.5rem 0 4rem;
@@ -737,6 +762,8 @@
 
   <!-- ===== PAGE HEADER ===== -->
   <div class="page-header">
+    <div class="page-header-blob page-header-blob-1" data-parallax="0.18" aria-hidden="true"></div>
+    <div class="page-header-blob page-header-blob-2" data-parallax="0.10" aria-hidden="true"></div>
     <div class="container">
       <h1>Kattenvoerlijst</h1>
       <p>Vind de beste voeding voor jouw kat — 663 voedingen beoordeeld</p>
@@ -1040,6 +1067,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/parallax.js"></script>
 
   <script>
   // ===== VOERLIJST APP =====

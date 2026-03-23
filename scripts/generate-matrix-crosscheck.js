@@ -4,12 +4,12 @@ const { spawn, execFileSync } = require('child_process');
 const { chromium } = require('playwright');
 
 const rootDir = path.resolve(__dirname, '..');
-const outputDir = path.join(rootDir, 'analysis');
+const outputDir = path.join(rootDir, 'dev', 'analysis');
 const todayStamp = new Date().toISOString().slice(0, 10);
 const rawCsvPath = path.join(outputDir, `matrix-crosscheck-raw-${todayStamp}.csv`);
 const summaryCsvPath = path.join(outputDir, `matrix-crosscheck-summary-${todayStamp}.csv`);
 const reportMdPath = path.join(outputDir, `matrix-crosscheck-report-${todayStamp}.md`);
-const matrixWorkbookPath = path.join(rootDir, 'Voeding prijzen en afbeeldingen', 'inkoopmatrix_21_beslisboom_urls.xlsx');
+const matrixWorkbookPath = path.join(rootDir, 'data', 'excel', 'inkoopmatrix_21_beslisboom_urls.xlsx');
 
 const EXPECTED_MATRIX_IDS = {
   balanced:   { brok: ['MX-01', 'MX-02', 'MX-03'], nat: ['MX-10', 'MX-11', 'MX-12'] },

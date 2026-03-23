@@ -3,19 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self' 'unsafe-inline' https://js.stripe.com;
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+             font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+             img-src 'self' data: https:;
+             connect-src 'self' https://api.stripe.com https://*.supabase.co;
+             frame-src https://js.stripe.com https://hooks.stripe.com;
+             object-src 'none';
+             base-uri 'self';"
   <title>Voedingsadvies voor je kat — HAAR. Centrum voor kattenwelzijn</title>
   <meta name="description" content="Persoonlijk voedingsadviesplan voor jouw kat. Professioneel advies op basis van 2300+ beoordeelde voedingen.">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
   <script src="https://js.stripe.com/v3/" async></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&family=Nunito+Sans:wght@400;600;700;800&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ===== Wizard App ===== */
     body.wizard-app-body {
-      background: #F7F1EC;
+      background: #EDE5D8;
       color: var(--navy);
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Decoratieve parallax blobs — subtiel, achter wizard-inhoud */
+    .wizard-blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
+      z-index: 0;
+    }
+    .wizard-blob-1 {
+      width: 600px;
+      height: 600px;
+      top: -180px;
+      left: -160px;
+      background: radial-gradient(circle, rgba(168,181,162,0.18) 0%, transparent 65%);
+    }
+    .wizard-blob-2 {
+      width: 460px;
+      height: 460px;
+      bottom: -100px;
+      right: -120px;
+      background: radial-gradient(circle, rgba(193,99,62,0.10) 0%, transparent 60%);
+    }
+    @media (max-width: 768px) {
+      .wizard-blob { display: none; }
     }
 
     .header {
@@ -25,14 +66,13 @@
       right: 0;
       z-index: 900;
       height: 72px;
-      background: rgba(255,255,255,0.98);
-      box-shadow: 0 2px 24px rgba(74,46,42,0.1);
-      backdrop-filter: blur(10px);
-      transition: box-shadow 0.25s ease, background 0.25s ease;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(74,46,42,0.10);
+      transition: box-shadow 0.25s ease;
     }
 
     .header.scrolled {
-      box-shadow: 0 10px 32px rgba(74,46,42,0.14);
+      box-shadow: 0 2px 16px rgba(60,20,8,0.10);
     }
 
     .header .container {
@@ -86,47 +126,45 @@
       font-family: 'Nunito Sans', sans-serif;
       font-size: 0.92rem;
       font-weight: 700;
-      color: var(--navy);
+      color: #2E1510;
       padding: 0.55rem 0.95rem;
       border-radius: 8px;
       transition: background 0.22s ease, color 0.22s ease, transform 0.15s ease;
     }
 
     .nav-list a:hover {
-      background: var(--light-bg-2);
+      background: rgba(193,99,62,0.08);
+      color: #C1633E;
       transform: translateY(-1px);
     }
 
     .nav-list a.active {
-      background: rgba(182,90,58,0.22);
-      color: var(--navy);
+      background: rgba(92,123,81,0.12);
+      color: #5C7B51;
+      font-weight: 700;
     }
 
     .nav-list a.header-cta {
-      background: #B65A3A;
-      color: var(--navy);
+      background: #5C7B51;
+      color: #fff;
       padding: 0.82rem 1.45rem;
       border-radius: 10px;
-      box-shadow: 0 6px 20px rgba(182,90,58,0.28);
+      box-shadow: 0 4px 14px rgba(80,110,70,0.30);
       min-width: 108px;
       justify-content: center;
     }
 
     .nav-list a.header-cta:hover {
-      background: #9E4D30;
-      color: var(--navy);
-      box-shadow: 0 8px 28px rgba(182,90,58,0.4);
+      background: #4A6640;
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(80,110,70,0.40);
     }
 
     .nav-list a.nav-disabled,
     .nav-list .nav-disabled {
-      color: rgba(74,46,42,0.3);
+      color: rgba(46,21,16,0.30);
       cursor: not-allowed;
       pointer-events: none;
-    }
-
-    .header-social {
-      display: none;
     }
 
     .burger {
@@ -143,7 +181,7 @@
       display: block;
       width: 24px;
       height: 2px;
-      background: var(--navy);
+      background: #2E1510;
       border-radius: 2px;
       transition: 0.3s;
     }
@@ -161,37 +199,12 @@
     }
 
     .wizard-section {
-      background: linear-gradient(160deg, #F7F1EC 0%, #F0DDD6 52%, #E9C3B6 100%);
+      background: var(--color-bg);
       min-height: calc(100vh - 72px);
       margin-top: 72px;
       padding: 4rem 1.5rem 5rem;
       position: relative;
       overflow: hidden;
-    }
-
-    .wizard-section::before,
-    .wizard-section::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(2px);
-    }
-
-    .wizard-section::before {
-      top: -150px;
-      left: -130px;
-      width: 520px;
-      height: 520px;
-      background: radial-gradient(circle, rgba(182,90,58,0.08) 0%, transparent 65%);
-    }
-
-    .wizard-section::after {
-      right: -120px;
-      bottom: -110px;
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, rgba(182,90,58,0.12) 0%, transparent 65%);
     }
 
     .wizard-shell {
@@ -215,7 +228,7 @@
     .wizard-accent-line {
       width: 28px;
       height: 2px;
-      background: linear-gradient(90deg, var(--primary) 0%, rgba(182,90,58,0.1) 100%);
+      background: linear-gradient(90deg, #A8B5A2 0%, rgba(168,181,162,0.1) 100%);
       margin-bottom: 0.85rem;
     }
 
@@ -223,9 +236,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      background: rgba(182,90,58,0.1);
-      border: 1px solid rgba(182,90,58,0.22);
-      color: var(--primary);
+      background: rgba(168,181,162,0.18);
+      border: 1px solid rgba(168,181,162,0.45);
+      color: #6B8060;
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 2px;
@@ -240,7 +253,7 @@
       font-size: clamp(2.2rem, 1.8rem + 1.7vw, 3.5rem);
       line-height: 1.08;
       letter-spacing: -0.02em;
-      color: var(--navy);
+      color: #8C3F2B;
       margin-bottom: 1rem;
       max-width: 12ch;
       text-wrap: balance;
@@ -255,11 +268,11 @@
     }
 
     .wizard-story-card {
-      background: linear-gradient(135deg, #4A2E2A 0%, #3D2520 100%);
-      border: 1px solid rgba(182,90,58,0.14);
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
       border-radius: 22px;
       padding: 1.2rem 1.25rem;
-      box-shadow: 0 18px 44px rgba(74,46,42,0.22);
+      box-shadow: 0 4px 18px rgba(60,20,8,0.10);
       margin-bottom: 1.1rem;
     }
 
@@ -268,7 +281,7 @@
       font-weight: 800;
       letter-spacing: 1.6px;
       text-transform: uppercase;
-      color: #9aeab6;
+      color: var(--color-accent);
       margin-bottom: 0.7rem;
     }
 
@@ -276,7 +289,7 @@
       margin: 0 0 0.95rem;
       font-size: 0.9rem;
       line-height: 1.65;
-      color: rgba(255,255,255,0.78);
+      color: var(--color-text-body);
     }
 
     .wizard-story-points {
@@ -294,11 +307,11 @@
       align-items: start;
       font-size: 0.87rem;
       line-height: 1.55;
-      color: rgba(255,255,255,0.78);
+      color: var(--color-text-body);
     }
 
     .wizard-story-points i {
-      color: #7dd99a;
+      color: #6B8060;
       margin-top: 0.15rem;
     }
 
@@ -321,23 +334,23 @@
       align-items: start;
       padding: 0.8rem 0.85rem;
       border-radius: 16px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
     }
 
     .wizard-method-label {
       font-size: 0.68rem;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #9aeab6;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      color: #4E9038;
       line-height: 1.4;
     }
 
     .wizard-method-text {
       font-size: 0.84rem;
       line-height: 1.58;
-      color: rgba(255,255,255,0.72);
+      color: var(--color-text-muted);
     }
 
     .wizard-story-metric {
@@ -374,7 +387,7 @@
     }
 
     .footer {
-      background: linear-gradient(180deg, #4A2E2A 0%, #3D2520 100%);
+      background: var(--color-text-primary);
       color: rgba(255,255,255,0.76);
       padding: 4rem 0 2rem;
       border-top: 1px solid rgba(182,90,58,0.08);
@@ -482,12 +495,11 @@
     /* Progress */
     .progress-wrap {
       margin-bottom: 1.2rem;
-      background: rgba(255,255,255,0.80);
-      border: 1px solid rgba(74,46,42,0.1);
+      background: #FFFFFF;
+      border: 1px solid rgba(139,63,43,0.14);
       border-radius: 20px;
       padding: 1rem 1.1rem;
-      box-shadow: 0 16px 34px rgba(74,46,42,0.1);
-      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 10px rgba(60,20,8,0.08);
     }
 
     .progress-info {
@@ -511,22 +523,22 @@
 
     .progress-step {
       flex: 1;
-      height: 6px;
-      background: rgba(74,46,42,0.1);
-      border-radius: 3px;
+      height: 8px;
+      background: rgba(139,63,43,0.12);
+      border-radius: 4px;
       transition: background 0.4s ease;
     }
 
-    .progress-step.active { background: var(--primary-dark); }
-    .progress-step.done   { background: #7dd99a; }
+    .progress-step.active { background: #5AA040; }
+    .progress-step.done   { background: #8DC87A; }
 
     /* Wizard card */
     .wizard-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,241,236,0.98) 100%);
-      border: 1px solid rgba(182,90,58,0.22);
-      border-radius: 26px;
+      background: #FFFFFF;
+      border: 1px solid rgba(139,63,43,0.14);
+      border-radius: var(--radius-lg);
       padding: 2.2rem;
-      box-shadow: 0 30px 70px rgba(74,46,42,0.14), 0 10px 24px rgba(74,46,42,0.07);
+      box-shadow: 0 6px 28px rgba(60,20,8,0.12), 0 1px 4px rgba(60,20,8,0.07);
       display: none;
       animation: fadeUp 0.3s ease;
     }
@@ -540,7 +552,7 @@
 
     .wizard-card h2 {
       font-size: 1.95rem;
-      color: var(--navy);
+      color: #8C3F2B;
       margin-bottom: 0.5rem;
       line-height: 1.12;
       letter-spacing: -0.02em;
@@ -575,7 +587,7 @@
 
     .choice-btn {
       border: 1.5px solid rgba(182,90,58,0.28);
-      border-radius: 18px;
+      border-radius: var(--radius-md);
       padding: 1.15rem 1rem;
       background: rgba(255,255,255,0.94);
       cursor: pointer;
@@ -587,15 +599,15 @@
 
     .choice-btn:hover {
       border-color: rgba(182,90,58,0.65);
-      background: #F7F1EC;
+      background: #E8E0D4;
       transform: translateY(-2px);
       box-shadow: 0 12px 24px rgba(74,46,42,0.08);
     }
 
     .choice-btn.selected {
-      border-color: var(--primary-dark);
-      background: rgba(233,195,182,0.45);
-      box-shadow: 0 0 0 3px rgba(182,90,58,0.2);
+      border-color: #B35C3A;
+      background: rgba(179,92,58,0.08);
+      box-shadow: 0 0 0 3px rgba(179,92,58,0.18);
     }
 
     .choice-icon {
@@ -620,8 +632,8 @@
     .choice-btn.selected .choice-icon i,
     .choice-btn:hover .choice-icon svg,
     .choice-btn:hover .choice-icon i { color: var(--primary-dark); }
-    .choice-btn.selected .choice-icon,
-    .choice-btn:hover .choice-icon { background: rgba(182,90,58,0.16); }
+    .choice-btn.selected .choice-icon { background: rgba(179,92,58,0.14); }
+    .choice-btn:hover .choice-icon   { background: rgba(168,181,162,0.22); }
     .choice-label { font-weight: 700; font-size: 1rem; color: var(--navy); display: block; }
     .choice-desc { font-size: 0.78rem; color: var(--text-light); margin-top: 0.25rem; display: block; }
 
@@ -630,20 +642,20 @@
       width: 100%;
       padding: 0.85rem 1.2rem;
       border: 1.5px solid rgba(182,90,58,0.28);
-      border-radius: 14px;
+      border-radius: var(--radius-sm);
       font-family: var(--font-body);
       font-size: 1rem;
       margin-bottom: 1.75rem;
       transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-      background: rgba(255,255,255,0.95);
+      background: rgba(242,234,224,0.95);
       box-sizing: border-box;
     }
 
     .wizard-input:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(182,90,58,0.18);
-      background: var(--white);
+      border-color: #8AA693;
+      box-shadow: 0 0 0 4px rgba(168,181,162,0.22);
+      background: #F2EAE0;
     }
     .wizard-input::placeholder { color: var(--text-light); }
 
@@ -651,12 +663,15 @@
 
     .wizard-hint {
       margin: -0.85rem 0 1.1rem;
-      padding: 0.85rem 1rem;
-      border-radius: 14px;
-      background: rgba(182,90,58,0.14);
-      border: 1px solid rgba(182,90,58,0.22);
-      color: rgba(74,46,42,0.76);
-      font-size: 0.86rem;
+      padding: 0.4rem 0.7rem;
+      margin-top: 0.25rem;
+      background: rgba(168,181,162,0.12);
+      border: none;
+      border-left: 2px solid #A8B5A2;
+      border-radius: 0 6px 6px 0;
+      box-shadow: none;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
       line-height: 1.6;
     }
 
@@ -696,9 +711,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
     }
     .bcs-visual-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .bcs-visual-btn { position: relative; }
 
     /* BCS hover tooltip */
     .bcs-tooltip {
@@ -807,7 +822,7 @@
 
     .bcs-group-btn:hover {
       border-color: rgba(182,90,58,0.65);
-      background: #F7F1EC;
+      background: #E8E0D4;
       box-shadow: 0 12px 24px rgba(74,46,42,0.08);
       transform: translateY(-2px);
     }
@@ -1092,8 +1107,8 @@
       margin-top: 2px;
     }
     .food-sel-card.selected .food-sel-check {
-      background: var(--primary-dark);
-      border-color: var(--primary-dark);
+      background: #B35C3A;
+      border-color: #B35C3A;
       color: white;
     }
     .food-cost {
@@ -1147,7 +1162,7 @@
     .section-subtitle {
       font-size: 1rem;
       font-weight: 700;
-      color: var(--navy);
+      color: #8C3F2B;
       margin: 1.25rem 0 0.6rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -1224,7 +1239,7 @@
 
     .goal-btn {
       border: 1.5px solid rgba(182,90,58,0.28);
-      border-radius: 18px;
+      border-radius: var(--radius-md);
       padding: 1.05rem 1.15rem;
       background: rgba(255,255,255,0.94);
       cursor: pointer;
@@ -1283,7 +1298,7 @@
 
     .budget-btn {
       border: 2px solid var(--light-bg-2);
-      border-radius: 10px;
+      border-radius: var(--radius-md);
       padding: 0.85rem 0.5rem;
       background: var(--white);
       cursor: pointer;
@@ -1300,12 +1315,12 @@
 
     /* Tip box */
     .tip-box {
-      background: linear-gradient(135deg, rgba(247,232,204,0.62) 0%, rgba(255,248,225,0.92) 100%);
-      border: 1px solid rgba(182,90,58,0.28);
-      border-radius: 16px;
-      padding: 0.95rem 1rem;
-      font-size: 0.85rem;
-      color: #6d5414;
+      background: rgba(168,181,162,0.15);
+      border-left: 3px solid #A8B5A2;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-sm);
+      color: var(--color-text-body);
       margin-bottom: 1.5rem;
       line-height: 1.6;
     }
@@ -1322,11 +1337,11 @@
     }
 
     .btn-next {
-      background: linear-gradient(135deg, #4A2E2A 0%, #6B3E38 100%);
-      color: white;
+      background: #5C7B51;
+      color: #fff;
       border: none;
       padding: 0.9rem 2rem;
-      border-radius: 14px;
+      border-radius: var(--radius-sm);
       font-family: var(--font-body);
       font-weight: 700;
       font-size: 1rem;
@@ -1335,12 +1350,13 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      box-shadow: 0 14px 28px rgba(74,46,42,0.18);
+      box-shadow: 0 4px 14px rgba(80,110,70,0.30);
     }
 
     .btn-next:hover:not(:disabled) {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 32px rgba(74,46,42,0.24);
+      background: #4A6640;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(80,110,70,0.40);
     }
 
     .btn-next:disabled {
@@ -1350,23 +1366,26 @@
     }
 
     .btn-next.cta {
-      background: linear-gradient(135deg, #B65A3A 0%, #9E4D30 100%);
-      color: #F7F1EC;
+      background: #C1633E;
+      color: #fff;
       font-size: 1.05rem;
       padding: 1rem 2.2rem;
-      box-shadow: 0 16px 32px rgba(182,90,58,0.24);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 18px rgba(140,63,43,0.35);
     }
 
     .btn-next.cta:hover:not(:disabled) {
-      box-shadow: 0 22px 38px rgba(182,90,58,0.32);
+      background: #9A4A2E;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(140,63,43,0.45);
     }
 
     .btn-back {
-      background: rgba(255,255,255,0.76);
-      border: 1.5px solid rgba(182,90,58,0.26);
-      color: var(--text-body);
+      background: transparent;
+      border: 1px solid var(--color-border-strong);
+      color: var(--color-text-body);
       padding: 0.9rem 1.5rem;
-      border-radius: 14px;
+      border-radius: var(--radius-sm);
       font-family: var(--font-body);
       font-weight: 600;
       font-size: 0.95rem;
@@ -1378,8 +1397,7 @@
     }
 
     .btn-back:hover {
-      border-color: rgba(182,90,58,0.65);
-      background: #F7F1EC;
+      background: var(--color-surface-2);
       transform: translateY(-1px);
     }
 
@@ -1387,17 +1405,17 @@
     .loading-screen {
       text-align: center;
       padding: 4.5rem 2rem;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,241,236,0.98) 100%);
-      border: 1px solid rgba(182,90,58,0.2);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
       border-radius: 24px;
-      box-shadow: 0 30px 70px rgba(74,46,42,0.13), 0 10px 24px rgba(74,46,42,0.07);
+      box-shadow: var(--shadow-md);
     }
 
     .loading-spinner {
       width: 52px;
       height: 52px;
       border: 5px solid var(--light-bg-2);
-      border-top-color: var(--primary-dark);
+      border-top-color: #B35C3A;
       border-radius: 50%;
       animation: spin 0.9s linear infinite;
       margin: 0 auto 1.5rem;
@@ -1405,22 +1423,21 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Dev bypass dot (invisible, for testing only) ── */
+    /* ── Demo bypass link ── */
     .payment-dev-dot {
       display: block;
-      width: 6px;
-      height: 6px;
-      padding: 0;
-      margin: 2px auto 0;
-      background: transparent;
+      background: none;
       border: none;
+      padding: 0;
+      margin: 0.75rem auto 0;
+      font-size: var(--text-sm, 0.82rem);
+      color: var(--color-text-muted, #9A7A74);
       cursor: pointer;
-      font-size: 0;
-      color: transparent;
-      opacity: 0;
-      overflow: hidden;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      opacity: 0.7;
     }
-    .payment-dev-dot i { display: none; }
+    .payment-dev-dot:hover { opacity: 1; color: var(--color-accent, #B65A3A); }
     .step-bypass-dot { margin: 0; }
 
     /* ── Payment modal overlay ── */
@@ -1439,12 +1456,12 @@
 
     .payment-modal-card {
       background: #fff;
-      border-radius: 24px;
+      border-radius: var(--radius-lg);
       width: min(100%, 480px);
       max-height: 90vh;
       overflow-y: auto;
       padding: 2rem 2rem 1.75rem;
-      box-shadow: 0 24px 80px rgba(74,46,42,0.32);
+      box-shadow: var(--shadow-lg);
       position: relative;
     }
     .payment-modal-close {
@@ -1559,20 +1576,21 @@
       justify-content: center;
       gap: 0.55rem;
       width: 100%;
-      background: #B65A3A;
+      background: var(--color-accent);
       color: #fff;
       font-family: 'Nunito Sans', sans-serif;
       font-size: 1rem;
       font-weight: 800;
       padding: 0.9rem 1.5rem;
       border: none;
-      border-radius: 14px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       transition: background 0.2s, transform 0.15s;
+      box-shadow: var(--shadow-sm);
       margin-bottom: 0.5rem;
     }
     .unlock-payment-btn:hover,
-    .payment-modal-btn:hover { background: #9e4d31; transform: translateY(-1px); }
+    .payment-modal-btn:hover { background: var(--color-accent-dark); transform: translateY(-1px); }
     .unlock-payment-btn:disabled,
     .payment-modal-btn:disabled { opacity: 0.48; cursor: not-allowed; transform: none; }
     .payment-secure-line {
@@ -1594,6 +1612,12 @@
       color: #4A2E2A;
       min-height: 100vh;
       background: #F7F1EC;
+    }
+    .web-report::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: linear-gradient(90deg, #4A2E2A 0%, #B65A3A 50%, #C47A5A 100%);
     }
 
     /* ── Top bar ── */
@@ -1652,44 +1676,50 @@
     }
     .rpt-print-btn:hover { background: rgba(182,90,58,0.17); }
 
+    /* ── Document metadata strip ── */
+    .rpt-doc-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 0.55rem 1.5rem;
+      background: #4A2E2A;
+      color: rgba(247,241,236,0.65);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .rpt-doc-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+    }
+    .rpt-doc-meta .meta-value {
+      color: #F0DDD6;
+    }
+
     /* ── Hero ── */
     .rpt-hero {
-      background: linear-gradient(145deg, #F0DDD6 0%, #E6C3B4 60%, #DABAA8 100%);
+      background: var(--color-surface-2);
       padding: 3.5rem 1.5rem 4rem;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-    .rpt-hero::before {
-      content: '';
-      position: absolute;
-      top: -80px; left: -80px;
-      width: 280px; height: 260px;
-      border-radius: 55% 45% 60% 40% / 45% 60% 40% 55%;
-      background: rgba(255,255,255,0.28);
-      pointer-events: none;
-    }
-    .rpt-hero::after {
-      content: '';
-      position: absolute;
-      bottom: -60px; right: -60px;
-      width: 220px; height: 200px;
-      border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%;
-      background: rgba(182,90,58,0.12);
-      pointer-events: none;
-    }
     .rpt-hero-inner { position: relative; z-index: 1; }
     .rpt-hero-kicker {
-      display: inline-block;
-      font-size: 0.72rem;
+      display: block;
+      font-size: 0.68rem;
       font-weight: 800;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: #B65A3A;
-      background: rgba(255,255,255,0.65);
-      border-radius: 999px;
-      padding: 0.28rem 0.9rem;
-      margin-bottom: 1rem;
+      color: rgba(74,46,42,0.55);
+      background: none;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0.85rem;
     }
     .rpt-hero-cat {
       font-family: 'Sansita', serif;
@@ -1706,7 +1736,7 @@
     }
     .rpt-hero-date {
       font-size: 0.75rem;
-      letter-spacing: 2.5px;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
       color: rgba(74,46,42,0.45);
       margin-bottom: 1.4rem;
@@ -1767,7 +1797,7 @@
       flex-wrap: wrap;
       gap: 1rem;
       padding: 1.15rem 1.4rem;
-      background: linear-gradient(135deg, #4A2E2A 0%, #6B3E38 100%);
+      background: var(--color-text-primary);
       border-radius: 14px;
       margin-bottom: 2rem;
     }
@@ -1806,16 +1836,16 @@
     .rpt-section:last-of-type { border-bottom: none; }
 
     .rpt-section-kicker {
-      display: inline-block;
-      font-size: 0.7rem;
+      display: block;
+      font-size: 0.67rem;
       font-weight: 800;
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #B65A3A;
-      background: rgba(182,90,58,0.1);
-      border-radius: 999px;
-      padding: 0.2rem 0.75rem;
-      margin-bottom: 0.6rem;
+      color: rgba(74,46,42,0.45);
+      background: none;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0.4rem;
     }
     .rpt-section-title {
       font-family: 'Sansita', serif;
@@ -1823,7 +1853,9 @@
       font-weight: 800;
       color: #4A2E2A;
       line-height: 1.15;
-      margin-bottom: 0.9rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid rgba(182,90,58,0.18);
     }
     .rpt-intro {
       font-size: 0.95rem;
@@ -1844,10 +1876,11 @@
       .needs-grid, .needs-grid.three-col { grid-template-columns: 1fr; }
     }
     .need-card {
-      background: rgba(255,255,255,0.7);
-      border-radius: 12px;
+      background: #fff;
+      border-radius: 4px;
       padding: 1rem 1.1rem;
-      border: 1px solid rgba(182,90,58,0.1);
+      border: 1px solid rgba(74,46,42,0.1);
+      border-top: 3px solid #B65A3A;
     }
     .need-card-title {
       font-size: 0.72rem;
@@ -1865,30 +1898,34 @@
 
     /* ── Highlight box ── */
     .highlight-box {
-      background: #4A2E2A;
-      border-radius: 10px;
+      background: #fff;
+      border-left: 4px solid var(--color-accent);
+      border-radius: 0 3px 3px 0;
       padding: 1.2rem 1.4rem;
       margin: 1.1rem 0;
       font-size: 0.9rem;
       line-height: 1.7;
-      color: #fff;
+      color: var(--color-text-body);
+      border-top: none;
+      border-bottom: none;
+      border-right: 1px solid rgba(182,90,58,0.1);
     }
-    .highlight-box strong { color: #F0DDD6; }
+    .highlight-box strong { color: var(--color-text-primary); }
     .report-bullets { margin: 0.6rem 0 0; padding-left: 1.1rem; }
     .report-bullets li { font-size: 0.88rem; line-height: 1.65; color: inherit; margin-bottom: 0.35rem; }
 
     /* ── Section kicker (also used inside sections) ── */
     .section-kicker {
-      display: inline-block;
-      font-size: 0.7rem;
+      display: block;
+      font-size: 0.67rem;
       font-weight: 800;
-      letter-spacing: 1.4px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: #B65A3A;
-      background: rgba(182,90,58,0.1);
-      border-radius: 999px;
-      padding: 0.2rem 0.7rem;
-      margin-bottom: 0.8rem;
+      color: rgba(74,46,42,0.45);
+      background: none;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0.4rem;
     }
 
     /* ── Food cards ── */
@@ -1898,16 +1935,14 @@
       gap: 1.1rem;
       align-items: start;
       padding: 1.25rem;
-      border-radius: 16px;
+      border-radius: var(--radius-lg);
       margin-bottom: 1rem;
       background: #fff;
       border: 1px solid rgba(182,90,58,0.1);
-      box-shadow: 0 3px 16px rgba(74,46,42,0.05);
-      transition: box-shadow 0.2s, transform 0.2s;
+      box-shadow: var(--shadow-sm);
     }
     .rpt-food-card:hover {
-      box-shadow: 0 7px 28px rgba(74,46,42,0.1);
-      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
     }
     .rpt-food-card.rpt-recommended {
       background: #FAF4F0;
@@ -1921,7 +1956,7 @@
       .rpt-food-img-col { display: none; }
     }
     .rpt-food-num {
-      font-family: 'Playfair Display', 'Sansita', serif;
+      font-family: 'Sansita', serif;
       font-size: 2.6rem;
       font-weight: 900;
       line-height: 1;
@@ -1963,8 +1998,8 @@
       color: rgba(74,46,42,0.52);
       margin-bottom: 0.4rem;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
+      text-transform: none;
+      letter-spacing: 0.02em;
     }
     .food-desc {
       font-size: 0.9rem;
@@ -2006,15 +2041,13 @@
     .rpt-combo-card {
       background: #fff;
       border: 1px solid rgba(182,90,58,0.13);
-      border-radius: 16px;
+      border-radius: var(--radius-lg);
       overflow: hidden;
       margin-bottom: 1.2rem;
-      box-shadow: 0 3px 16px rgba(74,46,42,0.05);
-      transition: box-shadow 0.2s, transform 0.2s;
+      box-shadow: var(--shadow-sm);
     }
     .rpt-combo-card:hover {
-      box-shadow: 0 7px 28px rgba(74,46,42,0.1);
-      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
     }
     .rpt-combo-header {
       display: flex;
@@ -2025,7 +2058,7 @@
       border-bottom: 1px solid rgba(182,90,58,0.1);
     }
     .rpt-combo-num {
-      font-family: 'Playfair Display', 'Sansita', serif;
+      font-family: 'Sansita', serif;
       font-size: 2rem;
       font-weight: 900;
       line-height: 1;
@@ -2086,8 +2119,8 @@
       gap: 0.3rem;
       font-size: 0.67rem;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
+      text-transform: none;
+      letter-spacing: 0.02em;
       color: #B65A3A;
       margin-bottom: 0.45rem;
     }
@@ -2108,8 +2141,8 @@
       font-size: 0.72rem;
       color: rgba(74,46,42,0.5);
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
+      text-transform: none;
+      letter-spacing: 0.02em;
       margin-bottom: 0.35rem;
     }
     .rpt-combo-food-desc {
@@ -2143,7 +2176,7 @@
 
     /* ── Discount banner ── */
     .discount-banner {
-      background: linear-gradient(135deg, #4A2E2A 0%, #7a4e42 100%);
+      background: var(--color-text-primary);
       border-radius: 14px;
       padding: 1rem 1.3rem;
       margin-bottom: 1.4rem;
@@ -2234,8 +2267,9 @@
       font-size: 0.85rem;
     }
     .rpt-week-table thead tr {
-      background: #4A2E2A;
-      color: #fff;
+      background: var(--color-surface-2);
+      color: var(--color-text-primary);
+      border-bottom: 2px solid var(--color-border-strong);
     }
     .rpt-week-table th {
       padding: 0.65rem 0.85rem;
@@ -2297,9 +2331,9 @@
     }
     .rpt-plan-kpi-label {
       font-size: 0.68rem;
+      text-transform: none;
+      letter-spacing: 0.02em;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
       color: rgba(74,46,42,0.48);
       margin-bottom: 0.28rem;
     }
@@ -2320,8 +2354,9 @@
       overflow: hidden;
     }
     .rpt-transition-table th {
-      background: #4A2E2A;
-      color: #fff;
+      background: var(--color-surface-2);
+      color: var(--color-text-primary);
+      border-bottom: 2px solid var(--color-border-strong);
       padding: 0.65rem 1rem;
       font-weight: 700;
       text-align: left;
@@ -2365,16 +2400,16 @@
 
     /* ── Fact bubble ── */
     .fact-bubble {
-      background: #4A2E2A;
-      color: #fff;
-      border-left: 5px solid #f5a623;
-      border-radius: 12px;
+      background: var(--color-surface-2);
+      color: var(--color-text-body);
+      border-left: 3px solid var(--color-accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
       padding: 1rem 1.15rem;
       margin: 1rem 0 1.4rem;
     }
     .fact-bubble strong {
       display: block;
-      color: #f7d27d;
+      color: var(--color-text-primary);
       margin-bottom: 0.22rem;
       font-size: 0.88rem;
     }
@@ -2382,7 +2417,7 @@
       margin: 0;
       font-size: 0.87rem;
       line-height: 1.7;
-      color: rgba(255,255,255,0.9);
+      color: var(--color-text-body);
     }
 
     /* ── start-food-card ── */
@@ -2409,8 +2444,8 @@
     .start-food-sub {
       font-size: 0.76rem;
       color: rgba(74,46,42,0.55);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      text-transform: none;
+      letter-spacing: 0.02em;
       font-weight: 700;
       margin-bottom: 0.75rem;
     }
@@ -2480,28 +2515,62 @@
     }
 
     /* ── Nutrient donut chart ── */
+    .rfc-donut-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin: 0.9rem 0 0.6rem;
+    }
+    .rfc-food-photo {
+      width: 100%;
+      height: 80px;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      font-size: 2.2rem;
+      position: relative;
+    }
+    .rfc-food-photo.brok {
+      background: linear-gradient(135deg, #F0E6DA 0%, #E8D8C8 100%);
+    }
+    .rfc-food-photo.natvoer {
+      background: linear-gradient(135deg, #D8EAE0 0%, #C8DDD5 100%);
+    }
+    .rfc-food-photo-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .rfc-food-photo.brok .rfc-food-photo-label { color: #7A5030; }
+    .rfc-food-photo.natvoer .rfc-food-photo-label { color: #2E6050; }
     .rfc-donut-wrap {
       display: flex;
       align-items: center;
-      gap: 1.1rem;
-      margin: 0.9rem 0 0.6rem;
+      gap: 1rem;
     }
     .rfc-donut-svg {
       flex-shrink: 0;
-      width: 86px;
-      height: 86px;
+      width: 116px;
+      height: 116px;
     }
-    .rfc-donut-legend {
+    .rfc-donut-pills {
       flex: 1;
-      min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
-    }
-    .rfc-donut-legend-row {
-      display: flex;
-      align-items: center;
       gap: 0.45rem;
+    }
+    .rfc-donut-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #4A2E2A;
+      white-space: nowrap;
     }
     .rfc-donut-dot {
       width: 9px;
@@ -2509,44 +2578,27 @@
       border-radius: 50%;
       flex-shrink: 0;
     }
-    .rfc-donut-legend-label {
-      font-size: 0.73rem;
-      color: rgba(74,46,42,0.65);
-      font-weight: 600;
-      flex: 1;
-    }
-    .rfc-donut-legend-val {
-      font-size: 0.73rem;
-      font-weight: 800;
-      color: #4A2E2A;
-      white-space: nowrap;
-    }
-    .rfc-donut-basis {
-      font-size: 0.63rem;
-      color: rgba(74,46,42,0.4);
-      font-style: italic;
-      margin-top: 0.2rem;
-    }
 
     /* ── Opening letter ── */
     .rpt-letter {
       background: #fff;
-      border: 1px solid rgba(182,90,58,0.18);
-      border-radius: 18px;
-      padding: 2rem 2.2rem 1.8rem;
+      border: 1px solid rgba(182,90,58,0.14);
+      border-radius: 4px;
+      padding: 2rem 2.2rem 1.8rem 2.6rem;
       margin-bottom: 2.4rem;
       position: relative;
-      box-shadow: 0 4px 24px rgba(74,46,42,0.07);
+      box-shadow: 0 2px 12px rgba(74,46,42,0.05);
+      overflow: hidden;
     }
     .rpt-letter::before {
-      content: '\201C';
+      content: '';
       position: absolute;
-      top: -0.6rem;
-      left: 1.6rem;
-      font-family: 'Sansita', serif;
-      font-size: 5rem;
-      color: rgba(182,90,58,0.14);
-      line-height: 1;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #B65A3A 0%, #C47A5A 100%);
+      /* overflow:hidden op de parent knipt de hoeken af — geen border-radius nodig */
       pointer-events: none;
     }
     .rpt-letter-greeting {
@@ -2554,7 +2606,17 @@
       font-size: 1.2rem;
       font-weight: 700;
       color: #4A2E2A;
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    .rpt-letter-betreft {
+      font-size: 0.82rem;
+      color: rgba(74,46,42,0.62);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(182,90,58,0.12);
+    }
+    .rpt-letter-betreft strong {
+      color: #4A2E2A;
     }
     .rpt-letter-body {
       font-size: 0.93rem;
@@ -2627,7 +2689,7 @@
 
     /* ── Report closing block ── */
     .rpt-closing {
-      background: linear-gradient(135deg, #4A2E2A 0%, #6b4038 100%);
+      background: var(--color-text-primary);
       border-radius: 18px;
       padding: 2rem 2.2rem;
       margin-top: 2.5rem;
@@ -2681,9 +2743,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #e8f5ee;
+      background: rgba(168,181,162,0.25);
       border-radius: 50%;
-      color: #2d7a2d;
+      color: #6B8060;
       font-size: 1rem;
       flex-shrink: 0;
     }
@@ -2693,7 +2755,7 @@
       font-weight: 800;
       letter-spacing: 1.6px;
       text-transform: uppercase;
-      color: #2d7a2d;
+      color: #6B8060;
     }
 
     .s6-hero { margin-bottom: 1.8rem; }
@@ -2723,8 +2785,8 @@
       font-family: 'Nunito Sans', sans-serif;
       font-size: 0.68rem;
       font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      text-transform: none;
       color: #B65A3A;
       margin-bottom: 0.9rem;
     }
@@ -2736,8 +2798,8 @@
     .s6-kpi-name {
       font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      text-transform: none;
       color: rgba(74,46,42,0.45);
       margin-bottom: 0.18rem;
     }
@@ -2837,26 +2899,155 @@
       justify-content: center;
       gap: 0.65rem;
       width: 100%;
-      background: #B65A3A;
+      background: var(--color-accent);
       color: #fff;
       font-family: 'Nunito Sans', sans-serif;
       font-size: 1.05rem;
       font-weight: 800;
       padding: 1rem 2rem;
       border: none;
-      border-radius: 14px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(182,90,58,0.3);
+      box-shadow: var(--shadow-sm);
       letter-spacing: 0.2px;
     }
     .s6-open-btn:hover {
-      background: #9e4d31;
+      background: var(--color-accent-dark);
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(182,90,58,0.38);
+      box-shadow: var(--shadow-sm);
     }
     .s6-open-btn i { transition: transform 0.18s; }
     .s6-open-btn:hover i { transform: translateX(4px); }
+
+    /* ── Rapport laadscherm overlay ── */
+    .report-loading-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #F7F1EC;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .report-loading-overlay.active {
+      opacity: 1; pointer-events: all;
+    }
+    .report-loading-spinner {
+      width: 72px; height: 72px;
+      border: 5px solid var(--color-border);
+      border-top-color: var(--color-accent);
+      border-radius: 50%;
+      animation: rls-spin 1s linear infinite;
+    }
+    @keyframes rls-spin { to { transform: rotate(360deg); } }
+    .report-loading-text {
+      color: var(--color-text-body);
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+    .report-loading-sub {
+      color: var(--color-text-body);
+      font-size: 0.9rem;
+      text-align: center;
+      max-width: 280px;
+      line-height: 1.5;
+    }
+    .report-loading-timer {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      line-height: 1;
+      min-width: 2ch;
+      text-align: center;
+    }
+    .report-loading-bar-wrap {
+      width: 220px; height: 4px;
+      background: var(--color-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .report-loading-bar {
+      height: 100%; width: 0%;
+      background: var(--color-accent);
+      border-radius: 2px;
+      transition: width 1s linear;
+    }
+
+    /* ── Pagina intro overlay (5 seconden bij laden) ── */
+    #page-intro-overlay {
+      position: fixed; inset: 0; z-index: 10000;
+      background: #EDE5D8;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.5rem;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+    #page-intro-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .pi-logo {
+      height: 36px;
+      opacity: 0.9;
+      margin-bottom: 0.5rem;
+    }
+    .pi-clock-wrap {
+      width: 88px; height: 88px;
+    }
+    .pi-clock-svg {
+      width: 88px; height: 88px;
+      transform: rotate(-90deg);
+    }
+    .pi-clock-track {
+      fill: none;
+      stroke: var(--color-border, rgba(74,46,42,0.10));
+      stroke-width: 5;
+    }
+    .pi-clock-fill {
+      fill: none;
+      stroke: #B35C3A;
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: 226;
+      stroke-dashoffset: 226;
+    }
+    .pi-title {
+      font-family: 'Sansita', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--color-text-primary, #3D2520);
+      text-align: center;
+    }
+    .pi-steps {
+      display: flex; flex-direction: column; gap: 0.45rem;
+      align-items: flex-start;
+      margin-top: 0.25rem;
+    }
+    .pi-step {
+      font-size: 0.82rem;
+      color: var(--color-text-muted, #9A7A74);
+      display: flex; align-items: center; gap: 0.5rem;
+      opacity: 0.3;
+      transition: opacity 0.35s ease, color 0.35s ease;
+    }
+    .pi-step.active {
+      opacity: 1;
+      color: var(--color-text-body, #5A3C36);
+      font-weight: 600;
+    }
+    .pi-step.done {
+      opacity: 0.45;
+      color: var(--color-text-muted, #9A7A74);
+    }
+    .pi-step i {
+      font-size: 0.55rem;
+      color: var(--color-accent, #B65A3A);
+      transition: color 0.3s;
+    }
+    .pi-step.done i { color: var(--color-text-muted, #9A7A74); }
 
     /* ── Cover page (kept for step-6 preview) ── */
     .rp-cover {
@@ -2925,8 +3116,9 @@
     /* ── Dagboek / tracker ── */
     .dagboek-table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.87rem; }
     .dagboek-table th {
-      background: #4A2E2A;
-      color: #fff;
+      background: var(--color-surface-2);
+      color: var(--color-text-primary);
+      border-bottom: 2px solid var(--color-border-strong);
       padding: 0.65rem 0.9rem;
       font-weight: 700;
       text-align: center;
@@ -2938,14 +3130,50 @@
     }
 
     /* ── Print ── */
+    @page { size: A4; margin: 15mm 18mm; }
+
     @media print {
+      /* Verberg interactieve elementen */
       .rpt-topbar,
       .rpt-chapnav,
       .rpt-order-bar,
-      .rpt-restart-btn { display: none !important; }
-      .rpt-hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-      .rpt-section { page-break-inside: avoid; }
+      .rpt-restart-btn,
+      .discount-banner,
+      .discount-copy-btn,
+      .food-order-link,
+      .rpt-back-btn,
+      .rpt-print-btn { display: none !important; }
+
+      /* Kleur behoud */
+      * { print-color-adjust: exact !important; -webkit-print-color-adjust: exact !important; }
+
+      /* Achtergrond vereenvoudigen voor PDF */
+      .web-report { background: #fff !important; }
+      .web-report::before { display: block !important; }
+      .rpt-hero { padding: 2rem 1.5rem 2.5rem !important; }
+
+      /* Pagina-breaks */
+      .rpt-section { break-inside: avoid; }
       .rpt-food-card { break-inside: avoid; }
+      .rpt-combo-card { break-inside: avoid; }
+      .need-card { break-inside: avoid; }
+      .highlight-box { break-inside: avoid; }
+      .rpt-letter { break-inside: avoid; }
+      .rpt-plan-kpi-row { break-inside: avoid; }
+      .rpt-transition-table { break-inside: avoid; }
+      .rpt-week-table-wrap { break-inside: avoid; }
+      #rpt-aanbevelingen { page-break-before: always; }
+      #rpt-voerplan { page-break-before: always; }
+
+      /* Closing block kleurbehoud */
+      .rpt-closing { background: #4A2E2A !important; color: #F7F1EC !important; }
+      .rpt-doc-meta { background: #4A2E2A !important; }
+
+      /* Body breedte */
+      .rpt-body { max-width: 100%; padding: 1.5rem 0 2rem; }
+
+      /* Links niet onderstrepen als URL */
+      a[href]::after { content: none !important; }
     }
     @media (max-width: 1120px) {
       .wizard-shell {
@@ -3118,6 +3346,10 @@
 </head>
 <body class="wizard-app-body">
 
+  <!-- Decoratieve achtergrond blobs met parallax -->
+  <div class="wizard-blob wizard-blob-1" data-parallax="0.12" aria-hidden="true"></div>
+  <div class="wizard-blob wizard-blob-2" data-parallax="0.07" aria-hidden="true"></div>
+
   <!-- Header -->
   <header class="header" id="header">
     <div class="container">
@@ -3144,32 +3376,31 @@
     <div class="wizard-shell">
       <aside class="wizard-story">
         <h1>Een voerplan dat past bij jouw kat.</h1>
-        <p class="wizard-story-sub">Geen generiek lijstje met populaire merken, maar een rustige selectie die eerst naar het profiel van jouw kat kijkt en pas daarna naar de beste concrete voeropties.</p>
+        <p class="wizard-story-sub">Intake in 6 stappen. Resultaat: drie concrete voerkeuzes op maat.</p>
 
         <div class="wizard-story-card">
-          <div class="wizard-story-card-head">Waarom deze intake anders is</div>
-          <p>Veel commercieel voer is duur door reclame, verpakking en distributie. Dat budget kan maar één keer worden uitgegeven, en zit dus niet automatisch in betere grondstoffen of een sterkere samenstelling.</p>
+          <div class="wizard-story-card-head">Waarom persoonlijk advies</div>
           <ul class="wizard-story-points">
-            <li><i class="fa-solid fa-check"></i><span>Je vult veel kleine vragen in over leefstijl, vacht, ontlasting, drinken en voorkeuren.</span></li>
-            <li><i class="fa-solid fa-check"></i><span>De uitkomst helpt je vaak tegelijk voordeliger uit te komen en inhoudelijk beter te voeren.</span></li>
-            <li><i class="fa-solid fa-check"></i><span>Na het schema heb je ook een persoonlijke opvolging om te beoordelen of het plan in de praktijk klopt.</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Profiel van jouw kat bepaalt de selectie — niet populariteit.</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Resultaat is vaak beter én voordeliger dan marketing-voer.</span></li>
+            <li><i class="fa-solid fa-check"></i><span>Persoonlijke opvolging na afloop om te checken of het klopt.</span></li>
           </ul>
         </div>
 
-        <div class="wizard-story-card">
-          <div class="wizard-story-card-head">Echt maatwerk voor jouw kat</div>
+        <div class="wizard-story-card" style="background:rgba(168,181,162,0.14);border-color:rgba(168,181,162,0.4);">
+          <div class="wizard-story-card-head" style="color:#6B8060;">Hoe het werkt</div>
           <div class="wizard-method-grid">
             <div class="wizard-method-item">
-              <div class="wizard-method-label">Profiel eerst</div>
-              <div class="wizard-method-text">Leeftijd, gewicht, lichaamsconditie, castratiestatus en activiteit bepalen eerst welk voedingsprofiel het meest logisch is.</div>
+              <div class="wizard-method-label">Profiel</div>
+              <div class="wizard-method-text">Leeftijd, gewicht, conditie en activiteit.</div>
             </div>
             <div class="wizard-method-item">
-              <div class="wizard-method-label">Doel bepaalt</div>
-              <div class="wizard-method-text">Gevoelige darmen, overgewicht, haarballen of vachtproblemen krijgen alleen voorrang als dat ook echt leidend is voor jouw kat.</div>
+              <div class="wizard-method-label">Doel</div>
+              <div class="wizard-method-text">Overgewicht, gevoelige darmen, vacht of haarballen krijgen prioriteit.</div>
             </div>
             <div class="wizard-method-item">
-              <div class="wizard-method-label">Praktisch advies</div>
-              <div class="wizard-method-text">Daarna blijven drie logische opties over: een Prijstip, een Premium-keuze en een Luxe-optie die allemaal op dezelfde beslisboom terugvallen.</div>
+              <div class="wizard-method-label">Resultaat</div>
+              <div class="wizard-method-text">Prijstip, Premium en Luxe — elk passend bij jouw kat.</div>
             </div>
           </div>
         </div>
@@ -3216,7 +3447,7 @@
       <div class="payment-brand">
         <img src="assets/haar-centrum-logo.svg" alt="HAAR. Centrum voor kattenwelzijn" class="payment-brand-logo">
         <div class="payment-brand-title" id="payment-modal-title">Ontgrendel jouw volledige voedingsadvies</div>
-        <div class="payment-brand-sub" id="payment-modal-sub">Je hebt de persoonlijke preview al gezien. Na betaling wordt het volledige rapport direct zichtbaar, inclusief de drie concrete voerkeuzes, de aanbevolen startoptie, PDF-download en het persoonlijke voedingsschema. Je e-mailadres kun je daarna eventueel nog toevoegen op de rapportpagina.</div>
+        <div class="payment-brand-sub" id="payment-modal-sub">Na betaling direct toegang: voerkeuzes, startadvies, voerplan en PDF.</div>
       </div>
 
       <div class="payment-price-box">
@@ -3241,7 +3472,7 @@
       <button class="unlock-payment-btn payment-modal-btn" id="payment-submit-btn" type="button" disabled>
         <i class="fa-solid fa-lock"></i> Betaal veilig €14,99
       </button>
-      <button class="payment-dev-dot" id="btn-local-report-bypass" type="button" aria-label="Demo modus">.</button>
+      <button class="payment-dev-dot" id="btn-local-report-bypass" type="button">Rapport voorbeeld bekijken zonder betaling</button>
 
       <div class="payment-secure-line">
         Je betaalt pas na de preview · beveiligde betaling via Stripe · iDEAL en kaart
@@ -3275,8 +3506,8 @@
       <div class="footer-bottom">
         <p>&copy; 2025 HAAR. Centrum voor kattenwelzijn. Alle rechten voorbehouden.</p>
         <div class="footer-social">
-          <a href="https://www.facebook.com/HAAR.kattentrimsalon" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/haarkattentrimsalon" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/HAAR.kattentrimsalon" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/haarkattentrimsalon" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>
@@ -3284,6 +3515,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/parallax.js"></script>
   <script>
   // ==========================================================
   // 1. STATE
@@ -3987,7 +4219,7 @@
       currentStep = 1;
     }
     await handlePaymentReturn();
-    handleCheckoutTerminalReturn();
+    await handleCheckoutTerminalReturn();
     render();
     loadPreviewData().then(() => {
       if (currentStep === 6 || currentStep === 7) {
@@ -4514,7 +4746,7 @@
           `<div class="progress-step ${i < currentStep ? 'done' : i === currentStep ? 'active' : ''}"></div>`
         ).join('')}
       </div>
-      <div class="progress-note"><i class="fa-solid fa-floppy-disk"></i>Je voortgang wordt automatisch bewaard op dit apparaat.</div>
+      <div class="progress-note"><i class="fa-solid fa-floppy-disk"></i>Automatisch bewaard</div>
     </div>`;
   }
 
@@ -4533,16 +4765,41 @@
     const g = P.geslacht;
     const lifestyle = P.leefstijl;
     const ageMessage = getAgeValidationMessage(P.catLeeftijd);
-    const canContinue = P.catName.trim() && P.catLeeftijd.trim() && !ageMessage && P.geslacht && P.leefstijl;
+    const canContinue = P.catName.trim() && P.catLeeftijd.trim() && !ageMessage && P.geslacht && P.leefstijl && P.catRas;
     return `<div class="wizard-card active">
       <h2>Basis van jouw kat</h2>
-      <p class="wizard-subtitle">We beginnen met een paar korte basisvragen. Zo voelt het advies straks echt geschreven voor jouw kat en niet voor katten in het algemeen.</p>
+      <p class="wizard-subtitle">Gegevens van jouw kat als basis voor het advies.</p>
 
       <label class="field-label">Naam kat <span style="color:#cc3333">*</span></label>
-      <input type="text" class="wizard-input" id="inp-catname" placeholder="Naam van uw kat" value="${escHtml(P.catName)}" required>
+      <input type="text" class="wizard-input" id="inp-catname" placeholder="Naam van uw kat" value="${escHtml(P.catName)}" maxlength="60" required>
 
-      <label class="field-label">Ras kat</label>
-      <input type="text" class="wizard-input" id="inp-ras" placeholder="bijv. Perzisch, Maine Coon" value="${escHtml(P.catRas)}">
+      <label class="field-label">Ras kat <span style="color:#cc3333">*</span></label>
+      <select class="wizard-input" id="inp-ras" required>
+        <option value="" ${!P.catRas ? 'selected' : ''} disabled>Selecteer het ras van jouw kat</option>
+        <option value="geen" ${P.catRas === 'geen' ? 'selected' : ''}>Geen specifieke ras behoeften</option>
+        <optgroup label="Rassen met specifieke voedingsbehoeften">
+          <option value="Maine Coon" ${P.catRas === 'Maine Coon' ? 'selected' : ''}>Maine Coon</option>
+          <option value="Perzisch" ${P.catRas === 'Perzisch' ? 'selected' : ''}>Perzisch</option>
+          <option value="Brits Korthaar" ${P.catRas === 'Brits Korthaar' ? 'selected' : ''}>Brits Korthaar</option>
+          <option value="Ragdoll" ${P.catRas === 'Ragdoll' ? 'selected' : ''}>Ragdoll</option>
+          <option value="Siamees" ${P.catRas === 'Siamees' ? 'selected' : ''}>Siamees</option>
+          <option value="Bengaal" ${P.catRas === 'Bengaal' ? 'selected' : ''}>Bengaal</option>
+          <option value="Russisch Blauw" ${P.catRas === 'Russisch Blauw' ? 'selected' : ''}>Russisch Blauw</option>
+          <option value="Noors Boskat" ${P.catRas === 'Noors Boskat' ? 'selected' : ''}>Noors Boskat</option>
+          <option value="Sphynx" ${P.catRas === 'Sphynx' ? 'selected' : ''}>Sphynx</option>
+          <option value="Scottish Fold" ${P.catRas === 'Scottish Fold' ? 'selected' : ''}>Scottish Fold</option>
+          <option value="Burmees" ${P.catRas === 'Burmees' ? 'selected' : ''}>Burmees</option>
+          <option value="Abessijn" ${P.catRas === 'Abessijn' ? 'selected' : ''}>Abessijn</option>
+          <option value="Birmaan" ${P.catRas === 'Birmaan' ? 'selected' : ''}>Birmaan</option>
+          <option value="Turkse Van" ${P.catRas === 'Turkse Van' ? 'selected' : ''}>Turkse Van</option>
+          <option value="Savannah" ${P.catRas === 'Savannah' ? 'selected' : ''}>Savannah</option>
+          <option value="Devon Rex" ${P.catRas === 'Devon Rex' ? 'selected' : ''}>Devon Rex</option>
+          <option value="Cornish Rex" ${P.catRas === 'Cornish Rex' ? 'selected' : ''}>Cornish Rex</option>
+          <option value="Tonkinese" ${P.catRas === 'Tonkinese' ? 'selected' : ''}>Tonkinese</option>
+          <option value="Manx" ${P.catRas === 'Manx' ? 'selected' : ''}>Manx</option>
+          <option value="Ragamuffin" ${P.catRas === 'Ragamuffin' ? 'selected' : ''}>Ragamuffin</option>
+        </optgroup>
+      </select>
 
       <label class="field-label">Leeftijd kat in jaren <span style="color:#cc3333">*</span></label>
       <input type="number" class="wizard-input" id="inp-leeftijd" placeholder="bijv. 4" value="${escHtml(P.catLeeftijd)}" min="0" max="30" step="1" inputmode="numeric" required>
@@ -4692,7 +4949,7 @@
 
     return `<div class="wizard-card active">
       <h2>${isKitten ? 'Conditie en groeibehoefte' : 'Conditie en energiebehoefte'}</h2>
-      <p class="wizard-subtitle">${isKitten ? 'Deze korte vragen helpen om groei, portiegrootte en de juiste kittenlijn beter in te schatten. Ook bij een jonge kat zeggen lichaamsvorm en activiteit al veel.' : 'Deze korte vragen bepalen hoeveel energie jouw kat ongeveer nodig heeft en welk voedingsprofiel daar het best bij past.'}</p>
+      <p class="wizard-subtitle">${isKitten ? 'Lichaamsvorm en activiteit bepalen het kittenprofiel.' : 'Gewicht en activiteit bepalen het voedingsprofiel.'}</p>
 
       <label class="field-label">Gecastreerd / gesteriliseerd <span style="color:#cc3333">*</span></label>
       <div class="choice-grid cols-2">
@@ -4790,7 +5047,7 @@
 
     return `<div class="wizard-card active">
       <h2>Dagelijkse signalen</h2>
-      <p class="wizard-subtitle">${isKitten ? 'Juist bij kittens zeggen eetlust, ontlasting, drinken en vachtbeeld veel over hoe goed een voeding in de praktijk past. Met deze observaties maken we het kittenadvies veel persoonlijker.' : 'Dit zijn simpele observaties uit het dagelijks leven, maar ze maken het advies vaak verrassend veel persoonlijker.'}</p>
+      <p class="wizard-subtitle">Dagelijkse observaties maken het advies persoonlijker.</p>
 
       <label class="field-label">Hoe eet jouw kat meestal? <span style="color:#cc3333">*</span></label>
       <div class="choice-grid cols-3">
@@ -4893,7 +5150,7 @@
       </div>
 
       <div class="tip-box">
-        Deze antwoorden helpen om het verschil te zien tussen alleen een voeradvies en een advies dat ook rekening houdt met gedrag, vertering en vachtbeeld.
+        Gedrag, vertering en vacht maken het advies completer dan alleen een voeradvies.
       </div>
 
       <div class="wizard-nav">
@@ -4920,7 +5177,7 @@
 
     return `<div class="wizard-card active">
       <h2>${isKitten ? 'Waar wil je extra op letten?' : 'Wat wil je het liefst verbeteren?'}</h2>
-      <p class="wizard-subtitle">${isKitten ? 'Selecteer alles wat nu speelt rond groei, vertering of vacht. Zo kunnen we binnen de kittenlijn prioriteit geven aan wat nu het belangrijkst is.' : 'Selecteer alles wat nu speelt. Zo kan het advies prioriteit geven aan wat voor jouw kat het meest telt.'}</p>
+      <p class="wizard-subtitle">Selecteer alles wat speelt — meerdere keuzes mogelijk.</p>
       ${autoGoalNote}
 
       <label class="field-label">Waar wil je vooral op sturen? <span style="color:#cc3333">*</span> (minimaal 1)</label>
@@ -4989,7 +5246,7 @@
       </div>
 
       <label class="field-label">Bijzonderheden / Medische aandoeningen</label>
-      <textarea class="wizard-input" id="inp-bijz" placeholder="Eventuele bijzonderheden, medicijnen of aandoeningen...">${escHtml(P.bijzonderheden)}</textarea>
+      <textarea class="wizard-input" id="inp-bijz" placeholder="Eventuele bijzonderheden, medicijnen of aandoeningen..." maxlength="500">${escHtml(P.bijzonderheden)}</textarea>
 
       <div class="wizard-nav">
         <button class="btn-back" data-go="3"><i class="fas fa-arrow-left"></i> Terug</button>
@@ -5010,7 +5267,7 @@
 
     return `<div class="wizard-card active">
       <h2>Voorkeuren en praktische keuzes</h2>
-      <p class="wizard-subtitle">${isKitten ? 'Met deze laatste keuzes maken we de kittenselectie helemaal af. Zo zie je straks drie concrete kittenopties uit de matrix: <strong>Prijstip</strong>, <strong>Premium</strong> en <strong>Luxe</strong>.' : 'Met deze laatste praktische keuzes maken we de selectie helemaal af. Zo zie je straks altijd drie concrete voeropties uit de inkoopmatrix: <strong>Prijstip</strong>, <strong>Premium</strong> en <strong>Luxe</strong>.'}</p>
+      <p class="wizard-subtitle">Voertype en eetpatroon bepalen de definitieve selectie.</p>
 
       <label class="field-label">Gewenst voertype <span style="color:#cc3333">*</span></label>
       <div class="choice-grid cols-3">
@@ -5063,7 +5320,7 @@
           }).join('')}
         </div>
         <div class="tip-box">
-          <strong>Goed startpunt:</strong> bij kieskeurige eters werken fijne vleesreepjes of een sausstructuur vaak het makkelijkst om een overstap rustig te beginnen.
+          Bij kieskeurige eters werken fijne vleesreepjes of saus goed als eerste overstap.
         </div>
       ` : ''}
 
@@ -5117,7 +5374,9 @@
   function renderStep6() {
     const catName    = P.catName    || 'uw kat';
     const ownerName  = P.ownerName  || '';
-    const canOpenPayment = ownerName.trim().length > 0;
+    const canOpenPayment = ownerName.trim().length > 0
+      && P.ownerWoonplaats.trim().length > 0
+      && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((P.catEmail || '').trim());
     const intakePointCount = getPersonalizationCount();
 
     const profile     = getPrimaryAdviceProfile();
@@ -5152,19 +5411,19 @@
 
     const tiles = [
       {
-        icon: 'fa-bowl-food',
-        title: 'Drie concrete voerkeuzes',
-        desc: `Prijstip, Premium en Luxe — elk afgestemd op het profiel van ${escHtml(catName)}`
+        icon: 'fa-list-check',
+        title: 'Drie voerkeuzes',
+        desc: `Prijstip, Premium en Luxe voor ${escHtml(catName)}`
       },
       {
-        icon: 'fa-calendar-lines-pen',
-        title: 'Persoonlijk voerplan',
-        desc: 'Portierichtlijn, overgangsschema en jouw beste eerste stap'
+        icon: 'fa-clipboard-list',
+        title: 'Voerplan',
+        desc: 'Portierichtlijn en overstapschema'
       },
       {
-        icon: 'fa-notes-medical',
-        title: 'Gerichte aandacht',
-        desc: `Specifiek advies op basis van ${escHtml(doelDescText)}`
+        icon: 'fa-bullseye',
+        title: 'Gericht advies',
+        desc: `Specifiek voor: ${escHtml(doelDescText)}`
       }
     ];
 
@@ -5216,15 +5475,18 @@
 
       <div class="s6-owner-fields">
         <label class="field-label">Uw naam <span style="color:#cc3333">*</span></label>
-        <input type="text" class="wizard-input" id="inp-s6-owner" placeholder="Uw volledige naam" value="${escHtml(P.ownerName)}" autocomplete="name">
+        <input type="text" class="wizard-input" id="inp-s6-owner" placeholder="Uw volledige naam" value="${escHtml(P.ownerName)}" maxlength="100" autocomplete="name">
 
         <label class="field-label">Woonplaats <span style="color:#cc3333">*</span></label>
-        <input type="text" class="wizard-input" id="inp-s6-woonplaats" placeholder="bijv. Amsterdam" value="${escHtml(P.ownerWoonplaats)}" autocomplete="address-level2">
+        <input type="text" class="wizard-input" id="inp-s6-woonplaats" placeholder="bijv. Amsterdam" value="${escHtml(P.ownerWoonplaats)}" maxlength="80" autocomplete="address-level2">
+
+        <label class="field-label">E-mailadres <span style="color:#cc3333">*</span></label>
+        <input type="email" class="wizard-input" id="inp-s6-email" placeholder="jouw@email.nl" value="${escHtml(P.catEmail || '')}" maxlength="254" autocomplete="email">
       </div>
 
       <div class="s6-cta">
         <button class="s6-open-btn" id="btn-step6-download" type="button" ${canOpenPayment ? '' : 'disabled'}>
-          <i class="fa-solid fa-lock"></i> Open beveiligde betaalterminal
+          Open hier je persoonlijke adviesrapport
         </button>
       </div>
 
@@ -5344,7 +5606,7 @@
 
   function hasCheckoutReturnParams() {
     const params = new URLSearchParams(window.location.search);
-    return params.get('checkout_return') === '1' || params.get('demo_unlock') === '1';
+    return params.get('checkout_return') === '1';
   }
 
   function resetIntakeState() {
@@ -5393,20 +5655,10 @@
     window.history.replaceState({}, '', url.pathname + (url.search ? url.search : '') + url.hash);
   }
 
-  function handleCheckoutTerminalReturn() {
+  async function handleCheckoutTerminalReturn() {
     const params = new URLSearchParams(window.location.search);
     if (!hasCheckoutReturnParams()) return;
 
-    if (params.get('demo_unlock') === '1') {
-      reportUnlocked = true;
-      localDevUnlockActive = true;
-      paymentStatusMessage = 'Demo modus actief. Het rapport is zonder betaling geopend.';
-      paymentStatusType = 'success';
-      currentStep = 7;
-      saveDraftState();
-      stripCheckoutParamsFromUrl();
-      return;
-    }
 
     if (!reportUnlocked) {
       currentStep = 6;
@@ -5475,7 +5727,113 @@
     processing?.setAttribute('aria-busy', 'false');
   }
 
-  function activateLocalReportBypass() {
+  function showReportIntro() {
+    return new Promise(resolve => {
+      const overlay = document.getElementById('page-intro-overlay');
+      const fillEl  = document.getElementById('pi-clock-fill');
+      const C = 2 * Math.PI * 36; // ~226
+
+      // Segmenten: [delay_ms, dashoffset, transition_duration_ms]
+      // Cirkel vult op van C (leeg) naar 0 (vol) in onregelmatige stappen
+      const segments = [
+        [0,    C,        0   ],  // reset: leeg
+        [80,   C * 0.78, 620 ],  // snel begin ~22%
+        [900,  C * 0.58, 980 ],  // trager ~42%
+        [2050, C * 0.36, 740 ],  // iets sneller ~64%
+        [2980, C * 0.16, 1150],  // weer trager ~84%
+        [4350, 0,        480 ],  // snelle afrondingsspurt ~100%
+      ];
+
+      // Stap-activering: [delay_ms, stapindex]
+      const stepTimings = [
+        [0,    0],
+        [900,  1],
+        [2050, 2],
+        [2980, 3],
+      ];
+
+      // Toon overlay
+      overlay.style.display = 'flex';
+      overlay.style.opacity = '1';
+      overlay.classList.remove('fade-out');
+
+      // Reset alle stap-labels
+      [0,1,2,3].forEach(i => {
+        const el = document.getElementById('pi-step-' + i);
+        if (el) el.className = 'pi-step';
+      });
+
+      // Plan cirkel-segmenten
+      segments.forEach(([delay, offset, dur]) => {
+        setTimeout(() => {
+          fillEl.style.transition = dur ? `stroke-dashoffset ${dur}ms ease-in-out` : 'none';
+          fillEl.style.strokeDashoffset = offset;
+        }, delay);
+      });
+
+      // Plan stap-labels
+      stepTimings.forEach(([delay, idx]) => {
+        setTimeout(() => {
+          // Vorige stap "done" maken
+          if (idx > 0) {
+            const prev = document.getElementById('pi-step-' + (idx - 1));
+            if (prev) { prev.classList.remove('active'); prev.classList.add('done'); }
+          }
+          const el = document.getElementById('pi-step-' + idx);
+          if (el) el.classList.add('active');
+        }, delay);
+      });
+
+      // Fade-out na totale duur (~5s)
+      const TOTAL = 5000;
+      setTimeout(() => {
+        // Laatste stap done
+        const last = document.getElementById('pi-step-3');
+        if (last) { last.classList.remove('active'); last.classList.add('done'); }
+
+        overlay.classList.add('fade-out');
+        const done = () => { overlay.style.display = 'none'; resolve(); };
+        overlay.addEventListener('transitionend', done, { once: true });
+        setTimeout(done, 700);
+      }, TOTAL);
+    });
+  }
+
+  function showReportLoadingScreen() {
+    return new Promise(resolve => {
+      const overlay   = document.getElementById('report-loading-overlay');
+      const countdown = document.getElementById('report-loading-countdown');
+      const bar       = document.getElementById('report-loading-bar');
+      const DURATION  = 10;
+
+      // Reset balk
+      bar.style.transition = 'none';
+      bar.style.width = '0%';
+      countdown.textContent = DURATION;
+      overlay.classList.add('active');
+
+      // Start balk-animatie na reflow
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          bar.style.transition = `width ${DURATION}s linear`;
+          bar.style.width = '100%';
+        });
+      });
+
+      let remaining = DURATION;
+      const tick = setInterval(() => {
+        remaining -= 1;
+        countdown.textContent = remaining;
+        if (remaining <= 0) {
+          clearInterval(tick);
+          overlay.classList.remove('active');
+          resolve();
+        }
+      }, 1000);
+    });
+  }
+
+  async function activateLocalReportBypass() {
     if (!LOCAL_REPORT_DEV_UNLOCK_ENABLED) return;
     localDevUnlockActive = true;
     reportUnlocked = true;
@@ -5483,6 +5841,7 @@
     paymentStatusType = 'success';
     saveDraftState();
     closePaymentModal();
+    await showReportIntro();
     currentStep = 7;
     render();
   }
@@ -5673,7 +6032,13 @@
     dom.processing?.setAttribute('aria-busy', 'true');
 
     const billingDetails = {};
-    if (P.ownerName) billingDetails.name = P.ownerName;
+    const rawName = (P.ownerName || '').trim();
+    // Stripe vereist billing name ≥ 3 tekens — vul korte namen aan met woonplaats
+    billingDetails.name = rawName.length >= 3
+      ? rawName
+      : rawName.length > 0 && P.ownerWoonplaats
+        ? `${rawName}, ${P.ownerWoonplaats}`
+        : (rawName || 'Klant').padEnd(3, ' ');
     if (P.catEmail) billingDetails.email = P.catEmail;
 
     const result = await stripeInstance.confirmPayment({
@@ -5700,6 +6065,7 @@
         paymentStatusType = 'success';
         saveDraftState();
         closePaymentModal();
+        await showReportIntro();
         currentStep = 7;
         render();
       } catch (err) {
@@ -5756,8 +6122,9 @@
         localDevUnlockActive = false;
         paymentStatusMessage = 'Betaling gelukt. Het volledige rapport is nu ontgrendeld.';
         paymentStatusType = 'success';
-        currentStep = 7;
         saveDraftState();
+        await showReportIntro();
+        currentStep = 7;
         return;
       }
 
@@ -6166,37 +6533,7 @@
   }
 
   function renderNutrientBars(row) {
-    const eiwit  = parseNum(row?.eiwit);
-    const vet    = parseNum(row?.vet);
-    const vezels = parseNum(row?.vezels);
-    const kcal   = parseNum(row?.kcal);
-
-    // Bestaande balkjes
-    const isNat = row?.type === 'natvoer';
-    const maxEiwit  = isNat ? 15  : 60;
-    const maxVet    = isNat ? 12  : 30;
-    const maxVezels = isNat ? 2   : 6;
-    const maxKcal   = isNat ? 1.5 : 5;
-    const bars = [];
-    if (Number.isFinite(eiwit)  && eiwit  > 0) bars.push({ label: 'Eiwit',   cls: 'protein', width: Math.min(100, (eiwit  / maxEiwit)  * 100), val: `${formatDecimal(eiwit, isNat ? 1 : 0)}%`      });
-    if (Number.isFinite(vet)    && vet    > 0) bars.push({ label: 'Vet',     cls: 'fat',     width: Math.min(100, (vet    / maxVet)    * 100), val: `${formatDecimal(vet, isNat ? 1 : 0)}%`        });
-    if (Number.isFinite(vezels) && vezels > 0) bars.push({ label: 'Vezels',  cls: 'fiber',   width: Math.min(100, (vezels / maxVezels) * 100), val: `${formatDecimal(vezels, 1)}%`               });
-    if (Number.isFinite(kcal)   && kcal   > 0) bars.push({ label: 'Energie', cls: 'energy',  width: Math.min(100, (kcal   / maxKcal)   * 100), val: `${formatDecimal(kcal, 2)} kcal/g`           });
-
-    const barsHtml = bars.length > 0 ? `<div class="rfc-nutrients">
-      <div class="rfc-nutrients-label">Voedingswaarden</div>
-      ${bars.map(b => `
-      <div class="rfc-nutrient-row">
-        <span class="rfc-n-label">${b.label}</span>
-        <div class="rfc-n-bar"><div class="rfc-n-fill ${b.cls}" style="width:${b.width.toFixed(1)}%"></div></div>
-        <span class="rfc-n-val">${b.val}</span>
-      </div>`).join('')}
-    </div>` : '';
-
-    // Donut chart
-    const donutHtml = renderNutrientDonut(row);
-
-    return donutHtml + barsHtml;
+    return renderNutrientDonut(row);
   }
 
   function renderNutrientDonut(row) {
@@ -6280,34 +6617,37 @@
       return svgEl;
     }).join('');
 
-    // Legenda (zonder "Overig")
-    const legendItems = active
-      .filter(s => s.label !== 'Overig')
+    // Inline pills (inclusief "Overig")
+    const pillItems = active
       .map(s => {
         const valStr = s.value < 5 ? `${s.value.toFixed(1)}%` : `${Math.round(s.value)}%`;
-        return `<div class="rfc-donut-legend-row">
-          <span class="rfc-donut-dot" style="background:${s.color}"></span>
-          <span class="rfc-donut-legend-label">${s.label}</span>
-          <span class="rfc-donut-legend-val">${valStr}</span>
-        </div>`;
+        return `<span class="rfc-donut-pill"><span class="rfc-donut-dot" style="background:${s.color}"></span>${s.label} ${valStr}</span>`;
       }).join('');
 
     // Center tekst: twee regels
     const line1 = typeShort;
-    const line2 = isNat ? 'voer' : 'voer';
+    const line2 = 'voer';
 
-    return `<div class="rfc-donut-wrap">
-      <svg class="rfc-donut-svg" viewBox="0 0 100 100" role="img" aria-label="Voedingsstoffen verdeling ${typeLabel}">
-        <!-- Achtergrond ring -->
-        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#F0EAE4" stroke-width="18"/>
-        ${svgSegments}
-        <!-- Center tekst -->
-        <text x="${cx}" y="${cy - 5}" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="900" fill="#4A2E2A" font-family="Nunito Sans, sans-serif">${line1}</text>
-        <text x="${cx}" y="${cy + 9}" text-anchor="middle" dominant-baseline="middle" font-size="7.5" font-weight="600" fill="rgba(74,46,42,0.5)" font-family="Nunito Sans, sans-serif">${line2}</text>
-      </svg>
-      <div class="rfc-donut-legend">
-        ${legendItems}
-        ${basisNote ? `<div class="rfc-donut-basis">${basisNote}</div>` : ''}
+    // Foto banner
+    const photoEmoji = isNat ? '🥫' : '🥣';
+    const photoLabel = isNat ? 'Natvoer' : 'Droogvoer · brokjes';
+    const photoClass = isNat ? 'natvoer' : 'brok';
+
+    return `<div class="rfc-donut-section">
+      <div class="rfc-food-photo ${photoClass}">
+        <span>${photoEmoji}</span>
+        <span class="rfc-food-photo-label">${photoLabel}</span>
+      </div>
+      <div class="rfc-donut-wrap">
+        <svg class="rfc-donut-svg" viewBox="0 0 100 100" role="img" aria-label="Voedingsstoffen verdeling ${typeLabel}">
+          <!-- Achtergrond ring -->
+          <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#F0EAE4" stroke-width="18"/>
+          ${svgSegments}
+          <!-- Center tekst -->
+          <text x="${cx}" y="${cy - 5}" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="900" fill="#4A2E2A" font-family="Nunito Sans, sans-serif">${line1}</text>
+          <text x="${cx}" y="${cy + 9}" text-anchor="middle" dominant-baseline="middle" font-size="7.5" font-weight="600" fill="rgba(74,46,42,0.5)" font-family="Nunito Sans, sans-serif">${line2}</text>
+        </svg>
+        <div class="rfc-donut-pills">${pillItems}</div>
       </div>
     </div>`;
   }
@@ -6554,7 +6894,7 @@
     if (goals.length === 0)    goals.push('algemene voedingskwaliteit');
 
     return `<section id="rpt-profiel" class="rpt-section">
-      <div class="rpt-section-kicker">Hoofdstuk 1</div>
+      <div class="rpt-section-kicker">Hoofdstuk 1 — Profiel</div>
       <div class="rpt-section-title">Uw kat en de behoeftes</div>
       <p class="rpt-intro">${escHtml(catName)}${ras} valt in dit rapport onder het <strong>${escHtml(profileMeta.label)}</strong>. We kijken bij de voerkeuze vooral naar ${goals.join(', ')}.</p>
       <div class="needs-grid">
@@ -6617,7 +6957,7 @@
         <div class="rpt-combo-food-desc">${makeFoodDesc(row, 0)}</div>
         ${renderNutrientBars(row)}
         ${priceLine ? `<div class="rpt-combo-food-price">${escHtml(priceLine)}</div>` : ''}
-        ${productUrl ? `<a class="food-order-link" href="${escHtml(productUrl)}" target="_blank" rel="noopener" style="margin-top:0.6rem"><i class="fa-solid fa-cart-shopping"></i> Bestel${leverancier ? ` bij ${escHtml(leverancier)}` : ''}</a>` : ''}
+        ${productUrl ? `<a class="food-order-link" href="${escHtml(productUrl)}" target="_blank" rel="noopener noreferrer" style="margin-top:0.6rem"><i class="fa-solid fa-cart-shopping"></i> Bestel${leverancier ? ` bij ${escHtml(leverancier)}` : ''}</a>` : ''}
       </div>`;
     }
 
@@ -6652,7 +6992,7 @@
     const displayOptions = getDisplayFoodOptions(planFoods);
 
     return `<section id="rpt-aanbevelingen" class="rpt-section">
-      <div class="rpt-section-kicker">Hoofdstuk 2</div>
+      <div class="rpt-section-kicker">Hoofdstuk 2 — Aanbevelingen</div>
       <div class="rpt-section-title">Drie gekozen voedingen</div>
       <p class="rpt-intro">Hieronder staan de drie voedingen die het beste aansluiten op het profiel van ${escHtml(catName)}. Alle drie zijn gelijkwaardige keuzes — weergegeven als <strong>Prijstip</strong>, <strong>Premium</strong> en <strong>Luxe</strong> zodat u de bandbreedte in uw overweging kunt meenemen.</p>
 
@@ -6700,7 +7040,7 @@
                 ${renderNutrientBars(row)}
                 <div class="food-note">${escHtml(getFoodSlotNote(option.label || ''))}</div>
                 ${priceLine ? `<div class="food-price">${escHtml(priceLine)}</div>` : ''}
-                ${productUrl ? `<a class="food-order-link" href="${escHtml(productUrl)}" target="_blank" rel="noopener"><i class="fa-solid fa-cart-shopping"></i> Bestel${leverancier ? ` bij ${escHtml(leverancier)}` : ''}</a>` : ''}
+                ${productUrl ? `<a class="food-order-link" href="${escHtml(productUrl)}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-cart-shopping"></i> Bestel${leverancier ? ` bij ${escHtml(leverancier)}` : ''}</a>` : ''}
               </div>
             </div>`;
           }).join('')
@@ -6769,7 +7109,7 @@
     ] : [];
 
     return `<section id="rpt-voerplan" class="rpt-section">
-      <div class="rpt-section-kicker">Hoofdstuk 3</div>
+      <div class="rpt-section-kicker">Hoofdstuk 3 — Voerplan</div>
       <div class="rpt-section-title">Voerplan en overstap</div>
 
       ${plan ? `
@@ -6917,8 +7257,11 @@
 
     return `<div class="rpt-letter">
       <div class="rpt-letter-greeting">Beste ${escHtml(firstName)},</div>
+      <div class="rpt-letter-betreft">
+        <strong>Betreft:</strong> Persoonlijk voedingsadvies voor ${escHtml(catName)}${ageLabel ? ` (${escHtml(ageLabel)})` : ''} — profiel ${escHtml(profileMeta?.label || 'persoonlijk')}
+      </div>
       <div class="rpt-letter-body">
-        <p>Voor u ligt het persoonlijk voedingsadvies voor <strong>${escHtml(catName)}</strong>${ageLabel ? ` (${escHtml(ageLabel)})` : ''}. Dit rapport is samengesteld op basis van <strong>${pointCount} intakepunten</strong> en toegesneden op het specifieke profiel: <strong>${escHtml(profileMeta?.label || 'persoonlijk profiel')}</strong>.</p>
+        <p>Voor u ligt het persoonlijk voedingsadvies voor <strong>${escHtml(catName)}</strong>. Dit rapport is samengesteld op basis van <strong>${pointCount} intakepunten</strong> en op ${dutchFullDate()} definitief vastgesteld.</p>
         <p>${profileSentence}${goalLine ? ' ' + goalLine : ''}${weightLine ? ' ' + weightLine : ''}</p>
         <p>In dit rapport vindt u drie zorgvuldig geselecteerde voedingen passend bij ${escHtml(catName)}'s behoeften, een praktisch voerplan op maat en een overstapschema. De aanbevolen voervorm is <strong>${foodTypeLabel}</strong>.${P.bijzonderheden ? ` Uw opmerking "<em>${escHtml(P.bijzonderheden)}</em>" is meegenomen in de selectie.` : ''}</p>
         <p>Bij vragen over dit advies kunt u altijd contact opnemen met HAAR. Centrum voor kattenwelzijn.</p>
@@ -7012,6 +7355,22 @@
     return `<div class="rpt-hero-chips">${chips.map(c => `<span class="rpt-hero-chip ${c.cls}"><i class="fa-solid ${c.icon}"></i>${c.label}</span>`).join('')}</div>`;
   }
 
+  function generateReportRef() {
+    const now = new Date();
+    const yy = String(now.getFullYear()).slice(-2);
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const rawTail = (P.draftId || '').replace(/[^A-Z0-9]/gi, '');
+    const seq = rawTail.slice(-4).toUpperCase() || '0001';
+    return `HAAR-${yy}${mm}${dd}-${seq}`;
+  }
+
+  function dutchFullDate() {
+    const months = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+    const now = new Date();
+    return `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+  }
+
   function renderReport() {
     const planFoods      = getPlanFoods();
     const startFood      = planFoods[0] || null;
@@ -7035,6 +7394,13 @@
           <button class="rpt-print-btn" onclick="printReport()">
             <i class="fas fa-print"></i> Afdrukken / Opslaan als PDF
           </button>
+        </div>
+
+        <div class="rpt-doc-meta">
+          <span>Referentie: <span class="meta-value">${generateReportRef()}</span></span>
+          <span>Datum: <span class="meta-value">${dutchFullDate()}</span></span>
+          <span>Status: <span class="meta-value">Definitief</span></span>
+          <span><i class="fa-solid fa-lock" style="font-size:0.6rem"></i> <span class="meta-value">Vertrouwelijk</span></span>
         </div>
 
         <div class="rpt-hero">
@@ -7863,7 +8229,7 @@
       });
     });
 
-    // Step 6 — naam + woonplaats live validation
+    // Step 6 — naam + woonplaats + email live validation
     document.addEventListener('input', e => {
       if (e.target.id === 'inp-s6-owner') {
         P.ownerName = e.target.value.trim();
@@ -7872,29 +8238,38 @@
       } else if (e.target.id === 'inp-s6-woonplaats') {
         P.ownerWoonplaats = e.target.value.trim();
         saveDraftState();
+        checkS6();
+      } else if (e.target.id === 'inp-s6-email') {
+        P.catEmail = e.target.value.trim();
+        saveDraftState();
+        checkS6();
       }
     });
 
-    // Step 6 — open separate checkout terminal
+    // Step 6 — open inline payment modal
     document.getElementById('btn-step6-download')?.addEventListener('click', async () => {
       // Flush fields before opening
       P.ownerName = (document.getElementById('inp-s6-owner')?.value || '').trim();
       P.ownerWoonplaats = (document.getElementById('inp-s6-woonplaats')?.value || '').trim();
+      P.catEmail = (document.getElementById('inp-s6-email')?.value || '').trim();
       saveDraftState();
 
       if (!P.ownerName) {
         document.getElementById('inp-s6-owner')?.focus();
         return;
       }
-
-      const btn = document.getElementById('btn-step6-download');
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Terminal openen...';
+      if (!P.ownerWoonplaats) {
+        document.getElementById('inp-s6-woonplaats')?.focus();
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(P.catEmail)) {
+        document.getElementById('inp-s6-email')?.focus();
+        return;
       }
 
       try {
-        await openStandaloneCheckout();
+        await syncDraftToServer();
+        await openPaymentModal();
       } catch (err) {
         paymentStatusMessage = err.message || 'De betaalterminal kon niet worden geopend. Probeer het opnieuw.';
         paymentStatusType = 'error';
@@ -7904,11 +8279,15 @@
     });
 
     // Live validation for step 1
-    ['inp-catname', 'inp-leeftijd', 'inp-ras'].forEach(id => {
+    ['inp-catname', 'inp-leeftijd'].forEach(id => {
       document.getElementById(id)?.addEventListener('input', () => {
         checkS1();
         saveDraftState();
       });
+    });
+    document.getElementById('inp-ras')?.addEventListener('change', () => {
+      checkS1();
+      saveDraftState();
     });
     document.getElementById('inp-gewicht')?.addEventListener('input', () => {
       checkS2();
@@ -7946,12 +8325,14 @@
     P.catLeeftijd = leeftijd;
     ageField?.setCustomValidity(ageMessage);
     const btn   = document.getElementById('btn-s1');
-    if (btn) btn.disabled = !(cat && leeftijd && !ageMessage && P.geslacht && P.leefstijl);
+    if (btn) btn.disabled = !(cat && ras && leeftijd && !ageMessage && P.geslacht && P.leefstijl);
   }
 
   function checkS6() {
     const btn = document.getElementById('btn-step6-download');
-    if (btn) btn.disabled = !P.ownerName.trim();
+    if (!btn) return;
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((P.catEmail || '').trim());
+    btn.disabled = !(P.ownerName.trim() && P.ownerWoonplaats.trim() && emailValid);
   }
 
   function checkS2() {
@@ -8044,6 +8425,8 @@
   render(); // shows loading spinner immediately
   void initializeApp();
 
+  // Rapport intro overlay aangeroepen vanuit showReportIntro()
+
   // ==========================================================
   // WEEGSCHAAL HULPTOOL
   // Koppel de twee invulvelden na elke render (omdat de DOM
@@ -8091,5 +8474,34 @@
     zonderEl.addEventListener('input', bereken);
   }
   </script>
+
+  <!-- Rapport intro overlay (alleen bij openen rapport stap 7) -->
+  <div id="page-intro-overlay" role="status" aria-label="Rapport wordt geladen" style="display:none;">
+    <img src="assets/haar-centrum-logo.svg" alt="HAAR." class="pi-logo">
+    <div class="pi-clock-wrap">
+      <svg class="pi-clock-svg" viewBox="0 0 76 76">
+        <circle class="pi-clock-track" cx="38" cy="38" r="36"/>
+        <circle class="pi-clock-fill" id="pi-clock-fill" cx="38" cy="38" r="36"/>
+      </svg>
+    </div>
+    <div class="pi-title">Uw persoonlijk rapport wordt opgesteld</div>
+    <div class="pi-steps">
+      <div class="pi-step" id="pi-step-0"><i class="fa-solid fa-circle-dot"></i> Intake verwerken</div>
+      <div class="pi-step" id="pi-step-1"><i class="fa-solid fa-circle-dot"></i> Profiel samenstellen</div>
+      <div class="pi-step" id="pi-step-2"><i class="fa-solid fa-circle-dot"></i> Voerselectie bepalen</div>
+      <div class="pi-step" id="pi-step-3"><i class="fa-solid fa-circle-dot"></i> Rapport opstellen</div>
+    </div>
+  </div>
+
+  <!-- Rapport laadscherm overlay -->
+  <div class="report-loading-overlay" id="report-loading-overlay" aria-live="polite" role="status">
+    <div class="report-loading-spinner"></div>
+    <div class="report-loading-timer" id="report-loading-countdown">10</div>
+    <div class="report-loading-text">Uw persoonlijk adviesrapport wordt aangemaakt…</div>
+    <div class="report-loading-bar-wrap">
+      <div class="report-loading-bar" id="report-loading-bar"></div>
+    </div>
+    <div class="report-loading-sub">Even geduld — we verwerken alle intakepunten en stellen uw rapport samen.</div>
+  </div>
 </body>
 </html>

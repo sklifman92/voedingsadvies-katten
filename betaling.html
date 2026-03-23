@@ -36,6 +36,34 @@
         radial-gradient(circle at bottom right, rgba(176,122,59,0.12) 0%, transparent 28%),
         linear-gradient(180deg, #f8f3ef 0%, #f2e6df 100%);
       min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Decoratieve parallax blobs */
+    .checkout-blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
+      z-index: 0;
+    }
+    .checkout-blob-1 {
+      width: 500px;
+      height: 500px;
+      top: -120px;
+      left: -140px;
+      background: radial-gradient(circle, rgba(182,90,58,0.10) 0%, transparent 65%);
+    }
+    .checkout-blob-2 {
+      width: 400px;
+      height: 400px;
+      bottom: -80px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(176,122,59,0.09) 0%, transparent 60%);
+    }
+    @media (max-width: 768px) {
+      .checkout-blob { display: none; }
     }
 
     .checkout-shell {
@@ -540,6 +568,10 @@
   </style>
 </head>
 <body>
+  <!-- Decoratieve achtergrond blobs met parallax -->
+  <div class="checkout-blob checkout-blob-1" data-parallax="0.14" aria-hidden="true"></div>
+  <div class="checkout-blob checkout-blob-2" data-parallax="0.08" aria-hidden="true"></div>
+
   <main class="checkout-shell">
     <div class="checkout-topbar">
       <a class="checkout-brand" href="index.html" aria-label="HAAR. Centrum voor kattenwelzijn">
@@ -942,7 +974,7 @@
         const email = safeText(dom.email.value, 200).toLowerCase();
         if (email) billingDetails.email = email;
         const ownerName = safeText(getDraftPayload().ownerName, 160);
-        if (ownerName) billingDetails.name = ownerName;
+        billingDetails.name = ownerName || 'Klant';
 
         const result = await stripeInstance.confirmPayment({
           elements: stripeElements,
@@ -1034,5 +1066,7 @@
       init();
     })();
   </script>
+
+  <script src="js/parallax.js"></script>
 </body>
 </html>
