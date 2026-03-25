@@ -39,6 +39,7 @@ const HTML_ROUTES = {
   '/betaling.html': 'betaling.html',
   '/voedingsadvies-app.html': 'voedingsadvies-app.html',
   '/voerlijst.html': 'voerlijst.html',
+  '/blog.html': 'blog.html',
   '/kleurvergelijking.html': 'kleurvergelijking.html',
 };
 

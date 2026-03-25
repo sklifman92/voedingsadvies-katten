@@ -165,66 +165,44 @@
     }
 
     /* ============================================================
-       HERO — gecentreerd, cinematisch
+       HERO — gecentreerd, minimalistisch
        ============================================================ */
     .hero {
       margin-top: 0;
-      background: #EDE5D8;
-      padding-top: calc(72px + 4.5rem);
-      padding-bottom: 0;
+      background: #ffffff;
+      padding-top: calc(72px + 4rem);
+      padding-bottom: 4.5rem;
       position: relative;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: flex-start;
-      height: auto;
-      min-height: 0;
     }
 
-    /* Hero achtergrond blobs — decoratieve parallax elementen */
-    .hero-blob {
-      display: block;
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      will-change: transform;
-      z-index: 0;
+    /* Pricing als hero-sectie */
+    .pricing-section--hero {
+      padding-top: calc(72px + 4.5rem);
     }
-    .hero-blob-1 {
-      width: clamp(420px, 58vw, 840px);
-      height: clamp(420px, 58vw, 840px);
-      top: 5%;
-      left: -5%;
-      background: radial-gradient(circle, rgba(92,123,81,0.22) 0%, transparent 65%);
+    .hero-report-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.82);
+      font-size: 0.83rem;
+      font-weight: 600;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      margin-top: 0.75rem;
+      margin-bottom: 2.75rem;
+      line-height: 1.5;
     }
-    .hero-blob-2 {
-      width: clamp(340px, 46vw, 700px);
-      height: clamp(340px, 46vw, 700px);
-      top: 8%;
-      right: 0%;
-      background: radial-gradient(circle, rgba(182,90,58,0.24) 0%, transparent 60%);
-    }
-    .hero-blob-3 {
-      width: clamp(280px, 38vw, 580px);
-      height: clamp(280px, 38vw, 580px);
-      top: 35%;
-      left: 28%;
-      background: radial-gradient(circle, rgba(200,154,48,0.16) 0%, transparent 60%);
-    }
-    @media (max-width: 768px) {
-      .hero-blob { display: none; }
-    }
+    .hero-report-note i { color: rgba(255,255,255,0.6); flex-shrink: 0; }
 
     .hero .container {
       width: 100%;
       max-width: 1240px;
       margin: 0 auto;
-      padding: 0 3rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-      gap: 3.5rem;
-      align-items: start;
+      padding: 0 2rem;
+      display: block;
       position: relative;
       z-index: 1;
     }
@@ -232,10 +210,13 @@
     .hero-left {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
+      text-align: center;
       min-width: 0;
       width: 100%;
-      max-width: 620px;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0;
     }
 
     .hero-badge {
@@ -283,15 +264,8 @@
       margin-bottom: 0.95rem;
     }
 
-    .hero-proof-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.75rem;
-      width: 100%;
-      max-width: 36rem;
-      margin-bottom: 0.95rem;
-    }
     .hero-proof-card {
+      display: none;
       background: #FFFFFF;
       border: 1px solid rgba(139,63,43,0.18);
       border-radius: 18px;
@@ -378,155 +352,6 @@
     }
     .hero-trust-line i { color: rgba(74,46,42,0.5); }
 
-    /* Scrollende aandachtspunten-balk */
-    .hero-topics {
-      width: 100%;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-topics-fullwidth {
-      border-top: 1px solid rgba(255,255,255,0.1);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      background: #7A3624;
-      padding: 0.8rem 0;
-      position: relative;
-      z-index: 1;
-    }
-    .hero-topics-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 3rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .hero-topics-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      flex-shrink: 0;
-      background: var(--color-accent);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      padding: 0.48rem 0.9rem;
-      border-radius: 999px;
-      box-shadow: none;
-    }
-    .hero-topics-label i {
-      font-size: 0.72rem;
-      opacity: 0.95;
-    }
-    .hero-topics-marquee {
-      flex: 1;
-      min-width: 0;
-      overflow: hidden;
-      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-    }
-    .hero-topics-track {
-      display: flex;
-      gap: 0.55rem;
-      width: max-content;
-      animation: topics-scroll 30s linear infinite;
-    }
-    .hero-topics:hover .hero-topics-track { animation-play-state: paused; }
-    @keyframes topics-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .hero-topic-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      white-space: nowrap;
-      background: rgba(74,46,42,0.1);
-      border: 1px solid rgba(255,255,255,0.13);
-      color: rgba(255,255,255,0.82);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.35rem 0.85rem;
-      border-radius: 100px;
-      flex-shrink: 0;
-    }
-    .hero-topic-tag i { font-size: 0.7rem; opacity: 0.7; }
-    .hero-topic-tag.accent {
-      background: rgba(74,46,42,0.12);
-      border-color: rgba(255,255,255,0.13);
-      color: rgba(255,255,255,0.82);
-    }
-
-    .hero-savings-callout {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      gap: 0.9rem;
-      max-width: 36rem;
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 18px;
-      padding: 0.9rem 1rem;
-      box-shadow: var(--shadow-sm);
-      margin-bottom: 0.95rem;
-    }
-    .hero-savings-icon {
-      width: 2.85rem;
-      height: 2.85rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-      background: var(--color-accent-subtle);
-      border: 1px solid var(--color-border);
-      color: var(--color-accent);
-      flex-shrink: 0;
-    }
-    .hero-savings-icon i { font-size: 1rem; }
-    .hero-savings-copy {
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    .hero-savings-meta {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.45rem 0.65rem;
-    }
-    .hero-savings-eyebrow {
-      font-size: 0.66rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: var(--color-accent);
-    }
-    .hero-savings-stat {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.22rem 0.6rem;
-      border-radius: 999px;
-      background: var(--color-accent-subtle);
-      color: var(--color-accent);
-      font-size: 0.72rem;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-    .hero-savings-title {
-      font-size: 0.93rem;
-      font-weight: 700;
-      line-height: 1.5;
-      color: var(--color-text-body);
-    }
-    .hero-savings-text {
-      font-size: 0.81rem;
-      line-height: 1.62;
-      color: var(--color-text-body);
-    }
-    .hero-savings-title strong,
-    .hero-savings-text strong { color: var(--color-accent); }
-
     .hero-live-badge {
       display: inline-flex;
       align-items: center;
@@ -554,34 +379,6 @@
     @keyframes live-pulse {
       0%, 100% { box-shadow: 0 0 0 0 rgba(93,186,125,0.5); }
       50%       { box-shadow: 0 0 0 5px rgba(93,186,125,0); }
-    }
-
-    /* PDF rechterkolom */
-    .hero-pdf-stage {
-      width: 100%;
-      max-width: 470px;
-      margin-left: auto;
-      position: relative;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .hero-pdf-stage::after {
-      content: '';
-      position: absolute;
-      bottom: -30px; left: 10%;
-      width: 80%; height: 60px;
-      background: radial-gradient(ellipse, rgba(182,90,58,0.4) 0%, transparent 70%);
-      filter: blur(18px);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    @keyframes hero-float {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-10px); }
-    }
-    .pdf-float-label {
-      bottom: -1.8rem;
     }
 
     /* Stats balk onderaan de hero */
@@ -623,96 +420,13 @@
     }
 
     /* Responsive hero */
-    @media (max-width: 960px) {
-      .hero .container {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 3.5rem;
-        text-align: center;
-      }
-
-      .hero-left {
-        align-items: center;
-        max-width: 100%;
-      }
-      .hero h1 { margin-inline: auto; }
-      .hero-cta-row { justify-content: center; }
-      .hero-sub,
-      .hero-proof-grid,
-      .hero-savings-callout,
-      .hero-cta-note,
-      .hero-trust-line { max-width: 42rem; }
-      .hero-pdf-stage {
-        max-width: 100%;
-        margin: 0 auto;
-        justify-content: center;
-      }
-    }
     @media (max-width: 640px) {
-      .hero { padding-top: calc(72px + 2.5rem); }
-      .hero h1 { font-size: 1.9rem; text-align: center; }
-      .hero .container { text-align: center; }
-      .hero-left {
-        width: 100%;
-        max-width: 100%;
-        margin-inline: auto;
-        align-items: center;
-      }
+      .hero { padding-top: calc(72px + 2.5rem); padding-bottom: 3rem; }
+      .hero h1 { font-size: 1.9rem; }
       .hero-cta-row { flex-direction: column; gap: 1rem; align-items: center; }
-      .hero-topics-inner {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.75rem;
-        padding: 0 1rem;
-      }
-      .hero-topics-label {
-        align-self: flex-start;
-      }
-      .hero-sub,
-      .hero-proof-grid,
-      .hero-savings-callout,
-      .hero-cta-note,
-      .hero-trust-line {
-        width: 100%;
-        max-width: 100%;
-        justify-content: center;
-        text-align: center;
-      }
-      .hero-proof-grid {
-        grid-template-columns: 1fr;
-      }
-      .hero-savings-callout {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        padding: 1rem;
-      }
-      .hero-savings-copy { align-items: center; }
-      .hero-savings-meta { justify-content: center; }
       .hero-live-badge { border-radius: 14px; }
-      .hero-pdf-stage {
-        max-width: 340px;
-        margin-inline: auto;
-        justify-self: center;
-        margin-left: auto;
-        margin-right: auto;
-      }
       .hero-stats-bar-inner { flex-wrap: wrap; gap: 1.25rem; }
       .hero-stat-item { flex: none; width: 45%; border-right: none; }
-    }
-
-    /* ============================================================
-       HERO — Design-skill: grain · reveals · typographic lift
-       ============================================================ */
-
-    /* Film-grain overlay for atmospheric depth */
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      background-size: 260px 260px;
-      opacity: 0.03;
-      pointer-events: none;
-      z-index: 0;
     }
 
     /* Staggered entrance reveal */
@@ -721,17 +435,11 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-
-
     /* Staggered reveals — each element slides up in sequence */
-    .hero-badge       { animation: hero-reveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both 0.16s; }
-    .hero h1          { animation: hero-reveal 0.8s  cubic-bezier(0.16, 1, 0.3, 1) both 0.30s; }
-    .hero-sub         { animation: hero-reveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both 0.46s; }
-    .hero-savings-callout { animation: hero-reveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both 0.58s; }
-    .hero-cta-row     { animation: hero-reveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both 0.70s; }
-    .hero-live-badge  { animation: hero-reveal 0.5s  cubic-bezier(0.16, 1, 0.3, 1) both 0.82s; }
-    .hero-trust-line  { animation: hero-reveal 0.5s  cubic-bezier(0.16, 1, 0.3, 1) both 0.92s; }
-    .hero-pdf-stage   { animation: hero-reveal 0.9s  cubic-bezier(0.16, 1, 0.3, 1) both 0.34s; }
+    .hero h1          { animation: hero-reveal 0.8s  cubic-bezier(0.16, 1, 0.3, 1) both 0.20s; }
+    .hero-sub         { animation: hero-reveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both 0.36s; }
+    .hero-cta-row     { animation: hero-reveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) both 0.52s; }
+    .hero-trust-line  { animation: hero-reveal 0.5s  cubic-bezier(0.16, 1, 0.3, 1) both 0.66s; }
 
     /* Subtle shadow on primary CTA */
     .btn-gold-lg { box-shadow: var(--shadow-sm); }
@@ -739,9 +447,6 @@
 
     /* Tighter price kerning for premium feel */
     .hero-price-amount { letter-spacing: -1px; }
-
-    /* Gold blob slightly richer */
-    .hero-blob-2 { background: radial-gradient(circle, rgba(182,90,58,0.15) 0%, transparent 60%); }
 
     /* ============================================================
        HERO — PDF DOCUMENT PREVIEW (right column)
@@ -1163,9 +868,9 @@
     }
     .personal-story-card {
       display: grid;
-      grid-template-columns: minmax(320px, 0.8fr) minmax(0, 1.2fr);
-      gap: 2.2rem;
-      align-items: stretch;
+      grid-template-columns: minmax(260px, 0.65fr) minmax(0, 1.35fr);
+      gap: 2.5rem;
+      align-items: center;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: 28px;
@@ -1178,7 +883,7 @@
       border-radius: 22px;
       overflow: hidden;
       height: 100%;
-      min-height: clamp(560px, 44vw, 760px);
+      min-height: clamp(280px, 28vw, 420px);
       background: linear-gradient(180deg, #d7e6fb 0%, #F0DDD6 100%);
     }
     .personal-story-photo {
@@ -1356,364 +1061,14 @@
     }
 
     /* ============================================================
-       REPORT PREVIEW
-       ============================================================ */
-    .report-preview {
-      background: #F2EAE0;
-      padding: 5.5rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .report-blob {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      will-change: transform;
-      z-index: 0;
-    }
-    .report-blob-1 {
-      width: 500px; height: 500px;
-      top: -80px; right: -100px;
-      background: radial-gradient(circle, rgba(182,90,58,0.16) 0%, transparent 65%);
-    }
-    .report-blob-2 {
-      width: 380px; height: 380px;
-      bottom: -60px; left: -80px;
-      background: radial-gradient(circle, rgba(92,123,81,0.14) 0%, transparent 60%);
-    }
-    .report-preview .container { position: relative; z-index: 1; }
-    .report-preview .container {
-      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    .report-features-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .report-features-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.95rem;
-      color: var(--text-body);
-      line-height: 1.5;
-    }
-    .report-features-list li i {
-      color: #5dba7d;
-      font-size: 0.85rem;
-      margin-top: 0.2rem;
-      flex-shrink: 0;
-    }
-    .report-features-list li strong { color: var(--navy); }
-
-    .report-preview-left { padding-top: 0.5rem; }
-    .report-preview-left h2 {
-      font-family: 'Sansita', serif;
-      font-size: clamp(1.6rem, 2.5vw, 2.1rem);
-      font-weight: 800;
-      color: #8C3F2B;
-      margin-bottom: 0.75rem;
-    }
-    .report-preview-left .lead {
-      color: var(--text-light);
-      font-size: 1rem;
-      margin-bottom: 1.75rem;
-    }
-    .report-pillars {
-      display: grid;
-      gap: 0.9rem;
-      margin: 0 0 1.5rem;
-    }
-    .report-pillar {
-      background: var(--white);
-      border: 1px solid var(--light-bg-2);
-      border-radius: 12px;
-      padding: 1rem 1.1rem;
-      box-shadow: 0 4px 14px rgba(74,46,42,0.04);
-    }
-    .report-pillar-title {
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 1.4px;
-      text-transform: uppercase;
-      color: var(--primary-dark);
-      margin-bottom: 0.35rem;
-    }
-    .report-pillar-text {
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: var(--text-body);
-    }
-    .report-fact-bubble {
-      background: var(--color-surface-2);
-      color: var(--color-text-body);
-      border-left: 3px solid var(--color-accent);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 1rem 1.1rem;
-      margin: 1.35rem 0 1.6rem;
-    }
-    .report-fact-bubble strong {
-      display: block;
-      color: var(--color-text-primary);
-      margin-bottom: 0.25rem;
-      font-size: 0.92rem;
-    }
-    .report-fact-bubble p {
-      margin: 0;
-      font-size: 0.88rem;
-      line-height: 1.7;
-      color: var(--color-text-body);
-    }
-
-    /* Full report card mockup */
-    .full-report-card {
-      background: var(--white);
-      border-radius: 14px;
-      box-shadow: 0 8px 40px rgba(74,46,42,0.14), 0 2px 8px rgba(74,46,42,0.06);
-      overflow: hidden;
-      position: relative;
-      transform: rotate(-1deg);
-      transition: transform 0.35s ease;
-    }
-    .full-report-card:hover { transform: rotate(0deg); }
-
-    .full-report-card-header {
-      background: var(--report-blue);
-      padding: 1.1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .full-report-card-header-left {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.35rem;
-    }
-    .full-report-card-header-logo {
-      display: block;
-      width: 92px;
-      height: auto;
-    }
-    .full-report-card-title {
-      font-family: 'Sansita', serif;
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--navy);
-    }
-    .full-report-card-subtitle {
-      font-size: 0.68rem;
-      color: var(--primary-dark);
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-    .full-report-paw { font-size: 1.6rem; opacity: 0.45; }
-
-    .full-report-card-body { padding: 1.25rem 1.5rem; }
-    .full-report-greeting {
-      font-size: 0.85rem;
-      color: var(--text-body);
-      margin-bottom: 1rem;
-      line-height: 1.5;
-    }
-    .full-report-section-label {
-      font-size: 0.62rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--primary-dark);
-      border-bottom: 1px solid var(--light-bg-2);
-      padding-bottom: 0.3rem;
-      margin-bottom: 0.75rem;
-    }
-    .full-report-note {
-      font-size: 0.73rem;
-      color: var(--text-light);
-      line-height: 1.55;
-      background: #f8fbfd;
-      border-left: 4px solid var(--gold);
-      padding: 0.7rem 0.8rem;
-      border-radius: 0 10px 10px 0;
-      margin: 0 0 0.85rem;
-    }
-
-    .report-product-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.75rem;
-      border-radius: 10px;
-      background: var(--light-bg-1);
-      margin-bottom: 0.5rem;
-      position: relative;
-    }
-    .report-product-row.highlighted {
-      border: 1.5px solid rgba(182,90,58,0.3);
-      background: #fffcf5;
-    }
-    .rp-num {
-      width: 26px; height: 26px;
-      background: var(--navy);
-      color: var(--navy);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.65rem;
-      font-weight: 800;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .rp-num.gold-bg { background: var(--gold); }
-    .rp-info { flex: 1; min-width: 0; }
-    .rp-brand {
-      font-size: 0.62rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--primary-dark);
-    }
-    .rp-name {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin: 0.1rem 0 0.35rem;
-    }
-    .rp-badges {
-      display: flex;
-      gap: 0.3rem;
-      flex-wrap: wrap;
-    }
-    .rp-badge {
-      font-size: 0.58rem;
-      font-weight: 700;
-      padding: 0.15rem 0.45rem;
-      border-radius: 100px;
-      background: var(--light-bg-2);
-      color: var(--navy);
-    }
-    .rp-badge.green { background: #d1fae5; color: #065f46; }
-    .rp-badge.gold { background: var(--gold-light); color: var(--gold); }
-    .prijstip-badge {
-      position: absolute;
-      top: -8px; right: 10px;
-      background: var(--gold);
-      color: var(--navy);
-      font-size: 0.58rem;
-      font-weight: 800;
-      padding: 0.2rem 0.5rem;
-      border-radius: 100px;
-      letter-spacing: 0.5px;
-    }
-    .rp-score {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
-    .rp-score-num {
-      font-family: 'Sansita', serif;
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--navy);
-    }
-    .rp-score-label {
-      font-size: 0.55rem;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* Blur overlay / FOMO */
-    .report-blur-overlay {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 120px;
-      background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.97) 60%, white 100%);
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding-bottom: 1.2rem;
-      border-radius: 0 0 14px 14px;
-    }
-    .report-blur-overlay button,
-    .report-blur-overlay a {
-      background: var(--gold);
-      color: white;
-      border: none;
-      font-family: 'Nunito Sans', sans-serif;
-      font-weight: 700;
-      font-size: 0.82rem;
-      padding: 0.55rem 1.25rem;
-      border-radius: 7px;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.15s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-    .report-blur-overlay button:hover,
-    .report-blur-overlay a:hover { background: var(--gold-hover); transform: translateY(-1px); }
-
-    .full-report-card-footer {
-      border-top: 1px solid var(--light-bg-2);
-      padding: 0.7rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .full-report-card-footer-brand {
-      display: inline-flex;
-      align-items: center;
-    }
-    .full-report-card-footer-logo {
-      display: block;
-      width: 76px;
-      height: auto;
-      opacity: 0.72;
-    }
-    .full-report-card-footer-page {
-      font-size: 0.62rem;
-      color: var(--text-light);
-    }
-
-    /* ============================================================
        TESTIMONIALS
        ============================================================ */
     .testimonials {
       background: #E0E6DA;
       padding: 5.5rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .testimonials-blob {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      will-change: transform;
-      z-index: 0;
-    }
-    .testimonials-blob-1 {
-      width: 460px; height: 460px;
-      top: -60px; left: -100px;
-      background: radial-gradient(circle, rgba(200,154,48,0.14) 0%, transparent 65%);
-    }
-    .testimonials-blob-2 {
-      width: 340px; height: 340px;
-      bottom: -40px; right: -60px;
-      background: radial-gradient(circle, rgba(92,123,81,0.16) 0%, transparent 60%);
     }
     .testimonials .container {
       max-width: 1200px; margin: 0 auto; padding: 0 2rem;
-      position: relative; z-index: 1;
     }
     .testimonials-grid {
       display: grid;
@@ -1818,103 +1173,6 @@
       box-shadow: var(--shadow-lg);
       position: relative;
       z-index: 1;
-    }
-    /* ============================================================
-       GROOTHANDEL BANNER
-       ============================================================ */
-    .wholesale-banner {
-      background: #7A3624;
-      padding: 2.5rem 0;
-    }
-    .wholesale-banner-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.85fr);
-      gap: 2rem;
-      align-items: center;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(240,221,214,0.12);
-      border-radius: 24px;
-      padding: 2rem 2.25rem;
-    }
-    .wholesale-banner-content {
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    .wholesale-banner-label {
-      display: inline-block;
-      width: fit-content;
-      margin-bottom: 0.7rem;
-      padding: 0.32rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(168,224,175,0.14);
-      color: #b8efc1;
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-    .wholesale-banner-title {
-      font-family: 'Sansita', serif;
-      font-size: clamp(1.5rem, 2.2vw, 2rem);
-      font-weight: 800;
-      line-height: 1.15;
-      color: #fffaf7;
-      margin-bottom: 0.65rem;
-    }
-    .wholesale-banner-sub {
-      font-size: 0.93rem;
-      color: rgba(255,255,255,0.72);
-      line-height: 1.65;
-      max-width: 54ch;
-    }
-    .wholesale-banner-side {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(240,221,214,0.10);
-      border-radius: 18px;
-      padding: 1.4rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    .wholesale-banner-side-label {
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: 0.2rem;
-    }
-    .wholesale-banner-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      font-size: 0.92rem;
-      color: rgba(255,255,255,0.88);
-    }
-    .wholesale-banner-list li {
-      padding-left: 0.9rem;
-      position: relative;
-      line-height: 1.45;
-    }
-    .wholesale-banner-list li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: rgba(255,255,255,0.30);
-      font-size: 0.8rem;
-    }
-    @media (max-width: 860px) {
-      .wholesale-banner-inner {
-        grid-template-columns: 1fr;
-        gap: 1.4rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .wholesale-banner-inner {
-        padding: 1.4rem;
-      }
     }
 
     .pricing-popular-badge {
@@ -2042,6 +1300,70 @@
       color: var(--text-light);
     }
     .pricing-trust i { color: var(--gold); margin-right: 0.2rem; }
+
+    /* ---- Two-card grid layout ---- */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      width: 100%;
+      max-width: 860px;
+      align-items: start;
+    }
+    .pricing-card--premium {
+      border: 2px solid var(--gold);
+    }
+    .pricing-card--premium .pricing-popular-badge {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .pricing-card-title {
+      font-family: 'Sansita', serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 0.25rem;
+      text-align: center;
+    }
+    .pricing-card-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+    .pricing-btn-outline {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .pricing-btn-outline a {
+      width: 100%;
+      justify-content: center;
+      font-size: 1.05rem;
+      padding: 1.1rem 1.5rem;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--gold);
+      font-family: 'Nunito Sans', sans-serif;
+      font-weight: 700;
+      border: 2px solid var(--gold);
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease;
+      text-decoration: none;
+    }
+    .pricing-btn-outline a:hover {
+      background: var(--gold);
+      color: var(--white);
+    }
+    @media (max-width: 680px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
     /* ============================================================
        FAQ
@@ -2543,35 +1865,22 @@
        RESPONSIVE
        ============================================================ */
     @media (max-width: 960px) {
-      .hero .container {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 3rem;
-      }
-
-      .pdf-preview-wrap { max-width: 400px; margin: 0 auto; }
-
       .personal-story-card {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
       }
       .personal-story-photo-wrap {
-        max-width: 560px;
+        max-width: 400px;
         width: 100%;
         margin: 0 auto;
         min-height: 0;
         aspect-ratio: 4 / 5;
       }
-      .personal-story-content h2 {
-        max-width: none;
-      }
+
+      .personal-story-values { grid-template-columns: 1fr; }
 
       .steps-grid { grid-template-columns: 1fr; }
       .steps-grid::before { display: none; }
-
-      .report-preview .container {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
 
       .testimonials-grid { grid-template-columns: 1fr; max-width: 440px; margin: 3rem auto 0; }
 
@@ -2583,38 +1892,25 @@
       .lp-nav-toggle { display: flex; }
 
       /* Hero */
-      .hero { padding-top: calc(72px + 2.5rem); padding-bottom: 4rem; }
+      .hero { padding-top: calc(72px + 2.5rem); padding-bottom: 3rem; }
       .hero .container { padding: 0 1.25rem; }
       .hero h1 { font-size: 1.9rem; }
-
-      /* Center the social-proof stat row */
-      .hero-stat-row { width: 100%; justify-content: center; }
-
-      /* Stats bar */
-      .hero-stats-bar { padding: 1.25rem 1rem; }
 
       /* Section vertical padding */
       .personal-story { padding: 3.5rem 0; }
       .how-it-works { padding: 3.5rem 0; }
-      .report-preview { padding: 3.5rem 0; }
       .testimonials { padding: 3.5rem 0; }
       .pricing-section { padding: 3.5rem 0; }
       .faq-section { padding: 3rem 0; }
 
       .personal-story .container { padding: 0 1.25rem; }
       .personal-story-card { padding: 1.1rem; }
-      .personal-story-values { grid-template-columns: 1fr; }
       .personal-story-actions {
         flex-direction: column;
         align-items: stretch;
       }
-      .personal-story-note {
-        width: 100%;
-        text-align: center;
-      }
 
       /* Grids */
-      .report-preview .container,
       .lp-footer-inner { grid-template-columns: 1fr; }
 
       /* Pricing card */
@@ -2631,28 +1927,14 @@
       .hero h1 { font-size: 1.65rem; }
       .hero-price-amount { font-size: 2.2rem; }
 
-      /* Stat row: wrap items instead of overflowing */
-      .hero-stat-row { flex-wrap: wrap; gap: 1rem; }
-      .hero-stat-divider { display: none; }
-
-      /* PDF preview: fit narrow viewport */
-      .hero-pdf-stage { max-width: 100%; }
-      .pdf-doc { max-width: 100%; }
-
       /* Section padding tighter */
       .personal-story { padding: 2.5rem 0; }
       .how-it-works { padding: 2.5rem 0; }
-      .report-preview { padding: 2.5rem 0; }
       .testimonials { padding: 2.5rem 0; }
       .pricing-section { padding: 2.5rem 0; }
       .faq-section { padding: 2.5rem 0; }
 
       .personal-story-photo-wrap { aspect-ratio: 4 / 5; }
-      .personal-story-caption {
-        width: auto;
-        border-radius: 16px;
-        line-height: 1.4;
-      }
 
       /* Pricing card */
       .pricing-card { padding: 1.5rem 1.25rem; }
@@ -2746,6 +2028,24 @@
     .lp-nav.open a { display: block; padding: 0.75rem 1rem; }
     .lp-nav.open .btn-gold { text-align: center; justify-content: center; }
   </style>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="brand/web-assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="brand/web-assets/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="brand/web-assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="brand/web-assets/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="brand/web-assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="brand/web-assets/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="brand/web-assets/android-chrome-512x512.png">
+
+  <!-- Open Graph / Social media -->
+  <meta property="og:image" content="brand/web-assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VoerWijs — Elke kat is anders. Voer ook.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="brand/web-assets/twitter-image.png">
+  <meta name="twitter:image:alt" content="VoerWijs — Elke kat is anders. Voer ook.">
 </head>
 <body>
 
@@ -2762,6 +2062,7 @@
         <a href="#over-mij">Over ons</a>
         <a href="#rapport">Ons rapport</a>
         <a href="#faq">FAQ</a>
+        <a href="blog.html">Blog</a>
         <a href="#contact">Contact</a>
         <a class="btn-gold" href="voedingsadvies-app.html" aria-label="Start intake voor voedingsadvies">
           Start intake <i class="fa-solid fa-arrow-right"></i>
@@ -2776,251 +2077,81 @@
 
 
   <!-- ============================================================
-       HERO — gecentreerd, cinematisch
+       HERO — pricing als eerste sectie
        ============================================================ -->
-  <section class="hero" id="hero" aria-labelledby="hero-heading">
-
-    <!-- Achtergrond blobs — parallax decoratie -->
-    <div class="hero-blob hero-blob-1" data-parallax="0.35" aria-hidden="true"></div>
-    <div class="hero-blob hero-blob-2" data-parallax="0.50" aria-hidden="true"></div>
-    <div class="hero-blob hero-blob-3" data-parallax="0.20" aria-hidden="true"></div>
-
+  <section class="pricing-section pricing-section--hero" id="hero" aria-labelledby="hero-heading">
     <div class="container">
 
-      <!-- Linker kolom: tekst + CTA -->
-      <div class="hero-left">
+      <div class="section-header" style="text-align:center;">
+        <span class="section-label">Kies wat bij jou past</span>
+        <h2 id="hero-heading">Weet eindelijk zeker welk voer het beste is voor jouw kat.</h2>
+        <p>Vul de intake in en ontvang een persoonlijk voedingsrapport — drie concrete voerkeuzes, een volledig voedingsschema, en onderbouwd advies op maat.</p>
+      </div>
 
-        <h1 id="hero-heading">
-          Weet eindelijk zeker welk voer het <em>beste</em> is voor jouw kat.
-        </h1>
+      <p class="hero-report-note">
+        <i class="fa-solid fa-file-lines"></i>
+        Beide opties bevatten hetzelfde volledige rapport. Het verschil zit uitsluitend in de persoonlijke begeleiding erna.
+      </p>
 
-        <p class="hero-sub">
-          Vul de intake in en ontvang drie concrete voerkeuzes en een persoonlijk voerplan — afgestemd op jouw kat.
-        </p>
+      <div class="pricing-grid">
 
-        <div class="hero-proof-grid" aria-label="Waarom dit advies persoonlijk en geloofwaardig is">
-          <div class="hero-proof-card">
-            <span class="hero-proof-label">Analysebasis</span>
-            <span class="hero-proof-value">2.300+ voedingen beoordeeld.</span>
+        <!-- PRODUCT 1: Snel advies -->
+        <div class="pricing-card">
+          <div class="pricing-card-title">Snel advies</div>
+          <div class="pricing-card-subtitle">Eenmalig · direct beschikbaar</div>
+          <div class="pricing-price-row">
+            <div class="pricing-price"><sup>€</sup>14,99</div>
+            <div class="pricing-price-note">Eenmalige betaling · geen abonnement</div>
           </div>
-          <div class="hero-proof-card">
-            <span class="hero-proof-label">Maatwerk</span>
-            <span class="hero-proof-value">Profiel op maat: leeftijd, gewicht, conditie en doelen.</span>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Intake in 5 minuten ingevuld</li>
+            <li><i class="fa-solid fa-check"></i> Volledig persoonlijk voedingsrapport</li>
+            <li><i class="fa-solid fa-check"></i> Drie concrete voerkeuzes op maat</li>
+            <li><i class="fa-solid fa-check"></i> Praktisch voedingsschema</li>
+            <li><i class="fa-solid fa-check"></i> Direct te downloaden als PDF</li>
+            <li><i class="fa-solid fa-check"></i> Preview vóór je betaalt</li>
+          </ul>
+          <div class="pricing-divider"></div>
+          <div class="pricing-btn-outline">
+            <a href="voedingsadvies-app.html">
+              Start intake <i class="fa-solid fa-arrow-right"></i>
+            </a>
           </div>
-          <div class="hero-proof-card">
-            <span class="hero-proof-label">Uitkomst</span>
-            <span class="hero-proof-value">3 opties + 1 startadvies + voerplan.</span>
-          </div>
+          <div class="pricing-trust"><i class="fa-solid fa-lock"></i> Veilig betalen via Stripe</div>
         </div>
 
-        <div class="hero-savings-callout">
-          <div class="hero-savings-icon">
-            <i class="fa-solid fa-bullhorn"></i>
+        <!-- PRODUCT 2: Begeleiding op maat -->
+        <div class="pricing-card pricing-card--premium">
+          <span class="pricing-popular-badge">MEEST GEKOZEN</span>
+          <div class="pricing-card-title">Begeleiding op maat</div>
+          <div class="pricing-card-subtitle">Persoonlijke opvolging · heel het jaar</div>
+          <div class="pricing-price-row">
+            <div class="pricing-price"><sup>€</sup>39,99</div>
+            <div class="pricing-price-note">Per jaar · incl. 3 opvolggesprekken</div>
           </div>
-          <div class="hero-savings-copy">
-            <div class="hero-savings-meta">
-              <span class="hero-savings-eyebrow">Duur is niet altijd beter</span>
-              <span class="hero-savings-stat">Vaak tot €10 p/m besparing</span>
-            </div>
-            <div class="hero-savings-title">
-              Goed voer hoeft niet duur te zijn — <strong>inhoud telt, niet de verpakking.</strong>
-            </div>
+          <ul class="pricing-features">
+            <li><i class="fa-solid fa-check"></i> Alles uit het snel advies</li>
+            <li><i class="fa-solid fa-check"></i> Hetzelfde uitgebreide voedingsrapport</li>
+            <li><i class="fa-solid fa-check"></i> 3× persoonlijke opvolging over het jaar</li>
+            <li><i class="fa-solid fa-check"></i> Bijsturing bij groei, ziekte of verandering</li>
+            <li><i class="fa-solid fa-check"></i> Prioriteit bij vragen</li>
+            <li><i class="fa-solid fa-check"></i> Eindadvies na 12 maanden</li>
+          </ul>
+          <div class="pricing-divider"></div>
+          <div class="pricing-cta-btn">
+            <a class="btn-gold btn-gold-lg" href="mailto:hallo@voerwij.nl?subject=Begeleiding op maat">
+              Start begeleiding <i class="fa-solid fa-arrow-right"></i>
+            </a>
           </div>
+          <div class="pricing-trust"><i class="fa-solid fa-lock"></i> Veilig betalen via Stripe</div>
         </div>
 
-        <div class="hero-cta-row">
-          <div class="hero-price-pill">
-            <div class="hero-price-pill-label"><i class="fa-solid fa-bolt"></i> Beperkte actie</div>
-            <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
-              <div class="hero-price-pill-nums">
-                <div class="hero-price-amount"><sup>€</sup>14,99</div>
-                <div class="hero-price-old">Normaal €19,99</div>
-              </div>
-              <div class="hero-live-badge" id="hero-live-badge" aria-live="polite">
-                <span class="hero-live-dot" aria-hidden="true"></span>
-                <span id="hero-live-count">12</span> mensen zijn nu bezig met hun voedingsadvies
-              </div>
-            </div>
-          </div>
-          <a class="btn-gold btn-gold-lg" href="voedingsadvies-app.html" aria-label="Start intake en bekijk persoonlijke preview">
-            Start intake en zie jouw preview <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
+      </div><!-- /.pricing-grid -->
 
-        <p class="hero-trust-line" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-          Persoonlijke preview vóór betaling &nbsp;·&nbsp;
-          <i class="fa-solid fa-lock"></i> Veilige betaling &nbsp;·&nbsp;
-          Geen abonnement
-        </p>
-
-      </div><!-- /.hero-left -->
-
-      <!-- Rechter kolom: PDF preview -->
-      <div class="hero-pdf-stage" data-parallax="0.08">
-      <div class="pdf-preview-wrap" role="img" aria-label="Voorbeeld voedingsadviesplan PDF">
-
-        <div class="pdf-doc">
-
-          <!-- Document header -->
-          <div class="pdf-doc-header">
-            <div class="pdf-doc-brand">
-              <img src="assets/haar-centrum-logo.svg" alt="HAAR. Centrum voor kattenwelzijn" class="pdf-doc-brand-logo">
-            </div>
-            <div class="pdf-doc-header-meta">
-              <div class="pdf-doc-header-type">Voedingsadviesplan</div>
-              <div class="pdf-doc-header-date">Gegenereerd 12-03-2026</div>
-            </div>
-          </div>
-
-          <!-- Goal ribbon -->
-          <div class="pdf-doc-goal">
-            Doelstelling: <strong>Gewichtsreductie</strong> — streefgewicht 4,5 kg
-          </div>
-
-          <!-- Body -->
-          <div class="pdf-doc-body">
-
-            <div class="pdf-doc-section-label">Hoofdstuk 2 — Gekozen voedingen</div>
-
-            <div class="pdf-doc-row">
-              <div class="pdf-doc-rnum">1</div>
-              <div class="pdf-doc-rinfo">
-                <div class="pdf-doc-rbrand">Carnilove</div>
-                <div class="pdf-doc-rname">Adult – Sterilised — Lam en wild zwijn</div>
-                <div class="pdf-doc-rbadges">
-                  <span class="pdf-doc-rbadge">Eiwit 40%</span>
-                  <span class="pdf-doc-rbadge">3,44 kcal/g</span>
-                  <span class="pdf-doc-rbadge green">Gewichtscontrole</span>
-                </div>
-              </div>
-              <div class="pdf-doc-rscore">
-                <div class="pdf-doc-rscore-val">9.2</div>
-                <div class="pdf-doc-rscore-lbl">Score</div>
-              </div>
-            </div>
-
-            <div class="pdf-doc-row">
-              <div class="pdf-doc-rnum">2</div>
-              <div class="pdf-doc-rinfo">
-                <div class="pdf-doc-rbrand">Purizon</div>
-                <div class="pdf-doc-rname">Adult – Sterilised — Kalkoen en kip</div>
-                <div class="pdf-doc-rbadges">
-                  <span class="pdf-doc-rbadge">Eiwit 44%</span>
-                  <span class="pdf-doc-rbadge">3,47 kcal/g</span>
-                  <span class="pdf-doc-rbadge green">Graanvrij</span>
-                </div>
-              </div>
-              <div class="pdf-doc-rscore">
-                <div class="pdf-doc-rscore-val">8.8</div>
-                <div class="pdf-doc-rscore-lbl">Score</div>
-              </div>
-            </div>
-
-            <div class="pdf-doc-row top-pick">
-              <span class="pdf-doc-prijstip" aria-label="Prijstip">Prijstip</span>
-              <div class="pdf-doc-rnum gold">3</div>
-              <div class="pdf-doc-rinfo">
-                <div class="pdf-doc-rbrand">Startvoer</div>
-                <div class="pdf-doc-rname">Sterilised — Kip</div>
-                <div class="pdf-doc-rbadges">
-                  <span class="pdf-doc-rbadge">Eiwit 38%</span>
-                  <span class="pdf-doc-rbadge">3,32 kcal/g</span>
-                  <span class="pdf-doc-rbadge gold">Start hiermee</span>
-                </div>
-              </div>
-              <div class="pdf-doc-rscore">
-                <div class="pdf-doc-rscore-val">8.1</div>
-                <div class="pdf-doc-rscore-lbl">Score</div>
-              </div>
-            </div>
-
-            <!-- Locked section preview -->
-            <div class="pdf-doc-locked">
-              <div class="pdf-doc-locked-inner">
-                <div class="pdf-doc-section-label">Hoofdstuk 3 — Voedingsschema &amp; tracker</div>
-                <div class="pdf-doc-row">
-                  <div class="pdf-doc-rnum">1</div>
-                  <div class="pdf-doc-rinfo">
-                    <div class="pdf-doc-rbrand">Dagportie</div>
-                    <div class="pdf-doc-rname">Start met circa 37 g per dag, verdeeld over 2 maaltijden</div>
-                    <div class="pdf-doc-rbadges"><span class="pdf-doc-rbadge">Dag 1-2: 25% nieuw</span><span class="pdf-doc-rbadge green">Rustig opbouwen</span></div>
-                  </div>
-                  <div class="pdf-doc-rscore"><div class="pdf-doc-rscore-val">14d</div><div class="pdf-doc-rscore-lbl">Check</div></div>
-                </div>
-                <div class="pdf-doc-row">
-                  <div class="pdf-doc-rnum">2</div>
-                  <div class="pdf-doc-rinfo">
-                    <div class="pdf-doc-rbrand">Statusupdate</div>
-                    <div class="pdf-doc-rname">Controleer eetlust, ontlasting, energie en gewicht en stuur daarna bij</div>
-                    <div class="pdf-doc-rbadges"><span class="pdf-doc-rbadge">Tracker 4 weken</span><span class="pdf-doc-rbadge green">Bij klachten: dierenarts</span></div>
-                  </div>
-                  <div class="pdf-doc-rscore"><div class="pdf-doc-rscore-val">4w</div><div class="pdf-doc-rscore-lbl">Volg op</div></div>
-                </div>
-              </div>
-              <div class="pdf-doc-locked-overlay">
-                  <p style="font-size:0.78rem;font-weight:600;color:rgba(74,46,42,0.75);text-align:center;margin:0 0 0.75rem;line-height:1.4;">
-                    <i class="fa-solid fa-file-pdf" style="color:var(--primary);margin-right:0.3rem;"></i>Persoonlijk PDF rapport — na ontgrendeling direct downloadbaar
-                  </p>
-                  <a class="pdf-doc-unlock-btn" href="voedingsadvies-app.html">
-                    <i class="fa-solid fa-lock"></i> Start intake en bekijk preview
-                  </a>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Footer -->
-          <div class="pdf-doc-footer">
-            <span class="pdf-doc-footer-brand">
-              <img src="assets/haar-centrum-logo.svg" alt="HAAR. Centrum voor kattenwelzijn" class="pdf-doc-footer-logo">
-            </span>
-            <span class="pdf-doc-footer-pages">Pagina 2 van 4</span>
-          </div>
-
-        </div>
-
-      </div><!-- /.pdf-preview-wrap -->
-      </div><!-- /.hero-pdf-stage -->
+      <!-- Hidden element preserved for JS reference -->
+      <span id="hero-live-badge" aria-live="polite" style="display:none;"><span id="hero-live-count">12</span></span>
 
     </div><!-- /.container -->
-
-    <!-- Lopende adviesbalk -->
-    <div class="hero-topics hero-topics-fullwidth" aria-label="Voorbeelden van voedingsadviezen">
-      <div class="hero-topics-inner">
-        <div class="hero-topics-label">
-          <i class="fa-solid fa-bolt"></i> Advies alert
-        </div>
-        <div class="hero-topics-marquee">
-          <div class="hero-topics-track">
-            <span class="hero-topic-tag accent"><i class="fa-solid fa-weight-scale"></i> Overgewicht en veilig afvallen</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-arrow-trend-up"></i> Ondergewicht en aankomen</span>
-            <span class="hero-topic-tag accent"><i class="fa-solid fa-shield-halved"></i> Haarballen en braken</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-heart-pulse"></i> Gevoelige maag en darmen</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-cat"></i> Gesteriliseerde kat</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-star"></i> Vacht en huid</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-droplet"></i> Meer natvoer en vochtopname</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-utensils"></i> Kieskeurige eter</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-clock"></i> Senior kat</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-dumbbell"></i> Actieve buitenkat</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-seedling"></i> Graanvrij of glutenvrij</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-tag"></i> Beste prijs-kwaliteit</span>
-            <span class="hero-topic-tag accent"><i class="fa-solid fa-weight-scale"></i> Overgewicht en veilig afvallen</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-arrow-trend-up"></i> Ondergewicht en aankomen</span>
-            <span class="hero-topic-tag accent"><i class="fa-solid fa-shield-halved"></i> Haarballen en braken</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-heart-pulse"></i> Gevoelige maag en darmen</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-cat"></i> Gesteriliseerde kat</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-star"></i> Vacht en huid</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-droplet"></i> Meer natvoer en vochtopname</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-utensils"></i> Kieskeurige eter</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-clock"></i> Senior kat</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-dumbbell"></i> Actieve buitenkat</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-seedling"></i> Graanvrij of glutenvrij</span>
-            <span class="hero-topic-tag"><i class="fa-solid fa-tag"></i> Beste prijs-kwaliteit</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </section>
 
 
@@ -3029,7 +2160,7 @@
        ============================================================ -->
   <section class="personal-story" id="over-mij" aria-labelledby="about-heading">
     <div class="container">
-      <div class="personal-story-card">
+      <div class="personal-story-card" data-parallax-3d>
         <figure class="personal-story-photo-wrap">
           <img
             class="personal-story-photo"
@@ -3037,7 +2168,6 @@
             alt="Eigenaresse van HAAR. Centrum voor kattenwelzijn"
             loading="lazy"
           />
-          <figcaption class="personal-story-caption" style="display:none"></figcaption>
         </figure>
 
         <div class="personal-story-content">
@@ -3087,151 +2217,19 @@
 
 
 
-  <!-- ============================================================
-       SAMPLE REPORT PREVIEW
-       ============================================================ -->
-  <section class="report-preview" id="rapport" aria-labelledby="rp-heading">
-    <div class="report-blob report-blob-1" data-parallax="0.28" aria-hidden="true"></div>
-    <div class="report-blob report-blob-2" data-parallax="0.15" aria-hidden="true"></div>
-    <div class="container">
-
-      <div class="report-preview-left">
-        <span class="section-label">Wat je krijgt</span>
-        <h2 id="rp-heading">Wat staat er in jouw rapport?</h2>
-        <p class="lead">Geen generiek lijstje, maar een onderbouwd advies in drie heldere hoofdstukken: eerst het profiel van jouw kat, daarna drie gekozen voedingen, en vervolgens een praktisch voedingsschema met opvolging.</p>
-
-        <div class="report-pillars" aria-label="Drie hoofdstukken van het rapport">
-          <div class="report-pillar">
-            <div class="report-pillar-title">Hoofdstuk 1</div>
-            <div class="report-pillar-text"><strong>Uw kat en de behoeftes</strong><br />Bondig uitgelegd wat het profiel van uw kat is en waar u in de praktijk op moet letten.</div>
-          </div>
-          <div class="report-pillar">
-            <div class="report-pillar-title">Hoofdstuk 2</div>
-            <div class="report-pillar-text"><strong>Drie gekozen voedingen</strong><br />Met één duidelijke startkeuze en simpele uitleg waarom juist die voeding zo goed past.</div>
-          </div>
-          <div class="report-pillar">
-            <div class="report-pillar-title">Hoofdstuk 3</div>
-            <div class="report-pillar-text"><strong>Voedingsschema en tracker</strong><br />Inclusief portierichtlijn, overstapschema, evaluatiemoment en wanneer u beter de dierenarts kunt bellen.</div>
-          </div>
-        </div>
-
-        <div style="margin-top: 2rem;">
-          <a class="btn-gold" href="voedingsadvies-app.html" aria-label="Start intake voor jouw rapport">
-            Start met invullen <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Full report mock -->
-      <div style="position: relative;">
-        <div class="full-report-card" role="img" aria-label="Voorbeeld rapportpagina">
-          <div class="full-report-card-header">
-            <div class="full-report-card-header-left">
-              <img src="assets/haar-centrum-logo.svg" alt="HAAR. Centrum voor kattenwelzijn" class="full-report-card-header-logo">
-              <div class="full-report-card-title">Voedingsadviesplan</div>
-              <div class="full-report-card-subtitle">HAAR. Centrum voor kattenwelzijn</div>
-            </div>
-            <i class="fa-solid fa-paw full-report-paw" aria-hidden="true"></i>
-          </div>
-
-          <div class="full-report-card-body">
-            <p class="full-report-greeting">
-              Beste eigenaar van <strong>Luna</strong>,<br />
-              Voor Luna is <strong>gewichtscontrole</strong> het leidende profiel. Daarom kiest het rapport eerst de belangrijkste behoeftes, daarna drie passende voedingen, en wijst het ook meteen aan met welk voer u het beste kunt starten.
-            </p>
-
-            <div class="full-report-section-label">Hoofdstuk 2 — De gekozen voedingen</div>
-            <div class="full-report-note">
-              Start met voeding 1 en evalueer na 14 dagen eetlust, ontlasting, energie en gewicht. Voeding 2 en 3 zijn de beste alternatieven als de behoefte verandert.
-            </div>
-
-            <div class="report-product-row">
-              <div class="rp-num">01</div>
-              <div class="rp-info">
-                <div class="rp-brand">Carnilove</div>
-                <div class="rp-name">Adult – Sterilised — Lam en wild zwijn</div>
-                <div class="rp-badges">
-                  <span class="rp-badge">Eiwit 40%</span>
-                  <span class="rp-badge">3,44 kcal/g</span>
-                  <span class="rp-badge green">Gewichtscontrole</span>
-                </div>
-              </div>
-              <div class="rp-score">
-                <div class="rp-score-num">9.2</div>
-                <div class="rp-score-label">Score</div>
-              </div>
-            </div>
-
-            <div class="report-product-row">
-              <div class="rp-num">02</div>
-              <div class="rp-info">
-                <div class="rp-brand">Purizon</div>
-                <div class="rp-name">Adult – Sterilised — Kalkoen en kip</div>
-                <div class="rp-badges">
-                  <span class="rp-badge">Eiwit 44%</span>
-                  <span class="rp-badge">3,47 kcal/g</span>
-                  <span class="rp-badge green">Graanvrij</span>
-                </div>
-              </div>
-              <div class="rp-score">
-                <div class="rp-score-num">8.8</div>
-                <div class="rp-score-label">Score</div>
-              </div>
-            </div>
-
-            <div class="report-product-row highlighted">
-              <span class="prijstip-badge" aria-label="Prijstip">Prijstip</span>
-              <div class="rp-num gold-bg">03</div>
-              <div class="rp-info">
-                <div class="rp-brand">Finevo</div>
-                <div class="rp-name">Sterilised — Kip</div>
-                <div class="rp-badges">
-                  <span class="rp-badge">Eiwit 38%</span>
-                  <span class="rp-badge">3,32 kcal/g</span>
-                  <span class="rp-badge gold">Budgetvriendelijk</span>
-                </div>
-              </div>
-              <div class="rp-score">
-                <div class="rp-score-num">8.1</div>
-                <div class="rp-score-label">Score</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="full-report-card-footer">
-            <span class="full-report-card-footer-brand">
-              <img src="assets/haar-centrum-logo.svg" alt="HAAR. Centrum voor kattenwelzijn" class="full-report-card-footer-logo">
-            </span>
-            <span class="full-report-card-footer-page">Pagina 2 / 4</span>
-          </div>
-
-          <!-- Blur / FOMO overlay -->
-          <div class="report-blur-overlay" aria-hidden="true">
-            <a href="voedingsadvies-app.html" aria-label="Start intake en ontgrendel jouw rapport">
-              <i class="fa-solid fa-lock"></i> Start intake en ontgrendel rapport
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
 
 
   <!-- ============================================================
        TESTIMONIALS
        ============================================================ -->
   <section class="testimonials" id="reviews" aria-labelledby="reviews-heading">
-    <div class="testimonials-blob testimonials-blob-1" data-parallax="0.22" aria-hidden="true"></div>
-    <div class="testimonials-blob testimonials-blob-2" data-parallax="0.35" aria-hidden="true"></div>
     <div class="container">
       <div class="section-header">
         <span class="section-label">Ervaringen</span>
         <h2 id="reviews-heading">Wat klanten zeggen</h2>
-        <p>Kattenbaasjes die al gebruik maakten van het voedingsadvies van HAAR. Kattentrimsalon.</p>
       </div>
 
-      <div class="testimonials-grid" role="list">
+      <div class="testimonials-grid" role="list" data-parallax-3d>
 
         <article class="testimonial-card" role="listitem">
           <div class="testimonial-stars" aria-label="5 sterren beoordeling">★★★★★</div>
@@ -3280,29 +2278,330 @@
   </section>
 
 
+
   <!-- ============================================================
-       BESTELLEN MET VOORDEEL
+       LEAD MAGNET — Top 5 kattenvoedingen onder €2,50/dag
        ============================================================ -->
-  <section class="wholesale-banner" id="bestellen">
+  <style>
+    .lm-section {
+      background: var(--navy);
+      padding: 4.5rem 0;
+    }
+    .lm-card {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 3rem;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 20px;
+      padding: 3rem;
+    }
+    @media (max-width: 860px) {
+      .lm-card { grid-template-columns: 1fr; }
+      .lm-right { display: none; }
+    }
+    @media (max-width: 640px) {
+      .lm-card { padding: 1.75rem 1.25rem; }
+    }
+    .lm-badge {
+      display: inline-block;
+      background: #6B8060;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      margin-bottom: 1rem;
+    }
+    .lm-section h2 {
+      font-family: 'Sansita', serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin: 0 0 0.85rem;
+    }
+    .lm-section h2 em { color: #E9B99D; font-style: normal; }
+    .lm-sub {
+      color: rgba(255,255,255,0.70);
+      font-size: 0.97rem;
+      line-height: 1.65;
+      margin: 0 0 1.5rem;
+    }
+    .lm-preview {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .lm-preview-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .lm-preview-item:last-of-type { border-bottom: none; }
+    .lm-preview-item.blurred { filter: blur(4px); pointer-events: none; user-select: none; }
+    .lm-rank {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: #6B8060;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .lm-preview-item.blurred .lm-rank { background: rgba(255,255,255,0.25); }
+    .lm-item-info { flex: 1; }
+    .lm-item-info strong { display: block; color: #fff; font-size: 0.85rem; font-weight: 700; }
+    .lm-item-info span { font-size: 0.75rem; color: rgba(255,255,255,0.55); }
+    .lm-item-score {
+      font-family: 'Sansita', serif;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #E9B99D;
+    }
+    .lm-preview-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, rgba(18,10,7,0.90));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.3rem;
+      padding-bottom: 0.75rem;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.78rem;
+    }
+    .lm-preview-overlay i { color: #E9B99D; font-size: 1rem; }
+    /* Email form */
+    .lm-form-row {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .lm-form-row input[type="email"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.8rem 1rem;
+      border: 1.5px solid rgba(255,255,255,0.20);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.10);
+      color: #fff;
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .lm-form-row input[type="email"]::placeholder { color: rgba(255,255,255,0.40); }
+    .lm-form-row input[type="email"]:focus { border-color: #6B8060; }
+    .lm-privacy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.40);
+      margin: 0.6rem 0 0;
+    }
+    .lm-success {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      background: rgba(107,128,96,0.25);
+      border: 1px solid rgba(107,128,96,0.50);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      color: #fff;
+    }
+    .lm-success i { color: #A5C899; font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .lm-success strong { display: block; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .lm-success p { font-size: 0.8rem; color: rgba(255,255,255,0.60); margin: 0; }
+    /* Right visual */
+    .lm-right { display: flex; justify-content: center; align-items: center; }
+    .lm-visual {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      width: 100%;
+    }
+    .lm-visual-badge {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #B65A3A 0%, #6B8060 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .lm-visual-num {
+      font-family: 'Sansita', serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .lm-visual-label {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.80);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .lm-visual-title {
+      color: #fff;
+      font-family: 'Sansita', serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .lm-tags { display: flex; flex-direction: column; gap: 0.5rem; }
+    .lm-tag {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.75);
+    }
+    .lm-tag i { color: #A5C899; margin-right: 0.4rem; }
+  </style>
+
+  <section class="lm-section" id="gratis-gids" aria-labelledby="lm-heading">
     <div class="container">
-      <div class="wholesale-banner-inner">
-        <div class="wholesale-banner-content">
-          <span class="wholesale-banner-label">Besparen</span>
-          <div class="wholesale-banner-title">Tot €10 per maand goedkoper — met kortingscodes bij aanbevolen leveranciers</div>
-          <div class="wholesale-banner-sub">Jouw rapport bevat directe bestelkoppelingen bij geselecteerde leveranciers, inclusief kortingscodes. Niet alleen voor de eerste aankoop — ook bij herhaalaankopen blijf je profiteren van hetzelfde voordeel.</div>
+      <div class="lm-card">
+
+        <div class="lm-left">
+          <span class="lm-badge">Gratis gids</span>
+          <h2 id="lm-heading">Top 5 kattenvoedingen<br>onder <em>€2,50/dag</em></h2>
+          <p class="lm-sub">
+            We analyseerden 2.300+ voedingen. Dit zijn de vijf die scoren op kwaliteit én betaalbaarheid —
+            met merknaam, eiwitpercentage en werkelijke prijs per dag.
+          </p>
+
+          <!-- Preview: item 1 zichtbaar, 2–5 geblurd -->
+          <div class="lm-preview" aria-hidden="true">
+            <div class="lm-preview-item">
+              <span class="lm-rank">1</span>
+              <div class="lm-item-info">
+                <strong>Schesir Adult — Rund, kip &amp; wortel</strong>
+                <span>Natvoer · 47% eiwit · €0,89/dag · Paté</span>
+              </div>
+              <span class="lm-item-score">★★★★</span>
+            </div>
+            <div class="lm-preview-item blurred">
+              <span class="lm-rank">2</span>
+              <div class="lm-item-info">
+                <strong>Real Nature — Kalkoen &amp; kip</strong>
+                <span>Natvoer · 54% eiwit · €1,72/dag · Paté</span>
+              </div>
+            </div>
+            <div class="lm-preview-item blurred">
+              <span class="lm-rank">3</span>
+              <div class="lm-item-info">
+                <strong>Stuzzy — Kip</strong>
+                <span>Natvoer · 53% eiwit · €1,91/dag · Paté</span>
+              </div>
+            </div>
+            <div class="lm-preview-item blurred">
+              <span class="lm-rank">4</span>
+              <div class="lm-item-info">
+                <strong>Brit — Kip &amp; rund</strong>
+                <span>Natvoer · 52% eiwit · €2,27/dag · Paté</span>
+              </div>
+            </div>
+            <div class="lm-preview-item blurred">
+              <span class="lm-rank">5</span>
+              <div class="lm-item-info">
+                <strong>Purizon — Kipfilet &amp; wild zwijn</strong>
+                <span>Natvoer · 51% eiwit · €1,86/dag · Vleesreepjes</span>
+              </div>
+            </div>
+            <div class="lm-preview-overlay">
+              <i class="fa-solid fa-lock"></i>
+              <span>Ontvang de volledige lijst gratis per e-mail</span>
+            </div>
+          </div>
+
+          <!-- E-mailformulier -->
+          <!-- CONFIGUREER: vervang de action-URL door jouw Formspree-endpoint (https://formspree.io/f/...) of Mailchimp-embed-URL -->
+          <form class="lm-form" id="lm-form" novalidate>
+            <div class="lm-form-row">
+              <input
+                type="email"
+                id="lm-email"
+                name="email"
+                placeholder="jouw@emailadres.nl"
+                required
+                autocomplete="email"
+                aria-label="E-mailadres voor gratis gids"
+              />
+              <button type="submit" class="btn-gold">
+                Ontvang gratis <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+            <p class="lm-privacy">Geen spam. Uitschrijven kan altijd. Je gegevens worden niet doorverkocht.</p>
+          </form>
+
+          <!-- Successtatus (verborgen tot inzending) -->
+          <div class="lm-success" id="lm-success" hidden>
+            <i class="fa-solid fa-circle-check"></i>
+            <div>
+              <strong>De gids staat in je inbox!</strong>
+              <p>Check ook je spammap als je hem niet ziet. Veel plezier met je kat.</p>
+            </div>
+          </div>
         </div>
-        <div class="wholesale-banner-side">
-          <div class="wholesale-banner-side-label">Wat je krijgt</div>
-          <ul class="wholesale-banner-list">
-            <li>Kortingscodes bij aanbevolen leveranciers</li>
-            <li>Geldig voor eerste én vervolgbestellingen</li>
-            <li>Zelfde voer makkelijk nabestellen</li>
-            <li>Tot €10 per maand goedkoper</li>
-          </ul>
+
+        <div class="lm-right" aria-hidden="true">
+          <div class="lm-visual">
+            <div class="lm-visual-badge">
+              <span class="lm-visual-num">5</span>
+              <span class="lm-visual-label">topkeuzes</span>
+            </div>
+            <p class="lm-visual-title">Kwalitatief &amp; betaalbaar<br>voor elke kat</p>
+            <div class="lm-tags">
+              <span class="lm-tag"><i class="fa-solid fa-check"></i> Onafhankelijk beoordeeld</span>
+              <span class="lm-tag"><i class="fa-solid fa-check"></i> Uit 2.300+ voedingen</span>
+              <span class="lm-tag"><i class="fa-solid fa-check"></i> Onder €2,50 per dag</span>
+              <span class="lm-tag"><i class="fa-solid fa-check"></i> Met eiwitpercentage</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
+
+  <script>
+    (function () {
+      var form = document.getElementById('lm-form');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('lm-email').value.trim();
+        if (!email || !email.includes('@')) {
+          document.getElementById('lm-email').focus();
+          return;
+        }
+        // Optioneel: koppel hier je Formspree of Mailchimp endpoint:
+        // fetch('https://formspree.io/f/JOUW_FORM_ID', {
+        //   method: 'POST',
+        //   headers: { 'Accept': 'application/json' },
+        //   body: new FormData(form)
+        // });
+        form.hidden = true;
+        document.getElementById('lm-success').hidden = false;
+      });
+    })();
+  </script>
+
 
   <!-- ============================================================
        FAQ
@@ -3317,30 +2616,16 @@
       <div class="faq-list">
 
         <details class="faq-item">
+          <summary>Wat is dit en wat krijg ik?</summary>
+          <div class="faq-answer">
+            Een persoonlijk voedingsadviesplan op basis van het profiel van jouw kat. Je krijgt drie concrete voerkeuzes, één duidelijk startadvies, en een praktisch voedingsschema — inclusief PDF. Je vult eerst de intake in en ziet direct een preview vóór je betaalt.
+          </div>
+        </details>
+
+        <details class="faq-item">
           <summary>Hoe snel ontvang ik mijn rapport?</summary>
           <div class="faq-answer">
-            Je vult eerst de intake in. Daarna zie je direct een persoonlijke preview waarin al zichtbaar is dat jouw rapport en drie voeropties zijn klaargezet. Na betaling wordt het volledige advies meteen vrijgegeven, inclusief PDF, voerkeuzes en persoonlijk voedingsschema.
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Is dit rapport ook geschikt voor kittens of senioren?</summary>
-          <div class="faq-answer">
-            Ja. Voor een kitten jonger dan 1 jaar kun je in de intake simpelweg <strong>0 jaar</strong> invullen, en senioren worden ook gewoon meegenomen in de beslisboom. Bij heel jonge kittens, medische klachten of twijfel blijft persoonlijke opvolging natuurlijk altijd mogelijk via HAAR. Kattentrimsalon.
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Wat als mijn kat meerdere problemen heeft?</summary>
-          <div class="faq-answer">
-            Geen probleem. In de wizard kun je meerdere doelen aanvinken, bijvoorbeeld overgewicht én gevoelige darmen. Het systeem kijkt dan welk profiel het meest bepalend is voor jouw kat en kiest daarbinnen de sterkste passende voedingen. Zo blijft het advies helder en praktisch.
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Waarom krijg ik geen lijst met tientallen merken?</summary>
-          <div class="faq-answer">
-            Omdat een lange lijst meestal niet helpt. Wij vergelijken jouw kat eerst met 2.300+ beoordeelde voedingen en brengen dat daarna bewust terug naar drie sterke opties. Dure of commercieel slim verpakte voedingen zijn namelijk niet automatisch beter. Wij kijken vooral naar wat inhoudelijk past bij het profiel van jouw kat.
+            Direct. Na betaling wordt het volledige advies meteen vrijgegeven, inclusief PDF, voerkeuzes en persoonlijk voedingsschema.
           </div>
         </details>
 
@@ -3377,25 +2662,14 @@
         <div class="contact-card">
           <div class="contact-card-icon"><i class="fa-solid fa-envelope"></i></div>
           <h3>E-mail</h3>
-          <p>Heb je een vraag over jouw rapport, een specifieke situatie of wil je iets terugkoppelen?</p>
+          <p>Heb je een vraag over jouw rapport of een specifieke situatie? We reageren doorgaans binnen 1 werkdag.</p>
           <p><a href="mailto:haarkattentrimsalon@gmail.com">haarkattentrimsalon@gmail.com</a></p>
         </div>
         <div class="contact-card">
-          <div class="contact-card-icon"><i class="fa-solid fa-scissors"></i></div>
-          <h3>HAAR. Kattentrimsalon</h3>
-          <p>Persoonlijk langskomen? Bezoek ons ook voor trimadvies, vachtverzorging en holistische kattenzorg.</p>
-          <p><a href="https://www.haarkattentrm.nl" target="_blank" rel="noopener noreferrer">www.haarkattentrm.nl</a></p>
-        </div>
-        <div class="contact-card">
           <div class="contact-card-icon"><i class="fa-brands fa-instagram"></i></div>
-          <h3>Instagram &amp; TikTok</h3>
+          <h3>Instagram</h3>
           <p>Volg ons voor tips over kattenvoeding, vachtverzorging en het laatste nieuws van VoerWijs.</p>
           <p><a href="https://www.instagram.com/voerwijs.nl" target="_blank" rel="noopener noreferrer">@voerwijs.nl</a></p>
-        </div>
-        <div class="contact-card">
-          <div class="contact-card-icon"><i class="fa-solid fa-clock"></i></div>
-          <h3>Reactietijd</h3>
-          <p>We beantwoorden e-mails zo snel mogelijk, doorgaans <strong>binnen 1 werkdag</strong>. Bij technische vragen over je rapport proberen we je hetzelfde dag te helpen.</p>
         </div>
       </div>
 
@@ -3425,6 +2699,8 @@
           <ul>
             <li><a href="#over-mij">Over ons</a></li>
             <li><a href="#rapport">Ons rapport</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="#gratis-gids">Gratis gids</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>

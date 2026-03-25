@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Kattenvoeding tips &amp; advies | HAAR. Centrum voor kattenwelzijn</title>
+  <meta name="description" content="Praktische artikelen over kattenvoeding: van brok vs natvoer tot het lezen van etiketten. Onafhankelijk advies voor bewuste katteneigenaren." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    :root {
+      --primary: #B65A3A;
+      --primary-dark: #9E4D30;
+      --navy: #2E1510;
+      --green: #6B8060;
+      --light-bg-1: #F5EDE5;
+      --light-bg-2: #EDE0D4;
+      --text-body: #3D2218;
+      --text-light: #8A6860;
+    }
+    * { box-sizing: border-box; }
+    body { background: var(--light-bg-1); color: var(--text-body); font-family: 'Nunito Sans', sans-serif; margin: 0; overflow-x: hidden; }
+
+    /* ---- HEADER ---- */
+    .blog-header {
+      position: sticky; top: 0; left: 0; right: 0; z-index: 100;
+      background: #fff;
+      height: 72px;
+      border-bottom: 1px solid rgba(74,46,42,0.10);
+      box-shadow: 0 2px 16px rgba(60,20,8,0.07);
+    }
+    .blog-header .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 100%; }
+    .blog-logo { display: flex; align-items: center; text-decoration: none; gap: 0.6rem; }
+    .blog-logo-img { height: 38px; width: auto; }
+    .blog-logo-text { font-family: 'Sansita', serif; font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+    .blog-nav { display: flex; align-items: center; gap: 1.5rem; }
+    .blog-nav a { font-size: 0.9rem; font-weight: 600; color: var(--text-body); text-decoration: none; }
+    .blog-nav a:hover { color: var(--primary); }
+    .btn-header { background: var(--green); color: #fff; padding: 0.55rem 1.1rem; border-radius: 8px; font-weight: 700; font-size: 0.88rem; text-decoration: none; }
+    .btn-header:hover { background: #5A6E50; color: #fff; }
+    @media (max-width: 640px) { .blog-nav a:not(.btn-header) { display: none; } }
+
+    /* ---- HERO ---- */
+    .blog-hero {
+      background: var(--navy);
+      padding: 5rem 0 4rem;
+      text-align: center;
+    }
+    .blog-hero .container { max-width: 700px; margin: 0 auto; padding: 0 2rem; }
+    .blog-hero-label { display: inline-block; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.80); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 0.3rem 0.9rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .blog-hero h1 { font-family: 'Sansita', serif; font-size: 2.4rem; font-weight: 900; color: #fff; line-height: 1.2; margin: 0 0 1rem; }
+    .blog-hero h1 em { color: #E9B99D; font-style: normal; }
+    .blog-hero p { color: rgba(255,255,255,0.65); font-size: 1rem; line-height: 1.65; margin: 0; }
+    @media (max-width: 600px) { .blog-hero h1 { font-size: 1.8rem; } }
+
+    /* ---- ARTICLE GRID ---- */
+    .blog-grid-section { padding: 4rem 0; }
+    .blog-grid-section .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .blog-section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 0.5rem; }
+    .blog-section-title { font-family: 'Sansita', serif; font-size: 1.8rem; font-weight: 800; color: var(--navy); margin: 0 0 2.5rem; }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .blog-card {
+      background: #fff;
+      border: 1px solid rgba(74,46,42,0.10);
+      border-radius: 14px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .blog-card:hover { box-shadow: 0 8px 30px rgba(60,20,8,0.12); transform: translateY(-3px); }
+    .blog-card-tag { display: inline-block; background: var(--light-bg-2); color: var(--primary); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 0.2rem 0.6rem; border-radius: 100px; margin-bottom: 0.85rem; }
+    .blog-card h3 { font-family: 'Sansita', serif; font-size: 1.1rem; font-weight: 800; color: var(--navy); margin: 0 0 0.6rem; line-height: 1.3; }
+    .blog-card p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; margin: 0 0 1rem; flex: 1; }
+    .blog-card-read { font-size: 0.82rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 0.35rem; }
+    .blog-card-read i { font-size: 0.7rem; }
+
+    /* ---- ARTICLE SECTIONS ---- */
+    .article-section { padding: 5rem 0; border-top: 1px solid rgba(74,46,42,0.08); }
+    .article-section:nth-child(even) { background: #fff; }
+    .article-section .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+    .article-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .article-tag { background: var(--light-bg-2); color: var(--primary); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 0.22rem 0.65rem; border-radius: 100px; }
+    .article-date { font-size: 0.78rem; color: var(--text-light); }
+    .article-section h2 { font-family: 'Sansita', serif; font-size: 1.9rem; font-weight: 900; color: var(--navy); line-height: 1.25; margin: 0 0 1.25rem; }
+    .article-section h3 { font-family: 'Sansita', serif; font-size: 1.2rem; font-weight: 800; color: var(--navy); margin: 2rem 0 0.6rem; }
+    .article-section p { font-size: 0.97rem; line-height: 1.75; color: var(--text-body); margin: 0 0 1.1rem; }
+    .article-section ul, .article-section ol { padding-left: 1.4rem; margin: 0 0 1.1rem; }
+    .article-section li { font-size: 0.97rem; line-height: 1.75; color: var(--text-body); margin-bottom: 0.35rem; }
+    .article-tip {
+      background: rgba(107,128,96,0.10);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 0.85rem 1.1rem;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+    .article-tip strong { color: var(--green); }
+    .article-formula {
+      background: var(--light-bg-2);
+      border: 1px solid rgba(74,46,42,0.12);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: var(--navy);
+      margin: 1.25rem 0;
+      overflow-x: auto;
+    }
+    .article-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.88rem; }
+    .article-table th { background: var(--navy); color: #fff; padding: 0.6rem 0.85rem; text-align: left; font-weight: 700; }
+    .article-table td { padding: 0.55rem 0.85rem; border-bottom: 1px solid var(--light-bg-2); }
+    .article-table tr:last-child td { border-bottom: none; }
+    .article-table tr:nth-child(even) td { background: rgba(237,224,212,0.40); }
+    .article-cta {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 1.75rem;
+      margin-top: 2.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .article-cta p { color: rgba(255,255,255,0.80); font-size: 0.9rem; line-height: 1.55; margin: 0; }
+    .article-cta strong { color: #fff; display: block; font-family: 'Sansita', serif; font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .btn-cta { background: var(--green); color: #fff; padding: 0.7rem 1.3rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-decoration: none; white-space: nowrap; }
+    .btn-cta:hover { background: #5A6E50; }
+
+    /* ---- FOOTER ---- */
+    .blog-footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; padding: 2.5rem 1rem; font-size: 0.82rem; }
+    .blog-footer a { color: rgba(255,255,255,0.70); text-decoration: none; }
+    .blog-footer a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="blog-header">
+    <div class="container">
+      <a href="index.html" class="blog-logo" aria-label="HAAR. Centrum voor kattenwelzijn — Home">
+        <img src="assets/haar-centrum-logo.svg" alt="HAAR." class="blog-logo-img" onerror="this.style.display='none'">
+        <span class="blog-logo-text">HAAR.</span>
+      </a>
+      <nav class="blog-nav" aria-label="Navigatie">
+        <a href="index.html">Home</a>
+        <a href="voerlijst.html">Voerlijst</a>
+        <a href="blog.html" aria-current="page">Blog</a>
+        <a href="voedingsadvies-app.html" class="btn-header">Start intake <i class="fa-solid fa-arrow-right"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- BLOG HERO -->
+  <section class="blog-hero">
+    <div class="container">
+      <span class="blog-hero-label">Kennisbank</span>
+      <h1>Kattenvoeding<br><em>uitgelegd</em></h1>
+      <p>Praktische artikelen over voeding voor je kat — onafhankelijk, wetenschappelijk onderbouwd en geschreven voor bewuste katteneigenaren.</p>
+    </div>
+  </section>
+
+  <!-- ARTIKEL OVERZICHT -->
+  <section class="blog-grid-section">
+    <div class="container">
+      <p class="blog-section-label">Alle artikelen</p>
+      <h2 class="blog-section-title">Kies een onderwerp</h2>
+      <div class="blog-grid">
+
+        <a href="#gecastreerde-kat" class="blog-card">
+          <span class="blog-card-tag">Gecastreerde kat</span>
+          <h3>Beste kattenvoer voor een gecastreerde kat (2025)</h3>
+          <p>Gecastreerde katten hebben een lagere energiebehoefte en zijn vatbaarder voor overgewicht. Dit zijn de voedingen die werken.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#natvoer-hoeveelheid" class="blog-card">
+          <span class="blog-card-tag">Portiegrootte</span>
+          <h3>Hoeveel natvoer per dag voor je kat?</h3>
+          <p>Te weinig en je kat heeft honger, te veel en er ontstaat overgewicht. De juiste hoeveelheid is eenvoudig te berekenen.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#brok-vs-natvoer" class="blog-card">
+          <span class="blog-card-tag">Vergelijking</span>
+          <h3>Brok of natvoer: wat is écht beter voor je kat?</h3>
+          <p>Het eeuwige debat uitgelegd. We vergelijken vocht, eiwit, kosten en toepasbaarheid voor de gemiddelde huiskat.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#koolhydraten-berekenen" class="blog-card">
+          <span class="blog-card-tag">Etiket lezen</span>
+          <h3>Koolhydraten in kattenvoer berekenen: zo doe je het zelf</h3>
+          <p>Ze staan niet op het etiket, maar ze zitten er wél in. Met deze formule bereken je in 30 seconden het koolhydraatgehalte van elk voer.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#senior-kat" class="blog-card">
+          <span class="blog-card-tag">Senior kat</span>
+          <h3>Beste kattenvoer voor een senior kat (12+ jaar)</h3>
+          <p>Oudere katten hebben andere behoeften. Minder fosfor, beter verteerbaar eiwit en hogere smaakbaarheid staan bovenaan de lijst.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#kat-overgewicht" class="blog-card">
+          <span class="blog-card-tag">Overgewicht</span>
+          <h3>Kat met overgewicht: welk voer helpt afvallen?</h3>
+          <p>Een te dikke kat is niet schattig — het is een gezondheidsrisico. Dit zijn de voedingsprincipes die bewezen werken.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#vocht-kattenvoeding" class="blog-card">
+          <span class="blog-card-tag">Gezondheid</span>
+          <h3>Vocht in kattenvoeding: waarom het zo belangrijk is</h3>
+          <p>Katten drinken van nature weinig water. Vochttekort is een van de meest onderschatte oorzaken van nierziekten bij huiskatten.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#kieskeurige-kat" class="blog-card">
+          <span class="blog-card-tag">Kieskeurige eter</span>
+          <h3>Kieskeurige kat wil niet eten: 7 bewezen tips</h3>
+          <p>Je zet een nieuw bakje neer en de kat loopt weg. Herkenbaar? Met deze aanpak los je het op zonder strijd.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#veel-eiwit" class="blog-card">
+          <span class="blog-card-tag">Voedingswaarden</span>
+          <h3>Kattenvoer met veel eiwit en weinig koolhydraten</h3>
+          <p>Katten zijn verplichte carnivoren. Een hoog eiwitgehalte en laag koolhydraatgehalte is geen trend — het is biologie.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a href="#etiket-lezen" class="blog-card">
+          <span class="blog-card-tag">Beginners gids</span>
+          <h3>Kattenvoer etiket lezen: een complete uitleg</h3>
+          <p>Van ingrediëntenlijst tot analytische bestanddelen — we leggen uit wat alle termen betekenen en waar je op moet letten.</p>
+          <span class="blog-card-read">Lees artikel <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================================================================
+       ARTIKEL 1 — Gecastreerde kat
+       ================================================================ -->
+  <article class="article-section" id="gecastreerde-kat">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Gecastreerde kat</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Beste kattenvoer voor een gecastreerde kat (2025)</h2>
+      <p>Na castratie verandert het metabolisme van een kat ingrijpend. De energiebehoefte daalt met zo'n <strong>20 tot 30%</strong>, terwijl de eetlust gelijk blijft of zelfs toeneemt. Dit is de directe oorzaak van overgewicht bij de meeste gecastreerde huiskatten.</p>
+
+      <h3>Wat verandert er na castratie?</h3>
+      <p>Castratie vermindert de aanmaak van geslachtshormonen, die een rol spelen in de regulatie van spiergroei en vetopslag. Gecastreerde katten slaan sneller vet op en bouwen minder spiermassa op. Bovendien neigt de kat rustiger te worden, wat het energieverbruik verder verlaagt.</p>
+      <p>Naast gewicht speelt ook de urinegezondheid een rol. Gecastreerde katers hebben een verhoogd risico op <strong>struviet- en calciumoxalaatstenen</strong>, deels doordat zij minder drinken dan vrouwelijke katten. Een voeding met hoog vochtgehalte werkt preventief.</p>
+
+      <h3>Waar moet het voer aan voldoen?</h3>
+      <ul>
+        <li><strong>Lager in calorieën</strong> — zoek naar voer met circa 80–90 kcal per 100g natvoer (of &lt;340 kcal per 100g brok)</li>
+        <li><strong>Hoog in eiwit</strong> — minimaal 30–35% (op droge stof basis) om spiermassa te behouden</li>
+        <li><strong>Laag in koolhydraten</strong> — minder dan 10% om gewichtstoename te beperken</li>
+        <li><strong>Hoog vochtgehalte</strong> — natvoer (75–82% vocht) ondersteunt de nierfunctie en urineweg</li>
+      </ul>
+
+      <div class="article-tip">
+        <strong>Tip:</strong> Kies bij voorkeur natvoer of een combinatie van natvoer 's ochtends en een kleine portie brok 's avonds. Brok als enige voeding voor gecastreerde katten vergroot het risico op overgewicht en blaasproblemen.
+      </div>
+
+      <h3>Voer specifiek voor gecastreerde katten: zinvol of marketingtruc?</h3>
+      <p>Fabrikanten bieden steeds meer "sterilized" of "castrated"-varianten aan. De meeste zijn goed geformuleerd — lager in vet, hoger in L-carnitine om vetafbraak te ondersteunen. Let wel op het koolhydraatgehalte: sommige "lichte" brokken bevatten juist <em>meer</em> zetmeel als vervanger van vet, wat contraproductief is.</p>
+      <p>Controleer altijd zelf het etiket met de koolhydraatformule: <strong>100 − (eiwit + vet + as + celstof + vocht)</strong>. Alles onder 10% is goed.</p>
+
+      <div class="article-cta">
+        <div>
+          <strong>Wil je weten welk voer past bij jóuw gecastreerde kat?</strong>
+          <p>Geen wachttijd. Geen afspraak. Direct antwoord voor jouw kat — in 5 minuten een persoonlijk rapport.</p>
+        </div>
+        <a href="voedingsadvies-app.html" class="btn-cta">Start intake <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- ================================================================
+       ARTIKEL 2 — Hoeveel natvoer per dag
+       ================================================================ -->
+  <article class="article-section" id="natvoer-hoeveelheid">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Portiegrootte</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Hoeveel natvoer per dag voor je kat?</h2>
+      <p>De hoeveelheid natvoer hangt af van vier factoren: het gewicht van de kat, de leeftijd, de activiteit en de calorie-inhoud van het voer. De verpakking geeft een richting, maar vereenvoudigt dit vaak te veel.</p>
+
+      <h3>De basisformule</h3>
+      <p>Voor een gezonde volwassen kat geldt als startpunt:</p>
+      <div class="article-formula">
+        Dagelijkse caloriebehoefte = lichaamsgewicht (kg) × 60–80 kcal/kg
+      </div>
+      <p>Een kat van 4 kg heeft dus 240–320 kcal per dag nodig. Gecastreerde of minder actieve katten zitten aan de onderkant (60 kcal/kg), actieve katten aan de bovenkant (80 kcal/kg).</p>
+      <p>Natvoer bevat gemiddeld <strong>0,8–1,2 kcal per gram</strong>. Een kat van 4 kg die 270 kcal nodig heeft, eet dus circa <strong>225–340 gram natvoer per dag</strong>, verdeeld over twee maaltijden.</p>
+
+      <h3>Praktische rekentabel</h3>
+      <table class="article-table">
+        <thead>
+          <tr><th>Gewicht kat</th><th>Calorienorm</th><th>Natvoer (ca. 1 kcal/g)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>3 kg</td><td>180–240 kcal</td><td>180–240 g/dag</td></tr>
+          <tr><td>4 kg</td><td>240–320 kcal</td><td>240–320 g/dag</td></tr>
+          <tr><td>5 kg</td><td>300–400 kcal</td><td>300–400 g/dag</td></tr>
+          <tr><td>6 kg</td><td>360–480 kcal</td><td>360–480 g/dag</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Combinatie brok + natvoer</h3>
+      <p>Veel eigenaren geven 's ochtends natvoer en 's avonds een kleine portie brok. In dat geval geef je per type voer proportioneel minder. Als de kat 50% van zijn calorieën uit natvoer haalt, halveer je de bovenstaande hoeveelheden.</p>
+      <div class="article-tip">
+        <strong>Let op:</strong> Weeg altijd het voer in de eerste weken. "Een bakje" is geen maat — een klein bakje paté kan twee keer zoveel calorieën bevatten als een groot bakje geleiastukjes.
+      </div>
+    </div>
+  </article>
+
+
+  <!-- ================================================================
+       ARTIKEL 3 — Brok vs natvoer
+       ================================================================ -->
+  <article class="article-section" id="brok-vs-natvoer">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Vergelijking</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Brok of natvoer: wat is écht beter voor je kat?</h2>
+      <p>Dit is de vraag die elke katteneigenaar ooit stelt. Het eerlijke antwoord: <strong>natvoer heeft voordelen voor de meeste katten</strong>, maar brok is niet per definitie slecht. De kwaliteit van het specifieke voer is bepalender dan de vorm.</p>
+
+      <h3>Vochtgehalte: het grootste verschil</h3>
+      <p>Natvoer bevat 70–82% vocht. Brok slechts 6–10%. Katten zijn evolutionair gewend om het grootste deel van hun vocht via voeding binnen te krijgen — ze drinken van nature weinig. Een kat op uitsluitend brok is chronisch minder gehydrateerd, wat op termijn een aanslag is op de nieren en blaas.</p>
+
+      <h3>Eiwitten en koolhydraten</h3>
+      <p>Brok bevat structureel meer koolhydraten dan natvoer. Dat is geen keuze van de fabrikant — het is technisch noodzakelijk om brokjes te kunnen persen (zetmeel zorgt voor binding). Goed natvoer heeft doorgaans <strong>minder dan 5% koolhydraten</strong>, goed brok zit gemiddeld op 20–35%.</p>
+      <p>Katten verteren koolhydraten minder efficiënt dan mensen of honden. Te veel koolhydraten draagt bij aan overgewicht, diabetes en energiedips.</p>
+
+      <h3>Waar brok het wint</h3>
+      <ul>
+        <li><strong>Kosten</strong> — brok is per kcal goedkoper dan natvoer</li>
+        <li><strong>Gemak</strong> — brok bederft niet snel, geschikt als je overdag weg bent</li>
+        <li><strong>Tandhygiëne</strong> — het knaageffect van brok werkt licht reinigend (maar vervangt geen tandenpoetsen)</li>
+      </ul>
+
+      <h3>Onze aanbeveling</h3>
+      <p>De beste aanpak voor de meeste huiskatten is een <strong>combinatie</strong>: natvoer als hoofdmaaltijd (ochtend, avond) en eventueel een kleine hoeveelheid kwaliteitsbrok overdag. Zo profiteer je van het hoge vochtgehalte van natvoer en het gemak van brok.</p>
+      <div class="article-tip">
+        <strong>Tip:</strong> Kies brok met minimaal 30% dierlijk eiwit, zonder granen als eerste ingrediënt, en met een koolhydraatgehalte onder 25%. Gebruik de koolhydraatformule op het etiket om dit te controleren.
+      </div>
+
+      <div class="article-cta">
+        <div>
+          <strong>Geen wachttijd. Geen afspraak. Direct antwoord voor jouw kat.</strong>
+          <p>Ontvang een persoonlijk voedingsadvies op basis van jouw kats profiel — brok, natvoer of combinatie.</p>
+        </div>
+        <a href="voedingsadvies-app.html" class="btn-cta">Start intake <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- ================================================================
+       ARTIKEL 4 — Koolhydraten berekenen
+       ================================================================ -->
+  <article class="article-section" id="koolhydraten-berekenen">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Etiket lezen</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Koolhydraten in kattenvoer berekenen: zo doe je het zelf</h2>
+      <p>Koolhydraten staan <em>niet</em> op het etiket van kattenvoer. Dat betekent echter niet dat ze er niet in zitten — integendeel. Met één simpele formule bereken je ze zelf.</p>
+
+      <h3>De formule</h3>
+      <div class="article-formula">
+        Koolhydraten (%) = 100 − (ruw eiwit + ruw vet + ruwe as + ruwe celstof + vocht)
+      </div>
+      <p>Alle waarden staan op het etiket onder <strong>"Analytische bestanddelen"</strong>. Tel ze op en trek het resultaat af van 100. Wat overblijft zijn de koolhydraten.</p>
+
+      <h3>Voorbeeld: natvoer</h3>
+      <p>Stel je hebt een blikje natvoer met deze analytische bestanddelen:</p>
+      <table class="article-table">
+        <thead><tr><th>Bestanddeel</th><th>Percentage</th></tr></thead>
+        <tbody>
+          <tr><td>Ruw eiwit</td><td>10%</td></tr>
+          <tr><td>Ruw vet</td><td>6%</td></tr>
+          <tr><td>Ruwe as</td><td>2%</td></tr>
+          <tr><td>Ruwe celstof</td><td>0,5%</td></tr>
+          <tr><td>Vocht</td><td>78%</td></tr>
+          <tr><td><strong>Koolhydraten</strong></td><td><strong>3,5%</strong> ✓</td></tr>
+        </tbody>
+      </table>
+      <p>Dit is uitstekend — alles onder 5% voor natvoer is ideaal.</p>
+
+      <h3>Voorbeeld: brokken</h3>
+      <p>Bij brok staat het vochtgehalte vaak niet vermeld. Gebruik dan <strong>8% vocht</strong> als standaard schatting. Een brok met 30% eiwit, 12% vet, 8% as, 3% celstof en 8% vocht heeft dan: 100 − (30+12+8+3+8) = <strong>39% koolhydraten</strong> — relatief hoog.</p>
+
+      <div class="article-tip">
+        <strong>Streefwaarden:</strong> Natvoer &lt;5% koolhydraten. Brokken &lt;25% is goed, &lt;20% is uitstekend. Alles boven 35% is ongunstig voor de meeste katten.
+      </div>
+    </div>
+  </article>
+
+
+  <!-- ================================================================
+       ARTIKEL 5 — Senior kat
+       ================================================================ -->
+  <article class="article-section" id="senior-kat">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Senior kat</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Beste kattenvoer voor een senior kat (12+ jaar)</h2>
+      <p>Vanaf 12 jaar verandert er veel bij een kat. De nieren verliezen geleidelijk werking, de spijsvertering wordt minder efficiënt, en de eetlust neemt af. Het juiste voer speelt een cruciale rol in hoe goed een oudere kat zijn laatste jaren doorbrengt.</p>
+
+      <h3>Minder fosfor, beter voor de nieren</h3>
+      <p>Nierziekte is de meest voorkomende aandoening bij katten boven de 12. Fosfor versnelt de achteruitgang van de nierwerking. Kies voer met een <strong>fosforgehalte onder 0,8% (droge stof)</strong>. Let op: "senior"-voedingen van grote merken vermelden dit zelden duidelijk — controleer zelf de analytische bestanddelen of vraag om de exacte waarden bij de fabrikant.</p>
+
+      <h3>Hoog in goed verteerbaar eiwit</h3>
+      <p>Oudere katten verliezen spiermassa (<em>sarcopenie</em>) en hebben meer eiwit nodig om dit te compenseren. Het eiwit moet echter <strong>van hoge kwaliteit en goed verteerbaar</strong> zijn — vleeseiwit uit rund, kip of vis verteert beter dan plantaardig eiwit. Streef naar minimaal 35% eiwit op droge stof basis.</p>
+
+      <h3>Smaakbaarheid is alles</h3>
+      <p>Veel senioren verliezen geur- en smaakgewaarwording. Ze worden kieskeuriger. Verwarm natvoer licht op (lichaamstemperatuur, niet warm) om de geur vrij te maken. Kies voor voer met een uitgesproken smaak: vis, kip of rund scoort doorgaans beter dan lam of eend bij oudere katten.</p>
+
+      <h3>Wat vermijden bij senior katten</h3>
+      <ul>
+        <li>Hoge magnesiumniveaus (struviet-risico)</li>
+        <li>Veel vet (lever- en alvleesklierbelasting)</li>
+        <li>Hoge koolhydraten (diabetesrisico neemt toe met leeftijd)</li>
+        <li>Grote brokken (tandproblemen zijn common boven de 12)</li>
+      </ul>
+
+      <div class="article-cta">
+        <div>
+          <strong>Geen wachttijd. Geen afspraak. Direct antwoord voor jouw kat.</strong>
+          <p>Geef de leeftijd en gezondheidssituatie van je kat in — en ontvang direct een persoonlijk voedingsadvies.</p>
+        </div>
+        <a href="voedingsadvies-app.html" class="btn-cta">Start intake <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- ================================================================
+       ARTIKEL 6 — Kat overgewicht
+       ================================================================ -->
+  <article class="article-section" id="kat-overgewicht">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Overgewicht</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Kat met overgewicht: welk voer helpt afvallen?</h2>
+      <p>Meer dan de helft van de huiskatten in Nederland heeft overgewicht. Het is een van de meest onderschatte gezondheidsproblemen: overgewicht vergroot het risico op diabetes, gewrichtsklachten, blaasgruis en een kortere levensverwachting.</p>
+
+      <h3>Minder calorieën, niet minder eiwit</h3>
+      <p>De veelgemaakte fout is overstappen op "light"-voer met minder vet maar meer koolhydraten. Dat werkt averechts. Een afvaldieet voor katten is <strong>hoog in eiwit, laag in koolhydraten en matig in calorieën</strong>. Eiwit behoudt spiermassa terwijl de kat afvalt.</p>
+
+      <h3>Hoeveel mag een kat afvallen?</h3>
+      <p>Katten mogen maximaal <strong>1 tot 2% van hun lichaamsgewicht per week</strong> afvallen. Sneller afvallen vergroot het risico op hepatische lipidose (leververetting) — een levensgevaarlijke aandoening waarbij de lever overbelast raakt door snelle vetafbraak.</p>
+      <p>Een kat van 6 kg die naar 5 kg moet, heeft dus minstens 10 weken nodig — vaak langer.</p>
+
+      <h3>Praktische aanpak</h3>
+      <ol>
+        <li>Bepaal het doelgewicht en bereken de doelcalorieën (gewicht × 55 kcal/kg)</li>
+        <li>Kies natvoer als hoofdvoeding — meer volume, minder calorieën per gram</li>
+        <li>Weeg elke portie met een keukenweegschaal</li>
+        <li>Verdeel de dagdosis over 3–4 kleine maaltijden om hongergevoelens te beperken</li>
+        <li>Elimineer alle snacks in de eerste 4 weken</li>
+        <li>Weeg de kat wekelijks, niet dagelijks</li>
+      </ol>
+
+      <div class="article-tip">
+        <strong>Meerdere katten in huis?</strong> Geef katten apart eten op een vaste plek. Gebruik eventueel een microchip-voerbak zodat alleen de "dieetkat" bij zijn bakje kan.
+      </div>
+    </div>
+  </article>
+
+
+  <!-- ================================================================
+       ARTIKEL 7 — Vocht in kattenvoeding
+       ================================================================ -->
+  <article class="article-section" id="vocht-kattenvoeding">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Gezondheid</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Vocht in kattenvoeding: waarom het zo belangrijk is</h2>
+      <p>Katten zijn afstammelingen van woestijnbewoners die bijna al hun vocht haalden uit de prooidieren die ze aten. De dorstreflexen van katten zijn van nature <strong>minder goed ontwikkeld</strong> dan bij mensen of honden. Ze drinken pas als ze al licht uitgedroogd zijn.</p>
+
+      <h3>Chronisch vochttekort bij katten op brok</h3>
+      <p>Onderzoek toont aan dat katten op uitsluitend droogvoer structureel minder vocht binnenkrijgen, ook als er altijd vers water beschikbaar is. Dit vochttekort heeft directe gevolgen voor de nieren: geconcentreerde urine belast de nierbuisjes en vergroot de kans op nierstenen, struviet en chronische nierziekte.</p>
+
+      <h3>Natvoer als hydratatiebron</h3>
+      <p>Natvoer met 78–82% vocht levert een kat van 4 kg die 250 g per dag eet ongeveer <strong>195–205 ml vocht</strong> via voeding. Dat dekt het grootste deel van de dagelijkse vochtbehoefte (circa 200–250 ml). Op brok moet dezelfde kat dat vocht volledig via de drinkbak binnenkrijgen — wat ze doorgaans niet doen.</p>
+
+      <h3>Hoe meer vocht krijgen in het dieet?</h3>
+      <ul>
+        <li>Schakel over op natvoer (of voeg natvoer toe aan het menu)</li>
+        <li>Voeg water toe aan natvoer (kleine hoeveelheid, niet meer dan 20% extra)</li>
+        <li>Gebruik een drinkfontein — bewegend water stimuleert katten om meer te drinken</li>
+        <li>Bied water aan op een andere plek dan de voerbak — katten drinken liever niet naast hun eten (instinct: prooi bevuilt waterbron)</li>
+      </ul>
+
+      <div class="article-tip">
+        <strong>Check de urine:</strong> Gezonde urineconcentratie bij katten is helder lichtgeel. Donkergeel of sterk ruikende urine is een signaal van onvoldoende vochtinname. Meld dit bij je dierenarts.
+      </div>
+    </div>
+  </article>
+
+
+  <!-- ================================================================
+       ARTIKEL 8 — Kieskeurige kat
+       ================================================================ -->
+  <article class="article-section" id="kieskeurige-kat">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Kieskeurige eter</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Kieskeurige kat wil niet eten: 7 bewezen tips</h2>
+      <p>Een kieskeurige kat is een van de meest frustrerende uitdagingen voor katteneigenaren. Je koopt duur voer, de kat snuift eraan en loopt weg. Dit zijn de strategieën die werken — zonder strijd of hongerstaking.</p>
+
+      <ol>
+        <li>
+          <strong>Verander geleidelijk, niet plotseling.</strong> Meng nieuw voer door het vertrouwde voer. Begin met 10% nieuw en 90% oud, verhoog elke 3–5 dagen de verhouding. Katten accepteren verandering beter als ze het niet eens merken.
+        </li>
+        <li>
+          <strong>Verwarm het voer licht op.</strong> Breng natvoer op lichaamstemperatuur (37°C). Geur is de belangrijkste beslissingsfactor voor katten — warm voer geeft meer aroma vrij. Nooit in de magnetron: lauwwarm op kamertemperatuur of even in de hand warmhouden is genoeg.
+        </li>
+        <li>
+          <strong>Probeer verschillende texturen.</strong> Katten hebben sterke textuurvoorkeuren. Een kat die paté weigert, accepteert soms stukjes in saus — of andersom. Test beide.
+        </li>
+        <li>
+          <strong>Verschoon de voerbak vaker.</strong> Katten zijn gevoelig voor geur en bacteriegroei. Was de voerbak dagelijks met warm water (geen zeep met sterke geur). Gebruik bij voorkeur aardewerk of glas in plaats van kunststof — dat neemt minder geur op.
+        </li>
+        <li>
+          <strong>Verander de locatie.</strong> Zet de voerbak niet naast de drinkbak of het kattenbak. Katten eten liever niet in de buurt van hun toiletplek.
+        </li>
+        <li>
+          <strong>Bied meerdere kleine maaltijden aan.</strong> Katten zijn van nature kleine, frequente eters (8–16 maaltijden per dag in het wild). Een grote portie 's ochtends en 's avonds is voor sommige katten te overweldigend.
+        </li>
+        <li>
+          <strong>Voeg een kleine hoeveelheid bekende smaak toe.</strong> Een theelepel kippenbouillon (zoutloos, ongewisseld), een beetje tonijnvocht uit een blikje in eigen sap of een halve druppel levertraan kan het nieuwe voer acceptabeler maken.
+        </li>
+      </ol>
+
+      <div class="article-tip">
+        <strong>Wanneer naar de dierenarts?</strong> Als een kat meer dan 24 uur weigert te eten, is dat een medisch signaal — geen gril. Ga altijd naar de dierenarts als het eetgedrag plotseling verandert, zeker bij katten ouder dan 8 jaar.
+      </div>
+    </div>
+  </article>
+
+
+  <!-- ================================================================
+       ARTIKEL 9 — Veel eiwit, weinig koolhydraten
+       ================================================================ -->
+  <article class="article-section" id="veel-eiwit">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Voedingswaarden</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Kattenvoer met veel eiwit en weinig koolhydraten</h2>
+      <p>Katten zijn <em>obligate carnivoren</em> — verplichte vleeseters. Anders dan honden of mensen kunnen katten geen essentiële voedingsstoffen aanmaken uit plantaardige bronnen. Hun metabolisme is evolutionair ingesteld op een dieet van prooidieren: hoog in eiwit en vet, laag in koolhydraten.</p>
+
+      <h3>Waarom eiwit zo belangrijk is</h3>
+      <p>Katten gebruiken eiwit niet alleen voor spierbehoud, maar ook als primaire energiebron. Ze kunnen de aanmaak van enzymen die eiwitten afbreken (<em>aminotransferasen</em>) niet downreguleren — ook als er weinig eiwit beschikbaar is, blijven ze het afbreken. Dit maakt katten bijzonder kwetsbaar voor eiwitgebrek.</p>
+      <p>Een minimum van <strong>26% eiwit (op droge stof basis)</strong> is de wettelijke ondergrens. Goede voedingen zitten op 35–50%.</p>
+
+      <h3>Waarom koolhydraten problematisch zijn</h3>
+      <p>Katten produceren weinig amylase (het enzym dat zetmeel afbreekt) en hebben een beperkte capaciteit om bloedsuiker te reguleren via insuline. Chronisch hoge koolhydraatinname verhoogt het risico op <strong>diabetes mellitus</strong> en overgewicht. In het wild eten katten vrijwel geen koolhydraten — minder dan 3% van hun totale energie-inname.</p>
+
+      <h3>Wat te zoeken op het etiket</h3>
+      <ul>
+        <li><strong>Ruw eiwit</strong> — minimaal 10% voor natvoer (op "as fed" basis), liefst 12%+</li>
+        <li><strong>Koolhydraten</strong> — bereken zelf (zie artikel over formule), streef naar &lt;5% voor natvoer</li>
+        <li><strong>Eerste ingredient</strong> — moet een dierlijke eiwitbron zijn (kip, rund, zalm, etc.), niet mais of tarwe</li>
+        <li><strong>Arachidetenietgezegde eiwitten</strong> — vermijd "vlees en dierlijke bijproducten" zonder specificatie</li>
+      </ul>
+
+      <div class="article-tip">
+        <strong>Vuistregel:</strong> Als de eerste drie ingrediënten op het etiket allemaal dierlijk zijn (specifiek benoemd, niet "bijproducten"), is het voer doorgaans van goede kwaliteit qua eiwitprofiel.
+      </div>
+
+      <div class="article-cta">
+        <div>
+          <strong>Geen wachttijd. Geen afspraak. Direct antwoord voor jouw kat.</strong>
+          <p>Ontvang drie konkrete voerkeuzes die passen bij het profiel van jouw kat — inclusief eiwitgehalte en prijs.</p>
+        </div>
+        <a href="voedingsadvies-app.html" class="btn-cta">Start intake <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- ================================================================
+       ARTIKEL 10 — Etiket lezen
+       ================================================================ -->
+  <article class="article-section" id="etiket-lezen">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-tag">Beginners gids</span>
+        <span class="article-date">Maart 2026</span>
+      </div>
+      <h2>Kattenvoer etiket lezen: een complete uitleg</h2>
+      <p>De verpakking van kattenvoer zit vol met termen die voor de meeste mensen weinig zeggen. Toch staat er meer nuttige informatie op dan je denkt — als je weet waar je op moet letten.</p>
+
+      <h3>1. De ingrediëntenlijst</h3>
+      <p>Ingrediënten staan <strong>op volgorde van gewicht</strong> voor verwerking. Het eerste ingrediënt weegt het zwaarst. Kies voer waarbij dierlijke eiwitbronnen bovenaan staan — bij voorkeur met een soortnaam (kip, rund, zalm) in plaats van vage termen als "vlees en dierlijke bijproducten".</p>
+      <p>Let op: ingrediënten worden gewogen vóór drogen/koken. Een vers-vlees ingredient (bijv. "verse kip 60%") krimpt na verwerking sterk — het werkelijke aandeel in het eindproduct kan lager liggen dan de verpakking suggereert.</p>
+
+      <h3>2. Analytische bestanddelen</h3>
+      <p>Dit zijn de gemeten voedingswaarden van het eindproduct. De meest relevante zijn:</p>
+      <table class="article-table">
+        <thead><tr><th>Term</th><th>Wat het is</th><th>Wat je wilt</th></tr></thead>
+        <tbody>
+          <tr><td>Ruw eiwit</td><td>Totaal eiwitgehalte</td><td>Hoog — min. 10% (natvoer)</td></tr>
+          <tr><td>Ruw vet</td><td>Totaal vetgehalte</td><td>Matig — 4–8% (natvoer)</td></tr>
+          <tr><td>Ruwe as</td><td>Mineralen (incl. fosfor)</td><td>Laag bij nierproblemen — &lt;2%</td></tr>
+          <tr><td>Ruwe celstof</td><td>Onverteerbare vezels</td><td>Laag — &lt;1% voor de meeste katten</td></tr>
+          <tr><td>Vocht</td><td>Watergehalte</td><td>Hoog bij natvoer — 70–82%</td></tr>
+        </tbody>
+      </table>
+
+      <h3>3. "Compleet" vs "aanvullend"</h3>
+      <p>Verplichte vermelding op elk voer. <strong>Compleet voer</strong> bevat alle voedingsstoffen die een kat dagelijks nodig heeft. <strong>Aanvullend voer</strong> (zoals snacks, bouillon of bepaalde paté-varianten) mag niet als enige voeding worden gegeven.</p>
+
+      <h3>4. Toevoegingen</h3>
+      <p>Vitamines en mineralen worden vaak toegevoegd als "voedingssupplementen" (wettelijk vereist voor complete voeding). Kunstmatige kleurstoffen, smaakversterkers en conserveermiddelen zijn niet wettelijk verboden maar onnodig in kwaliteitsvoer.</p>
+
+      <h3>5. Claims die je mag wantrouwen</h3>
+      <ul>
+        <li><strong>"Graanvrij"</strong> — betekent niet automatisch koolhydraatarm. Granen worden vaak vervangen door aardappel, linzen of erwten, die ook koolhydraten zijn.</li>
+        <li><strong>"Natuurlijk"</strong> — geen wettelijke definitie voor kattenvoer, zegt weinig.</li>
+        <li><strong>"Verzorgd voor de nieren"</strong> — controleer altijd het fosforgehalte. Merkdozen die dit claimen lopen sterk uiteen in werkelijke fosforwaarden.</li>
+      </ul>
+
+      <div class="article-cta">
+        <div>
+          <strong>Geen wachttijd. Geen afspraak. Direct antwoord voor jouw kat.</strong>
+          <p>Ontvang een persoonlijk voedingsadvies — wij lezen de etiketten voor jou en selecteren de beste opties voor jouw kat.</p>
+        </div>
+        <a href="voedingsadvies-app.html" class="btn-cta">Start intake <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </article>
+
+
+  <!-- FOOTER -->
+  <footer class="blog-footer">
+    <p>© 2026 HAAR. Centrum voor kattenwelzijn &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="voedingsadvies-app.html">Voedingsadvies</a> &nbsp;·&nbsp; <a href="blog.html">Blog</a></p>
+    <p style="margin-top:0.5rem; font-size:0.78rem;">De informatie op deze pagina is bedoeld als educatieve richtlijn. Raadpleeg bij gezondheidsproblemen altijd een dierenarts.</p>
+  </footer>
+
+</body>
+</html>
