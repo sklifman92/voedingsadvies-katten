@@ -3,14 +3,19 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Mobile navigation
   const burger = document.getElementById('burger');
-  const nav = document.getElementById('nav');
+  const navToggle = document.getElementById('nav-toggle') || burger;
+  const nav = document.getElementById('lp-nav') || document.getElementById('nav');
+  const usesLegacyNav = !!(nav && nav.id === 'nav');
 
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
-      burger.classList.toggle('active');
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', () => {
       nav.classList.toggle('open');
-      burger.setAttribute('aria-expanded', nav.classList.contains('open') ? 'true' : 'false');
-      document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+      const isOpen = nav.classList.contains('open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (usesLegacyNav && burger) {
+        burger.classList.toggle('active', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      }
     });
   }
 
@@ -28,22 +33,28 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Close nav when clicking a link (mobile)
-  document.querySelectorAll('.nav-list a:not(.dropdown-toggle)').forEach(link => {
+  const navLinks = nav
+    ? nav.querySelectorAll(usesLegacyNav ? '.nav-list a:not(.dropdown-toggle)' : 'a')
+    : [];
+
+  navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      if (window.innerWidth <= 768 && burger && nav) {
-        burger.classList.remove('active');
+      if (navToggle && nav) {
         nav.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        navToggle.setAttribute('aria-expanded', 'false');
+        if (usesLegacyNav && burger) {
+          burger.classList.remove('active');
+          document.body.style.overflow = '';
+        }
       }
     });
   });
 
   // Header scroll effect
-  const header = document.getElementById('header');
+  const header = document.getElementById('lp-header') || document.getElementById('header');
   if (header) {
     window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 50);
+      header.classList.toggle('scrolled', window.scrollY > 20);
     });
   }
 

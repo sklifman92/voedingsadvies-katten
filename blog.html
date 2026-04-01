@@ -113,6 +113,11 @@
 	      padding: 0.6rem 1.2rem;
 	      font-size: 0.9rem;
 	    }
+	    .lp-nav .btn-gold[aria-current="page"],
+	    .lp-nav .btn-gold[aria-current="page"]:hover {
+	      background: #5A6E50;
+	      color: #fff;
+	    }
 	    .lp-nav-toggle {
 	      display: none;
 	      background: none;
@@ -209,6 +214,11 @@
 	    .blog-footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; padding: 2.5rem 1rem; font-size: 0.82rem; }
 	    .blog-footer a { color: rgba(255,255,255,0.70); text-decoration: none; }
 	    .blog-footer a:hover { color: #fff; }
+
+	    @media (max-width: 960px) {
+	      .lp-nav a:not(.btn-gold) { display: none; }
+	      .lp-nav-toggle { display: flex; }
+	    }
 
 	    @media (max-width: 640px) {
 	      .lp-nav a:not(.btn-gold) { display: none; }
