@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HAAR. Betaalterminal</title>
-  <meta name="description" content="Beveiligde betaalterminal voor het persoonlijk voedingsadvies van HAAR. Centrum voor kattenwelzijn.">
+  <title>Jouw voedingsadvies staat klaar — HAAR. Centrum voor kattenwelzijn</title>
+  <meta name="description" content="Eén stap verwijderd van het persoonlijk voedingsadviesplan voor jouw kat. Betaal veilig via iDEAL of kaart en ontvang direct toegang.">
   <script src="https://js.stripe.com/v3/"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -512,6 +512,8 @@
       border: 1px solid rgba(182,90,58,0.16);
     }
 
+    #btn-demo { display: none; }
+
     .terminal-trust {
       margin-top: 1rem;
       color: var(--text-soft);
@@ -566,6 +568,24 @@
       }
     }
   </style>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="brand/web-assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="brand/web-assets/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="brand/web-assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="brand/web-assets/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="brand/web-assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="brand/web-assets/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="brand/web-assets/android-chrome-512x512.png">
+
+  <!-- Open Graph / Social media -->
+  <meta property="og:image" content="brand/web-assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VoerWijs — Elke kat is anders. Voer ook.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="brand/web-assets/twitter-image.png">
+  <meta name="twitter:image:alt" content="VoerWijs — Elke kat is anders. Voer ook.">
 </head>
 <body>
   <!-- Decoratieve achtergrond blobs met parallax -->
@@ -584,9 +604,9 @@
 
     <div class="checkout-layout">
       <section class="checkout-info" aria-labelledby="checkout-info-title">
-        <div class="info-kicker"><i class="fa-solid fa-shield-heart"></i> Aparte betaalterminal</div>
-        <h1 class="info-title" id="checkout-info-title">Een rustige, beveiligde checkout voor jouw adviesrapport</h1>
-        <p class="info-sub">Je verlaat de intake tijdelijk voor een aparte betaalterminal. Na betaling koppelen we je direct terug aan dezelfde sessie, zodat het volledige rapport meteen zichtbaar wordt.</p>
+        <div class="info-kicker"><i class="fa-solid fa-shield-heart"></i> Bijna klaar</div>
+        <h1 class="info-title" id="checkout-info-title">Jouw rapport staat klaar — één betaalstap</h1>
+        <p class="info-sub">Het rapport voor jouw kat is opgemaakt. Vul hiernaast je betaalmethode in en je wordt direct teruggestuurd naar het volledige advies.</p>
 
         <div class="info-highlight">
           <div class="info-stat">
@@ -598,14 +618,14 @@
             <span>iDEAL en kaart in een beveiligde checkout-omgeving.</span>
           </div>
           <div class="info-stat">
-            <strong>Demo mogelijk</strong>
-            <span>Voor testdoeleinden kun je de betaling ook overslaan.</span>
+            <strong>Eenmalig bedrag</strong>
+            <span>Geen abonnement, geen verborgen kosten. Je betaalt één keer.</span>
           </div>
         </div>
 
         <ul class="info-list">
           <li><i class="fa-solid fa-check"></i><span>Na een geslaagde betaling wordt het volledige rapport direct vrijgegeven.</span></li>
-          <li><i class="fa-solid fa-check"></i><span>Je demo- of betaalstatus blijft gekoppeld aan dezelfde intake van jouw kat.</span></li>
+          <li><i class="fa-solid fa-check"></i><span>Je betaalstatus blijft gekoppeld aan dezelfde intake van jouw kat.</span></li>
           <li><i class="fa-solid fa-check"></i><span>De uiteindelijke rapportweergave opent pas nadat de betaalstatus veilig is teruggekoppeld.</span></li>
         </ul>
 
@@ -660,7 +680,7 @@
 
         <div class="terminal-actions">
           <button class="terminal-btn primary" id="btn-pay" type="button" disabled>
-            <i class="fa-solid fa-lock"></i> Betaal veilig EUR 14,99
+            <i class="fa-solid fa-lock"></i> Rapport ontgrendelen — €14,99
           </button>
           <button class="terminal-btn secondary" id="btn-demo" type="button">
             <i class="fa-solid fa-flask"></i> Demo modus: open rapport zonder betaling
@@ -807,7 +827,7 @@
         dom.errors.classList.add('visible');
         hideStatus();
         dom.pay.disabled = !stripeReady;
-        dom.pay.innerHTML = '<i class="fa-solid fa-lock"></i> Betaal veilig EUR 14,99';
+        dom.pay.innerHTML = '<i class="fa-solid fa-lock"></i> Rapport ontgrendelen — €14,99';
       }
 
       function clearError() {
@@ -1055,6 +1075,11 @@
       function init() {
         prefillContent();
         bindEvents();
+
+        // Toon demo-knop alleen in dev-modus (?dev=1)
+        if (params.get('dev') === '1') {
+          dom.demo.style.display = '';
+        }
 
         if (handleIncomingStripeReturn()) {
           return;

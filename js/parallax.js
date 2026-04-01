@@ -1,14 +1,21 @@
 /*!
- * VoerWij Parallax — lichtgewicht parallax engine
+ * VoerWij Parallax v2
  *
- * Gebruik: voeg data-parallax="<snelheid>" toe aan elk element.
- * Snelheid: positief getal (0.2 = subtiel, 0.5 = sterk).
+ * Twee modi:
  *
- * Berekent offset via absolute document-positie (niet viewport-afhankelijk),
- * zodat het effect correct werkt in elke sectie op de pagina.
+ * 1. data-parallax="<snelheid>"
+ *    Achtergrondblobs: translateY op basis van scroll-positie.
+ *    Snelheid: 0.1 (subtiel) – 0.5 (sterk).
  *
- * Respecteert prefers-reduced-motion automatisch.
- * Gebruikt requestAnimationFrame + translateY voor GPU-versnelling.
+ * 2. data-parallax-3d
+ *    Card reveal: rotateX + scale + translateY als element in beeld scrolt.
+ *    Geïnspireerd op ContainerTextScroll (framer-motion stijl).
+ *    Geen dependencies — puur rAF + CSS transforms.
+ *
+ * Beide modi:
+ *  - requestAnimationFrame throttling (60fps)
+ *  - GPU-versneld via transform
+ *  - Respecteren prefers-reduced-motion
  */
 (function () {
   'use strict';
@@ -18,10 +25,9 @@
   var ticking = false;
   var vh = window.innerHeight;
 
-  // Absolute document-top van een element (niet beïnvloed door CSS transforms)
+  // ── Helper: absolute document-top (niet beïnvloed door CSS transforms) ──
   function absTop(el) {
-    var top = 0;
-    var node = el;
+    var top = 0, node = el;
     while (node && node !== document.body) {
       top += node.offsetTop;
       node = node.offsetParent;
@@ -29,31 +35,79 @@
     return top;
   }
 
-  // Sla bij initialisatie de basis-positie op per element
-  var items = [];
-  function initItems() {
-    items = [];
-    var els = document.querySelectorAll('[data-parallax]');
-    for (var i = 0; i < els.length; i++) {
-      var el = els[i];
-      items.push({
+  // ── Ease-out cubic ──────────────────────────────────────────────────────
+  function easeOut(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  // ── MOD 1: data-parallax blob items ────────────────────────────────────
+  var blobItems = [];
+
+  function initBlobs() {
+    blobItems = [];
+    document.querySelectorAll('[data-parallax]').forEach(function (el) {
+      blobItems.push({
         el: el,
         speed: parseFloat(el.getAttribute('data-parallax')) || 0.2,
         baseCenter: absTop(el) + el.offsetHeight / 2
       });
-    }
+    });
   }
 
-  function applyParallax() {
-    var sy = window.pageYOffset || window.scrollY;
-    var viewportCenter = sy + vh / 2;
+  // ── MOD 2: data-parallax-3d card reveal ────────────────────────────────
+  var cardItems = [];
 
-    for (var i = 0; i < items.length; i++) {
-      var item = items[i];
-      // Hoe ver zit het element-midden van het viewport-midden?
-      var dist = viewportCenter - item.baseCenter;
-      var offset = dist * item.speed;
-      item.el.style.transform = 'translateY(' + offset + 'px)';
+  function initCards() {
+    cardItems = [];
+    document.querySelectorAll('[data-parallax-3d]').forEach(function (el) {
+      // Voeg perspective toe aan het parent element
+      var parent = el.parentElement;
+      if (parent && !parent.dataset.perspectiveSet) {
+        parent.style.perspective = '1200px';
+        parent.dataset.perspectiveSet = '1';
+      }
+      el.style.willChange = 'transform';
+      el.style.transformOrigin = '50% 50%';
+
+      var elTop = absTop(el);
+      cardItems.push({
+        el: el,
+        scrollStart: elTop - vh,          // element bottom raakt viewport bottom
+        scrollEnd:   elTop - vh * 0.30    // element goed in beeld
+      });
+    });
+  }
+
+  // ── Render ──────────────────────────────────────────────────────────────
+  function render() {
+    var sy = window.pageYOffset || window.scrollY;
+    var viewCenter = sy + vh / 2;
+
+    // Blob translateY
+    for (var i = 0; i < blobItems.length; i++) {
+      var b = blobItems[i];
+      var dist = viewCenter - b.baseCenter;
+      var clamped = Math.max(-vh * 0.8, Math.min(vh * 0.8, dist));
+      b.el.style.transform = 'translateY(' + (clamped * b.speed) + 'px)';
+    }
+
+    // 3D card reveal
+    for (var j = 0; j < cardItems.length; j++) {
+      var c = cardItems[j];
+      var range = c.scrollEnd - c.scrollStart;
+      if (range <= 0) continue;
+
+      var raw = (sy - c.scrollStart) / range;
+      var progress = easeOut(Math.max(0, Math.min(1, raw)));
+
+      var rotateX  = -18 * (1 - progress);          // -18° → 0°
+      var scale    = 0.88 + 0.12 * progress;         //  0.88 → 1.0
+      var transY   = 60  * (1 - progress);           //  60px → 0px
+
+      c.el.style.transform =
+        'translateY(' + transY + 'px) ' +
+        'rotateX('    + rotateX + 'deg) ' +
+        'scale('      + scale + ')';
     }
 
     ticking = false;
@@ -61,18 +115,19 @@
 
   window.addEventListener('scroll', function () {
     if (!ticking) {
-      requestAnimationFrame(applyParallax);
+      requestAnimationFrame(render);
       ticking = true;
     }
   }, { passive: true });
 
   window.addEventListener('resize', function () {
     vh = window.innerHeight;
-    initItems(); // herbereken basis-posities na resize
-    applyParallax();
+    initBlobs();
+    initCards();
+    render();
   }, { passive: true });
 
-  // Start
-  initItems();
-  applyParallax();
+  initBlobs();
+  initCards();
+  render();
 }());
