@@ -493,6 +493,11 @@ app.get('/vendor/jspdf.umd.min.js', (req, res) => {
   res.sendFile(path.join(ROOT_DIR, 'node_modules', 'jspdf', 'dist', 'jspdf.umd.min.js'));
 });
 
+app.get('/voerlijst-data.csv', (req, res) => {
+  res.type('text/csv; charset=utf-8');
+  res.sendFile(BROK_CSV_FILE);
+});
+
 Object.entries(HTML_ROUTES).forEach(([route, fileName]) => {
   app.get(route, (req, res) => sendHtmlPage(res, fileName));
 });

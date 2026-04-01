@@ -2060,7 +2060,6 @@
 
       <nav class="lp-nav" id="lp-nav" aria-label="Hoofdnavigatie">
         <a href="#over-mij">Over ons</a>
-        <a href="#rapport">Ons rapport</a>
         <a href="#faq">FAQ</a>
         <a href="blog.html">Blog</a>
         <a href="#contact">Contact</a>
@@ -2079,19 +2078,8 @@
   <!-- ============================================================
        HERO — pricing als eerste sectie
        ============================================================ -->
-  <section class="pricing-section pricing-section--hero" id="hero" aria-labelledby="hero-heading">
+  <section class="pricing-section pricing-section--hero" id="hero" aria-label="Prijsopties">
     <div class="container">
-
-      <div class="section-header" style="text-align:center;">
-        <span class="section-label">Kies wat bij jou past</span>
-        <h2 id="hero-heading">Weet eindelijk zeker welk voer het beste is voor jouw kat.</h2>
-        <p>Vul de intake in en ontvang een persoonlijk voedingsrapport — drie concrete voerkeuzes, een volledig voedingsschema, en onderbouwd advies op maat.</p>
-      </div>
-
-      <p class="hero-report-note">
-        <i class="fa-solid fa-file-lines"></i>
-        Beide opties bevatten hetzelfde volledige rapport. Het verschil zit uitsluitend in de persoonlijke begeleiding erna.
-      </p>
 
       <div class="pricing-grid">
 
@@ -2698,7 +2686,6 @@
           <h4>Navigatie</h4>
           <ul>
             <li><a href="#over-mij">Over ons</a></li>
-            <li><a href="#rapport">Ons rapport</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="#gratis-gids">Gratis gids</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -2829,6 +2816,10 @@
   <script>
     (function () {
       'use strict';
+
+      if (window.location.hash === '#rapport') {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
 
       // ----------------------------------------------------------------
       //  ⚙️  CONFIGURATIE

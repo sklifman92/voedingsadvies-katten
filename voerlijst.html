@@ -1090,7 +1090,7 @@
   <script>
   // ===== VOERLIJST APP =====
 
-  const CSV_URL = 'CSV%20files/brok-voerlijst-2026-03-11.csv';
+  const CSV_URL = '/voerlijst-data.csv';
 
   const state = {
     allData: [],
@@ -1549,7 +1549,7 @@
     renderTableRows();
     renderPagination();
     // Scroll table into view
-    document.getElementById('dataTable').scrollIntoView({behavior: 'smooth', block: 'start'});
+    document.getElementById('dataTable').scrollIntoView({ block: 'start' });
   }
 
   function renderTable() {

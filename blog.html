@@ -21,46 +21,121 @@
       --text-body: #3D2218;
       --text-light: #8A6860;
     }
-    * { box-sizing: border-box; }
-    body { background: var(--light-bg-1); color: var(--text-body); font-family: 'Nunito Sans', sans-serif; margin: 0; overflow-x: hidden; }
+	    * { box-sizing: border-box; }
+	    body { background: var(--light-bg-1); color: var(--text-body); font-family: 'Nunito Sans', sans-serif; margin: 0; overflow-x: hidden; }
 
-    /* ---- HEADER ---- */
-    .blog-header {
-      position: sticky; top: 0; left: 0; right: 0; z-index: 100;
-      background: #fff;
-      height: 72px;
-      border-bottom: 1px solid rgba(74,46,42,0.10);
-      box-shadow: 0 2px 16px rgba(60,20,8,0.07);
-    }
-    .blog-header .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 100%; }
-    .blog-logo { display: flex; align-items: center; text-decoration: none; gap: 0.6rem; }
-    .blog-logo-img { height: 38px; width: auto; }
-    .blog-logo-text { font-family: 'Sansita', serif; font-size: 1.2rem; font-weight: 800; color: var(--primary); }
-    .blog-nav { display: flex; align-items: center; gap: 1.5rem; }
-    .blog-nav a { font-size: 0.9rem; font-weight: 600; color: var(--text-body); text-decoration: none; }
-    .blog-nav a:hover { color: var(--primary); }
-    .btn-header { background: var(--green); color: #fff; padding: 0.55rem 1.1rem; border-radius: 8px; font-weight: 700; font-size: 0.88rem; text-decoration: none; }
-    .btn-header:hover { background: #5A6E50; color: #fff; }
-    @media (max-width: 640px) { .blog-nav a:not(.btn-header) { display: none; } }
+	    /* ---- HEADER ---- */
+	    .btn-gold {
+	      display: inline-flex;
+	      align-items: center;
+	      gap: 0.5rem;
+	      background: #6B8060;
+	      color: #fff;
+	      font-family: 'Nunito Sans', sans-serif;
+	      font-weight: 700;
+	      font-size: 1rem;
+	      padding: 0.85rem 1.75rem;
+	      border-radius: 8px;
+	      border: none;
+	      cursor: pointer;
+	      transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+	      text-decoration: none;
+	      white-space: nowrap;
+	    }
+	    .btn-gold:hover {
+	      background: #5A6E50;
+	      color: #fff;
+	      transform: translateY(-2px);
+	      box-shadow: 0 6px 20px rgba(80,110,70,0.35);
+	    }
+	    .btn-gold:active { transform: translateY(0); }
 
-    /* ---- HERO ---- */
-    .blog-hero {
-      background: var(--navy);
-      padding: 5rem 0 4rem;
-      text-align: center;
-    }
-    .blog-hero .container { max-width: 700px; margin: 0 auto; padding: 0 2rem; }
-    .blog-hero-label { display: inline-block; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.80); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 0.3rem 0.9rem; border-radius: 100px; margin-bottom: 1.25rem; }
-    .blog-hero h1 { font-family: 'Sansita', serif; font-size: 2.4rem; font-weight: 900; color: #fff; line-height: 1.2; margin: 0 0 1rem; }
-    .blog-hero h1 em { color: #E9B99D; font-style: normal; }
-    .blog-hero p { color: rgba(255,255,255,0.65); font-size: 1rem; line-height: 1.65; margin: 0; }
-    @media (max-width: 600px) { .blog-hero h1 { font-size: 1.8rem; } }
+	    .lp-header {
+	      position: fixed;
+	      top: 0;
+	      left: 0;
+	      right: 0;
+	      z-index: 900;
+	      background: #ffffff;
+	      height: 72px;
+	      border-bottom: 1px solid rgba(74,46,42,0.10);
+	      transition: box-shadow 0.3s ease;
+	    }
+	    .lp-header.scrolled {
+	      box-shadow: 0 2px 16px rgba(60,20,8,0.10);
+	    }
+	    .lp-header .container {
+	      max-width: 1200px;
+	      margin: 0 auto;
+	      padding: 0 2rem;
+	      display: flex;
+	      align-items: center;
+	      justify-content: space-between;
+	      height: 100%;
+	    }
+	    .lp-logo {
+	      display: inline-flex;
+	      align-items: center;
+	      text-decoration: none;
+	      flex-shrink: 0;
+	    }
+	    .lp-logo-img {
+	      display: block;
+	      width: clamp(136px, 15vw, 178px);
+	      height: auto;
+	    }
+	    .lp-nav {
+	      display: flex;
+	      align-items: center;
+	      gap: 0.25rem;
+	    }
+	    .lp-nav a {
+	      font-family: 'Nunito Sans', sans-serif;
+	      font-weight: 600;
+	      font-size: 0.9rem;
+	      color: #2E1510;
+	      padding: 0.5rem 0.9rem;
+	      border-radius: 6px;
+	      text-decoration: none;
+	      transition: background 0.2s ease, color 0.2s ease;
+	    }
+	    .lp-nav a:hover {
+	      background: rgba(193,99,62,0.08);
+	      color: #C1633E;
+	    }
+	    .lp-nav a[aria-current="page"] {
+	      background: rgba(92,123,81,0.12);
+	      color: #5C7B51;
+	      font-weight: 700;
+	    }
+	    .lp-nav .btn-gold {
+	      margin-left: 0.75rem;
+	      padding: 0.6rem 1.2rem;
+	      font-size: 0.9rem;
+	    }
+	    .lp-nav-toggle {
+	      display: none;
+	      background: none;
+	      border: none;
+	      cursor: pointer;
+	      flex-direction: column;
+	      gap: 5px;
+	      padding: 4px;
+	    }
+	    .lp-nav-toggle span {
+	      display: block;
+	      width: 24px;
+	      height: 2px;
+	      background: #2E1510;
+	      border-radius: 2px;
+	      transition: 0.3s;
+	    }
 
-    /* ---- ARTICLE GRID ---- */
-    .blog-grid-section { padding: 4rem 0; }
-    .blog-grid-section .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-    .blog-section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 0.5rem; }
-    .blog-section-title { font-family: 'Sansita', serif; font-size: 1.8rem; font-weight: 800; color: var(--navy); margin: 0 0 2.5rem; }
+	    /* ---- ARTICLE GRID ---- */
+	    .blog-grid-section { padding: calc(72px + 3.25rem) 0 4rem; }
+	    .blog-grid-section .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+	    .blog-section-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 0.5rem; }
+	    .blog-section-title { font-family: 'Sansita', serif; font-size: 1.8rem; font-weight: 800; color: var(--navy); margin: 0 0 2.5rem; }
     .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
     .blog-card {
       background: #fff;
@@ -126,45 +201,71 @@
       flex-wrap: wrap;
     }
     .article-cta p { color: rgba(255,255,255,0.80); font-size: 0.9rem; line-height: 1.55; margin: 0; }
-    .article-cta strong { color: #fff; display: block; font-family: 'Sansita', serif; font-size: 1.1rem; margin-bottom: 0.3rem; }
-    .btn-cta { background: var(--green); color: #fff; padding: 0.7rem 1.3rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-decoration: none; white-space: nowrap; }
-    .btn-cta:hover { background: #5A6E50; }
+	    .article-cta strong { color: #fff; display: block; font-family: 'Sansita', serif; font-size: 1.1rem; margin-bottom: 0.3rem; }
+	    .btn-cta { background: var(--green); color: #fff; padding: 0.7rem 1.3rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-decoration: none; white-space: nowrap; }
+	    .btn-cta:hover { background: #5A6E50; }
 
-    /* ---- FOOTER ---- */
-    .blog-footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; padding: 2.5rem 1rem; font-size: 0.82rem; }
-    .blog-footer a { color: rgba(255,255,255,0.70); text-decoration: none; }
-    .blog-footer a:hover { color: #fff; }
-  </style>
-</head>
-<body>
+	    /* ---- FOOTER ---- */
+	    .blog-footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; padding: 2.5rem 1rem; font-size: 0.82rem; }
+	    .blog-footer a { color: rgba(255,255,255,0.70); text-decoration: none; }
+	    .blog-footer a:hover { color: #fff; }
 
-  <!-- HEADER -->
-  <header class="blog-header">
-    <div class="container">
-      <a href="index.html" class="blog-logo" aria-label="HAAR. Centrum voor kattenwelzijn — Home">
-        <img src="assets/haar-centrum-logo.svg" alt="HAAR." class="blog-logo-img" onerror="this.style.display='none'">
-        <span class="blog-logo-text">HAAR.</span>
-      </a>
-      <nav class="blog-nav" aria-label="Navigatie">
-        <a href="index.html">Home</a>
-        <a href="voerlijst.html">Voerlijst</a>
-        <a href="blog.html" aria-current="page">Blog</a>
-        <a href="voedingsadvies-app.html" class="btn-header">Start intake <i class="fa-solid fa-arrow-right"></i></a>
-      </nav>
-    </div>
-  </header>
+	    @media (max-width: 640px) {
+	      .lp-nav a:not(.btn-gold) { display: none; }
+	      .lp-nav-toggle { display: flex; }
+	      .blog-grid-section { padding-top: calc(72px + 2.5rem); }
+	    }
 
-  <!-- BLOG HERO -->
-  <section class="blog-hero">
-    <div class="container">
-      <span class="blog-hero-label">Kennisbank</span>
-      <h1>Kattenvoeding<br><em>uitgelegd</em></h1>
-      <p>Praktische artikelen over voeding voor je kat — onafhankelijk, wetenschappelijk onderbouwd en geschreven voor bewuste katteneigenaren.</p>
-    </div>
-  </section>
+	    @media (max-width: 480px) {
+	      .lp-nav.open a { min-height: 44px; display: flex; align-items: center; }
+	      .lp-nav.open .btn-gold { min-height: 48px; }
+	      .blog-grid-section .container,
+	      .article-section .container { padding: 0 1rem; }
+	    }
 
-  <!-- ARTIKEL OVERZICHT -->
-  <section class="blog-grid-section">
+	    .lp-nav.open {
+	      position: fixed;
+	      top: 72px;
+	      left: 0;
+	      right: 0;
+	      background: #ffffff;
+	      flex-direction: column;
+	      align-items: stretch;
+	      padding: 1rem;
+	      box-shadow: 0 8px 24px rgba(74,46,42,0.12);
+	      gap: 0.25rem;
+	      z-index: 899;
+	    }
+	    .lp-nav.open a { display: block; padding: 0.75rem 1rem; }
+	    .lp-nav.open .btn-gold { text-align: center; justify-content: center; }
+	  </style>
+	</head>
+	<body>
+
+	  <!-- HEADER -->
+	  <header class="lp-header" id="lp-header">
+	    <div class="container">
+	      <a href="index.html" class="lp-logo" aria-label="HAAR. Centrum voor kattenwelzijn — Home">
+	        <img src="assets/haar-centrum-logo.svg" alt="HAAR. Centrum voor kattenwelzijn" class="lp-logo-img">
+	      </a>
+
+	      <nav class="lp-nav" id="lp-nav" aria-label="Hoofdnavigatie">
+	        <a href="index.html#over-mij">Over ons</a>
+	        <a href="index.html#faq">FAQ</a>
+	        <a href="voerlijst.html">Voerlijst</a>
+	        <a href="blog.html" aria-current="page">Blog</a>
+	        <a href="index.html#contact">Contact</a>
+	        <a href="voedingsadvies-app.html" class="btn-gold">Start intake <i class="fa-solid fa-arrow-right"></i></a>
+	      </nav>
+
+	      <button class="lp-nav-toggle" id="nav-toggle" aria-label="Menu openen" aria-expanded="false">
+	        <span></span><span></span><span></span>
+	      </button>
+	    </div>
+	  </header>
+
+	  <!-- ARTIKEL OVERZICHT -->
+	  <section class="blog-grid-section">
     <div class="container">
       <p class="blog-section-label">Alle artikelen</p>
       <h2 class="blog-section-title">Kies een onderwerp</h2>
@@ -664,10 +765,42 @@
 
 
   <!-- FOOTER -->
-  <footer class="blog-footer">
-    <p>© 2026 HAAR. Centrum voor kattenwelzijn &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="voedingsadvies-app.html">Voedingsadvies</a> &nbsp;·&nbsp; <a href="blog.html">Blog</a></p>
-    <p style="margin-top:0.5rem; font-size:0.78rem;">De informatie op deze pagina is bedoeld als educatieve richtlijn. Raadpleeg bij gezondheidsproblemen altijd een dierenarts.</p>
-  </footer>
+	  <footer class="blog-footer">
+	    <p>© 2026 HAAR. Centrum voor kattenwelzijn &nbsp;·&nbsp; <a href="index.html">Home</a> &nbsp;·&nbsp; <a href="voedingsadvies-app.html">Voedingsadvies</a> &nbsp;·&nbsp; <a href="blog.html">Blog</a></p>
+	    <p style="margin-top:0.5rem; font-size:0.78rem;">De informatie op deze pagina is bedoeld als educatieve richtlijn. Raadpleeg bij gezondheidsproblemen altijd een dierenarts.</p>
+	  </footer>
 
-</body>
-</html>
+	  <script>
+	    (function () {
+	      'use strict';
+
+	      var header = document.getElementById('lp-header');
+	      var navToggle = document.getElementById('nav-toggle');
+	      var nav = document.getElementById('lp-nav');
+
+	      function onScroll() {
+	        if (!header) return;
+	        header.classList.toggle('scrolled', window.scrollY > 20);
+	      }
+
+	      onScroll();
+	      window.addEventListener('scroll', onScroll, { passive: true });
+
+	      if (!navToggle || !nav) return;
+
+	      navToggle.addEventListener('click', function () {
+	        var isOpen = nav.classList.toggle('open');
+	        navToggle.setAttribute('aria-expanded', String(isOpen));
+	      });
+
+	      nav.addEventListener('click', function (e) {
+	        if (e.target.tagName === 'A' || e.target.closest('a')) {
+	          nav.classList.remove('open');
+	          navToggle.setAttribute('aria-expanded', 'false');
+	        }
+	      });
+	    })();
+	  </script>
+
+	</body>
+	</html>
